@@ -1,3 +1,6 @@
+import { Pais } from './pais';
+import { Municipio } from './municipio';
+
 export class Hospital {
     id: number;
     nombre: string;
@@ -6,4 +9,7 @@ export class Hospital {
     detalle: string;
     aprobado: boolean;
     activo: boolean;
+    
+    pais: Pais;
+    municipio: Municipio;
 }
