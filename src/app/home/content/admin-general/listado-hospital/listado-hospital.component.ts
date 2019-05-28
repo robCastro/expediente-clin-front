@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Pais } from '../../../../models/pais';
 import { UsuarioService } from '../../../../services/usuario.service';
 import swal from 'sweetalert2';
+import { MensajeService } from '../../../../services/mensaje.service';
 
 @Component({
   selector: 'app-listado-hospital',
@@ -21,6 +22,7 @@ export class ListadoHospitalComponent implements OnInit {
  
   constructor(private hospitalService: HospitalService,
               private usuarioService: UsuarioService,
+              private mensajeService: MensajeService,
               private router: Router,
               private activateRoute: ActivatedRoute) { }
 
@@ -65,7 +67,12 @@ export class ListadoHospitalComponent implements OnInit {
           response => {
             this.usuarioService.habilitarUsuario(u).subscribe(
               response => {
-                console.log('Habilitado hospital y usuario');
+                this.mensajeService.enviarMensaje(
+                `El hospital: ${u.hospital.nombre} y su usuario: ${u.username} han sido aprobados.`,
+                `Hospital ${u.hospital.nombre} aprobado`,
+                `${u.email}`).subscribe(
+                  response => console.log(`Habilitado hospital y usuario ${u.email}`)
+                )
                 this.router.navigateByUrl('/hospital', {skipLocationChange: true}).then(()=>
                 this.router.navigate(['home/hospital'])); 
               }
