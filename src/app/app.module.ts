@@ -13,6 +13,7 @@ import { FooterComponent } from './home/footer/footer.component';
 import { ContentComponent } from './home/content/content.component';
 import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
+import { ListadoHospitalComponent } from './home/content/admin-general/listado-hospital/listado-hospital.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { IndexComponent } from './home/content/index/index.component';
     ContentComponent,
     NotFountComponent,
     IndexComponent,
+    ListadoHospitalComponent,
   ],
   imports: [
     BrowserModule,

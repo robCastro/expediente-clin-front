@@ -9,6 +9,8 @@ import { Usuario } from '../models/usuario';
 export class UsuarioService {
 
   private urlEndPoint:string = "http://localhost:8080/usuario";
+  private urlEndPointHabilitar: string = "http://127.0.0.1:8080/usuario/habilitar";
+  private urlEndPointDeshabilitar: string = "http://127.0.0.1:8080/usuario/deshabilitar";
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
   constructor(private http: HttpClient) { }
@@ -31,5 +33,13 @@ export class UsuarioService {
 
   public editUsuario(usuario: Usuario, id: number): Observable<Usuario>{
     return this.http.put<Usuario>(`${this.urlEndPoint}/${id}`, usuario, {headers: this.httpHeaders});
+  }
+
+  public habilitarUsuario(usuario: Usuario): Observable<Usuario>{
+    return this.http.put<Usuario>(`${this.urlEndPointHabilitar}/${usuario.id}`, usuario, {headers: this.httpHeaders})
+  }
+
+  public deshabilitarUsuario(usuario: Usuario): Observable<Usuario>{
+    return this.http.put<Usuario>(`${this.urlEndPointDeshabilitar}/${usuario.id}`,usuario, {headers: this.httpHeaders})
   }
 }
