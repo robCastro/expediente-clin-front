@@ -19,7 +19,7 @@ export class ListadoHospitalComponent implements OnInit {
   userHospPendiente: Usuario[];
   userHospDenegado: Usuario[];
   usuarioHab: Usuario = new Usuario();
- 
+
   constructor(private hospitalService: HospitalService,
               private usuarioService: UsuarioService,
               private mensajeService: MensajeService,
@@ -46,7 +46,7 @@ export class ListadoHospitalComponent implements OnInit {
     this.usuarioService.habilitarUsuario(u).subscribe(
       user => swal.fire('Usuario habilitado', `El usuario ${u.username} ha sido habilitado`, 'success')
     )
-    
+
   }
 
   habilitarUsuarioHospital(u:Usuario): void {
@@ -74,10 +74,10 @@ export class ListadoHospitalComponent implements OnInit {
                   response => console.log(`Habilitado hospital y usuario ${u.email}`)
                 )
                 this.router.navigateByUrl('/hospital', {skipLocationChange: true}).then(()=>
-                this.router.navigate(['home/hospital'])); 
+                this.router.navigate(['home/hospital']));
               }
             )
-          } 
+          }
         );
       }
     })
@@ -104,10 +104,10 @@ export class ListadoHospitalComponent implements OnInit {
               response => {
                 console.log('Dengados :(');
                 this.router.navigateByUrl('/hospital', {skipLocationChange: true}).then(()=>
-                this.router.navigate(['home/hospital'])); 
+                this.router.navigate(['home/hospital']));
               }
             )
-          } 
+          }
         );
       }
     })
