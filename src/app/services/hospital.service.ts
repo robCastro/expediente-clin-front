@@ -20,6 +20,7 @@ export class HospitalService {
   private urlEndPoint: string = 'http://127.0.0.1:8080/hospital';
   private urlEndPointHabilitar: string = 'http://127.0.0.1:8080/hospital/habilitar';
   private urlEndPointDenegar: string = 'http://127.0.0.1:8080/hospital/denegar';
+  private urlEndPointDeptoHosp: string = 'http://127.0.0.1:8080/hospital/departamento';
 
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
 
@@ -98,5 +99,9 @@ export class HospitalService {
       return this.http.put<Hospital>(`${this.urlEndPointDenegar}/${hospital.id}`, hospital, {headers: this.httpHeaders})
     }
 
+    //Depto del hospital.
+    getDeptoHospital(id): Observable<number> {
+      return this.http.get<number>(`${this.urlEndPointDeptoHosp}/${id}`);
+    }
 
 }

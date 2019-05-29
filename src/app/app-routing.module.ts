@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
 import { ListadoHospitalComponent } from './home/content/admin-general/listado-hospital/listado-hospital.component';
+import { EditarHospitalComponent } from './home/content/admin-hospital/editar-hospital/editar-hospital.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -19,6 +20,11 @@ const routes: Routes = [
       {
         path: 'hospital',
         component: ListadoHospitalComponent,
+        children: []
+      },
+      {
+        path: 'hospital/editar/:id',
+        component: EditarHospitalComponent,
         children: []
       },
       {
