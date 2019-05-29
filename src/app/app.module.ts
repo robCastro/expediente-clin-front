@@ -15,6 +15,7 @@ import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
 import { ListadoHospitalComponent } from './home/content/admin-general/listado-hospital/listado-hospital.component';
 import { EditarHospitalComponent } from './home/content/admin-hospital/editar-hospital/editar-hospital.component';
+import { ListadoUsuariosComponent } from './home/content/admin-hospital/listado-usuarios/listado-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EditarHospitalComponent } from './home/content/admin-hospital/editar-ho
     IndexComponent,
     ListadoHospitalComponent,
     EditarHospitalComponent,
+    ListadoUsuariosComponent,
   ],
   imports: [
     BrowserModule,
