@@ -13,6 +13,9 @@ import { FooterComponent } from './home/footer/footer.component';
 import { ContentComponent } from './home/content/content.component';
 import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
+import { ListadoHospitalComponent } from './home/content/admin-general/listado-hospital/listado-hospital.component';
+import { EditarHospitalComponent } from './home/content/admin-hospital/editar-hospital/editar-hospital.component';
+import { ListadoUsuariosComponent } from './home/content/admin-hospital/listado-usuarios/listado-usuarios.component';
 import { EspecialidadComponent } from './home/content/admin-general/especialidad/especialidad.component';
 import { CrearComponent } from './home/content/admin-general/especialidad/crear.component';
 import { EspecialidadService } from './services/especialidad.service';
@@ -36,6 +39,9 @@ import { Crear1Component } from './home/content/admin-general/genero/crear1.comp
     CrearComponent,
     GeneroComponent,
     Crear1Component,
+    ListadoHospitalComponent,
+    EditarHospitalComponent,
+    ListadoUsuariosComponent,
   ],
   imports: [
     BrowserModule,

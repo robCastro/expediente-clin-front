@@ -4,8 +4,11 @@ import { LoginComponent } from './usuarios/login.component';
 import { HomeComponent } from './home/home.component';
 import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
+import { ListadoHospitalComponent } from './home/content/admin-general/listado-hospital/listado-hospital.component';
 import { EspecialidadComponent } from './home/content/admin-general/especialidad/especialidad.component';
 import { FormsModule } from '@angular/forms';
+import { EditarHospitalComponent } from './home/content/admin-hospital/editar-hospital/editar-hospital.component';
+import { ListadoUsuariosComponent } from './home/content/admin-hospital/listado-usuarios/listado-usuarios.component';
 import { CrearComponent } from './home/content/admin-general/especialidad/crear.component';
 import { GeneroComponent } from './home/content/admin-general/genero/genero.component';
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
@@ -31,14 +34,28 @@ const routes: Routes = [
         component: LoginComponent,
       },
       {
+        path: 'hospital',
+        component: ListadoHospitalComponent,
+        children: []
+      },
+      {
+        path: 'hospital/editar/:id',
+        component: EditarHospitalComponent,
+        children: []
+      },
+      {
+        path: 'usuarios/:id',
+        component: ListadoUsuariosComponent,
+        children: []
+      },
+      {
         path: '',
         redirectTo: 'index',
         pathMatch: 'full'
       }
     ]
   },
-  { path: '**', component: NotFountComponent},
-
+  { path: '**', component: NotFountComponent}
 ];
 
 @NgModule({

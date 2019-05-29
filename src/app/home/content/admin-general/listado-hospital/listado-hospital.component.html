@@ -1,0 +1,158 @@
+<h2><strong>Hospitales</strong></h2>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h3 class="card-title ">Pendientes</h3>
+        <p class="card-category">Hospitales a los que NO se les ha aprobado la solicitud.</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+              <thead class="text-primary">
+                <th>
+                  Nombre
+                </th>
+                <th>
+                  Telefóno
+                </th>
+                <th>
+                  Fecha de la Solicitud
+                </th>
+                <th>
+                  Nombre
+                </th>
+                <th>
+                  Usuario
+                </th>               
+                <th>
+                  Correo
+                </th>
+                <th>
+                  Acción
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let u of userHospPendiente">
+                  <td>{{u.hospital.nombre}}</td>
+                  <td>{{u.hospital.telefono}}</td>
+                  <td>{{u.hospital.fecha | date:'medium'}}</td>
+                  <td>{{u.nombres}} {{u.apellidos}}</td>
+                  <td>{{u.username}}</td>
+                  <td>{{u.email}}</td>
+                  <td>
+                      <button (click)="habilitarUsuarioHospital(u)" type="button" rel="tooltip" class="btn btn-success btn-fab btn-fab-mini">
+                        <i class="material-icons">done</i>
+                      </button>
+                      <button (click)="denegarUsuarioHospital(u)" type="button" rel="tooltip" class="btn btn-danger btn-fab btn-fab-mini">
+                        <i class="material-icons">close</i>
+                      </button>
+                    </td>
+                </tr>
+                <tr *ngIf="!userHospPendiente">
+                  No existen solicitudes aprobadas de Hospitales.
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-success">
+          <h3 class="card-title ">Aprobados</h3>
+          <p class="card-category">Hospitales que hacen uso del sitio.</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-success">
+                <th>
+                  Nombre
+                </th>
+                <th>
+                  Telefóno
+                </th>
+                <th>
+                  Fecha de la Solicitud
+                </th>
+                <th>
+                  Nombre
+                </th>
+                <th>
+                  Usuario
+                </th>               
+                <th>
+                  Correo
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let u of userHospAprobado">
+                  <td>{{u.hospital.nombre}}</td>
+                  <td>{{u.hospital.telefono}}</td>
+                  <td>{{u.hospital.fecha | date:'medium'}}</td>
+                  <td>{{u.nombres}} {{u.apellidos}}</td>
+                  <td>{{u.username}}</td>
+                  <td>{{u.email}}</td>
+                </tr>
+                <tr *ngIf="!userHospAprobado">
+                  No existen solicitudes aprobadas de Hospitales.
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-gray">
+          <h3 class="card-title ">Denegados</h3>
+          <p class="card-category">Hospitales con solicitud denegada.</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text">
+                <th>
+                  Nombre
+                </th>
+                <th>
+                  Telefóno
+                </th>
+                <th>
+                  Fecha de la Solicitud
+                </th>
+                <th>
+                  Nombre
+                </th>
+                <th>
+                  Usuario
+                </th>               
+                <th>
+                  Correo
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let u of userHospDenegado">
+                  <td>{{u.hospital.nombre}}</td>
+                  <td>{{u.hospital.telefono}}</td>
+                  <td>{{u.hospital.fecha | date:'medium'}}</td>
+                  <td>{{u.nombres}} {{u.apellidos}}</td>
+                  <td>{{u.username}}</td>
+                  <td>{{u.email}}</td>
+                </tr>
+                <tr *ngIf="!userHospDenegado">
+                  No existen solicitudes aprobadas de Hospitales.
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+  

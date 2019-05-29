@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Editar Hospital</h4>
+        <p class="card-category">Datos básicos del Hospital.</p>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="nombre" class="label-floating">Nombre</label>
+                <input type="text" class="form-control" [(ngModel)]="hospital.nombre" name="nombre">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fecha" class="label-floating">Fecha</label>
+                <input class="form-control" [ngModel]="hospital.fecha | date:'yyyy-MM-dd'" (ngModelChange)="hospital.fecha = $event" type="date" name="fecha" required/>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="telefono" class="label-floating">Telefóno</label>
+                <input type="text" class="form-control" [(ngModel)]="hospital.telefono" name="telefono">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="pais">País</label>
+                <select name="pais" id="pais" [(ngModel)]="hospital.pais.id">
+                    <option *ngFor="let p of paises" [value]="p.id" [selected]="p.id === pais.id" >{{p.nombre}}</option>
+                </select>
+              </div>
+            </div>
+            <!--<div class="col-md-4">
+                <div class="form-group">
+                  <label for="departamento">Departamento</label>
+                  <select class="form-control selectpicker" data-style="btn btn-link" id="departamento" name="departamento">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+            </div>-->
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="municipio">Municipio</label>
+                <select name="municipio" id="municipio" [(ngModel)]="hospital.municipio.id">
+                    <option *ngFor="let m of municipios" [value]="m.id" [selected]="m.id === municipio.id" >{{m.nombre}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="detalle" class="label-floating">Dirección</label>
+                  <input type="text" class="form-control" name="detalle" [(ngModel)]="hospital.detalle">
+                </div>
+              </div>
+          </div>
+          <button type="submit"  (click)="updateHospital()" class="btn btn-primary pull-right">Editar</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card card-profile">
+      <div class="card-avatar">
+          <img class="img" src="assets/img/hospital.jpg" />
+      </div>
+      <div class="card-body">
+        <h6 class="card-category text-gray">{{usuario.username}}</h6>
+        <h4 class="card-title">{{usuario.nombres}}</h4>
+        <p class="card-description">
+          <b>Nombre:</b> {{usuario.nombres}} {{usuario.apellidos}} <br>
+          <b>Telefóno: </b> {{usuario.telefono}} <br>
+          <b>Correo: </b> {{usuario.email}}
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
