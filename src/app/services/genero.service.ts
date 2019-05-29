@@ -5,9 +5,9 @@ import { map } from 'rxjs/operators';
 import { Genero } from '../models/genero';
 
 @Injectable()
-export class EspecialidadService {
+export class GeneroService {
 
-  private urlEndPoint: string ='http://localhost:8080/genero/crear';
+  private urlEndPoint: string ='http://localhost:8080/genero';
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
