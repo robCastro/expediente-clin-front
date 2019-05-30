@@ -36,7 +36,7 @@ export class CrearComponent implements OnInit {
     this.especialidadService.create(this.especialidad).subscribe(
       especialidad => {
       this.router.navigate(['home/especialidad'])
-      swal.fire('Nueva Especialidad',  `Especialidad ${especialidad.nombre} creada con éxito!`,'success')
+      swal.fire('Nueva Especialidad',  `Especialidad ${this.especialidad.nombre} creada con éxito!`,'success')
     }
   );
   }
@@ -45,7 +45,7 @@ export class CrearComponent implements OnInit {
     this.especialidadService.update(this.especialidad)
     .subscribe( especialidad => {
       this.router.navigate(['home/especialidad'])
-      swal.fire('Especialidad Actualizada',  `Especialidad ${especialidad.nombre} Actualizada con éxito!`,'success')
+      swal.fire('Especialidad Actualizada',  `Especialidad ${this.especialidad.nombre} Actualizada con éxito!`,'success')
 
     })
 

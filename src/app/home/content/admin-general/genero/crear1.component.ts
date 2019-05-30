@@ -36,7 +36,7 @@ export class Crear1Component implements OnInit {
     this.generoService.create(this.genero).subscribe(
       genero => {
       this.router.navigate(['home/genero'])
-      swal.fire('Nuevo Genero',  `Genero ${genero.nombre} creado con éxito!`,'success')
+      swal.fire('Nuevo Genero',  `Genero ${this.genero.nombre} creado con éxito!`,'success')
     }
   );
   }
@@ -45,7 +45,7 @@ export class Crear1Component implements OnInit {
     this.generoService.update(this.genero)
     .subscribe( genero => {
       this.router.navigate(['home/genero'])
-      swal.fire('Genero Actualizado',  `Genero ${genero.nombre} Actualizado con éxito!`,'success')
+      swal.fire('Genero Actualizado',  `Genero ${this.genero.nombre} Actualizado con éxito!`,'success')
 
     })
 
