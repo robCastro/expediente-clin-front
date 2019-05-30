@@ -15,6 +15,7 @@ import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
 import {EstadoFormComponent} from './home/content/admin-general/estado-civil/estado-form/estado-form.component';
 import {EstadoTablaComponent} from './home/content/admin-general/estado-civil/estado-tabla/estado-tabla.component';
+import { UsuarioFormComponent } from './home/content/admin-hospital/usuario-form/usuario-form.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {EstadoTablaComponent} from './home/content/admin-general/estado-civil/es
     IndexComponent,
     EstadoFormComponent,
     EstadoTablaComponent,
+    UsuarioFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,138 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Datos Personales</h4>
+          <p class="card-category">Datos Personales del empleado a registrar</p>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Nombres*</label>
+                  <input for="nombres" type="text" class="form-control" [(ngModel)]="usuario.nombres" names="nombres">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                            <label class="bmd-label-floating">Apellidos</label>
+                  <input for="apellidos" type="text" class="form-control"[(ngModel)]="usuario.apellidos" name="apellidos">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Email*</label>
+                  <input for="email" type="email" class="form-control" [(ngModel)]="usuario.email" name="email">
+                </div>
+              </div>
+
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Telefono</label>
+                  <input for="telefono" type="text" class="form-control" [(ngModel)]="usuario.telefono" name="telefono">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Fecha de Nacimiento</label>
+                  <input for="fecha" for="fecha" type="date" class="form-control" [(ngModel)]="usuario.fecha" name="fecha">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-row col-md-12">
+                <div class="form-group col-md-2">
+                    <label for="exampleFormControlSelect1">Genero</label>
+                    <select class="form-control selectpicker" #genero [(ngModel)]="usuario.genero" name="generop" data-style="btn btn-link" id="exampleFormControlSelect1">
+                      <option *ngFor="let genero of generos" [ngValue]="genero">
+                        {{genero.nombre}}
+                      </option>
+                    </select>
+                  </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2">
+                  <label for="exampleFormControlSelect1">Estado Civil</label>
+                  <select class="form-control selectpicker" #estadocivil [(ngModel)]="usuario.estadoCivil" name="estadop" data-style="btn btn-link" id="exampleFormControlSelect1">
+                    <option *ngFor="let estado of estadociviles" [ngValue]="estado">
+                      {{estado.nombre}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2">
+                  <label for="exampleFormControlSelect1">Puesto*</label>
+                  <select class="form-control selectpicker" #roles [(ngModel)]="usuario.roles" name="roles" data-style="btn btn-link" id="exampleFormControlSelect1">
+                    <option *ngFor="let rol of roless" [ngValue]="[rol]">
+                      {{rol.nombre}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2">
+                  <label for="exampleFormControlSelect1">Especialidad</label>
+                  <select class="form-control selectpicker" #especialidad [(ngModel)]="usuario.especialidad" name="especialidadp" data-style="btn btn-link" id="exampleFormControlSelect1">
+                    <option *ngFor="let especialidad of especialidades" [ngValue]="especialidad">
+                      {{especialidad.nombre}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+
+
+            <div class="form-row col-md-12">
+                <div class="form-group col-md-2">
+                    <label for="exampleFormControlSelect1">Ubicación</label>
+                    <select class="form-control selectpicker" #pais [(ngModel)]="usuario.pais" name="paisp"   data-style="btn btn-link" id="exampleFormControlSelect1">
+                      <option *ngFor="let pais of paises" [ngValue]="pais">
+                        {{pais.nombre}}
+                      </option>
+                    </select>
+                  </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2">
+                  <label for="exampleFormControlSelect1"> </label>
+                  <select class="form-control selectpicker" #departamento data-style="btn btn-link" id="exampleFormControlSelect1"
+                  (change)="obtenerMunicipios(departamento.value)">
+                    <option *ngFor="let dpto of departamentos" value = "{{dpto.id}}">
+                      {{dpto.nombre}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2">
+                  <label for="exampleFormControlSelect1"> </label>
+                  <select class="form-control selectpicker" #municipio [(ngModel)]="usuario.municipio" name="municipiop" data-style="btn btn-link" id="exampleFormControlSelect1">
+                    <option *ngFor="let mun of municipios" [ngValue]="mun">
+                      {{mun.nombre}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+
+                <label class="bmd-label-floating">Dirección Exacta</label>
+                <div class="form-group">
+                  <label class="bmd-label-floating">Intersección de calle ## con Avenida ##</label>
+                  <input for="detalle" type="text" class="form-control" [(ngModel)]="usuario.detalle" name="detalle">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary pull-right" (click)='create()'>Guardar</button>
+
+
+
+
+
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
