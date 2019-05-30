@@ -1,0 +1,36 @@
+<div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-success">
+        <h3 class="card-title ">Estados Civiles</h3>
+        <p class="card-category">Estados Civiles que se encuentran disponibles en los Hospitales</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-success">
+              <th>
+                Nombre
+              </th>
+              <th>
+
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let estadocivil of estados">
+                <td>{{estadocivil.nombre}}</td>
+                <td>
+                  <button type="button" rel="tooltip" (click)='delete(estadocivil)' class="btn btn-danger btn-fab btn-fab-mini">
+                    <i class="material-icons">delete</i>
+                  </button>
+                  <button type="button" rel="tooltip" click='seleccionar(estadocivil)' class="btn btn-success btn-fab btn-fab-mini"
+                      [routerLink]="['/home/estado_civil_f',estadocivil.id]">
+                    <i class="material-icons">create</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

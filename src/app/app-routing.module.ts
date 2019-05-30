@@ -5,8 +5,11 @@ import { HomeComponent } from './home/home.component';
 import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
 import { ListadoHospitalComponent } from './home/content/admin-general/listado-hospital/listado-hospital.component';
+import {EstadoTablaComponent} from './home/content/admin-general/estado-civil/estado-tabla/estado-tabla.component';
 import { EspecialidadComponent } from './home/content/admin-general/especialidad/especialidad.component';
+import {EstadoFormComponent} from './home/content/admin-general/estado-civil/estado-form/estado-form.component';
 import { FormsModule } from '@angular/forms';
+import {UsuarioFormComponent} from './home/content/admin-hospital/usuario-form/usuario-form.component';
 import { EditarHospitalComponent } from './home/content/admin-hospital/editar-hospital/editar-hospital.component';
 import { ListadoUsuariosComponent } from './home/content/admin-hospital/listado-usuarios/listado-usuarios.component';
 import { CrearComponent } from './home/content/admin-general/especialidad/crear.component';
@@ -52,7 +55,24 @@ const routes: Routes = [
         path: '',
         redirectTo: 'index',
         pathMatch: 'full'
-      }
+      },
+      {
+        path:'estado_civil_t',
+        component:EstadoTablaComponent
+      },
+      {
+        path:'estado_civil_f',
+        component:EstadoFormComponent
+      },
+      {
+        path:'estado_civil_f/:id',
+        component:EstadoFormComponent
+      },
+      {
+        path:'usuario_form',
+        component:UsuarioFormComponent
+      },
+
     ]
   },
   { path: '**', component: NotFountComponent}

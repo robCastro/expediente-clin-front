@@ -4,7 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Especialidad } from '../models/especialidad';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class EspecialidadService {
 
   private urlEndPoint: string ='http://localhost:8080/especialidad';

@@ -56,4 +56,5 @@ export class EstadoCivilService {
   deleteLogico(estadoCivil: EstadoCivil): Observable<EstadoCivil>{
     return this.http.put<EstadoCivil>(`${this.urlEndPointEliminarLog}/${estadoCivil.id}`, estadoCivil, {headers: this.httpHeaders});
   }
+  
 }
