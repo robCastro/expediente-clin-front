@@ -32,7 +32,7 @@
                 <td>{{u.apellidos}}</td>
                 <td>{{u.email}}</td>
                 <td>{{u.username}}</td>
-                <td>                  
+                <td>
                   <button type="button" (click)="deshabilitarUsuario(u)" rel="tooltip" class="btn  btn-fab-mini btn-just-icon btn-round ">
                     <i class="material-icons">remove</i>
                   </button>
@@ -76,7 +76,7 @@
                   <td>{{u.apellidos}}</td>
                   <td>{{u.email}}</td>
                   <td>{{u.username}}</td>
-                <td>                  
+                <td>
                   <button type="button" (click)="habilitarUsuario(u)" rel="tooltip" class="btn btn-success btn-fab-mini btn-just-icon btn-round">
                     <i class="material-icons">add</i>
                   </button>
@@ -115,13 +115,13 @@
                 </th>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>                  
-                    <button type="button" rel="tooltip" class="btn btn-success btn-fab-mini btn-just-icon btn-round">
+                <tr *ngFor="let u of usuariosBloqueados">
+                    <td>{{u.nombres}}</td>
+                    <td>{{u.apellidos}}</td>
+                    <td>{{u.email}}</td>
+                    <td>{{u.username}}</td>
+                  <td>
+                    <button (click)="habilitarUsuario(u)" type="button" rel="tooltip" class="btn btn-success btn-fab-mini btn-just-icon btn-round">
                       <i class="material-icons">lock_open</i>
                     </button>
                   </td>

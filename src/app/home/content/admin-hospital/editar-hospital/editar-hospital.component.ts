@@ -26,7 +26,7 @@ export class EditarHospitalComponent implements OnInit {
   municipio: Municipio = new Municipio();
   paises: Pais[];
   municipios: Municipio[];
-  
+
   hosNumber: number;
   deptoNumber: number;
 
@@ -94,6 +94,35 @@ export class EditarHospitalComponent implements OnInit {
         swal.fire('Editado con éxito', `Hospital Actualizado: ${this.hospital.nombre}`, 'success')
       }
     )
+  }
+
+  desactivarHospital(u:Usuario): void {
+    swal.fire({
+      title: '¿Desactivar hospital?',
+      text: `¿Esta seguro de desactivar el hospital: ${u.hospital.nombre} y su usuario: ${u.username}?`,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        u.enabled = false
+        u.hospital.activo = false
+        this.hospitalService.desactivarHospital(u.hospital).subscribe(
+          response => {
+            this.usuarioService.deshabilitarUsuario(u).subscribe(
+              response => {
+                console.log(u.hospital);
+                //this.router.navigateByUrl('/hospital', {skipLocationChange: true}).then(()=>
+                //this.router.navigate(['home/hospital']));
+              }
+            )
+          }
+        );
+      }
+    })
   }
 
 }

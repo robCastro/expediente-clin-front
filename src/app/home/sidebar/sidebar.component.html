@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.jpg">
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
   <!--
     Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
     Tip 2: you can also add an image using data-image tag
@@ -10,59 +10,40 @@
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
-      <li class="nav-item  ">
-        <a class="nav-link" href="./dashboard.html">
-          <i class="material-icons">dashboard</i>
-          <p>Dashboard</p>
-        </a>
-      </li>
-      <li class="nav-item active ">
-        <a class="nav-link" href="./user.html">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home/empleados">
           <i class="material-icons">person</i>
-          <p>User Profile</p>
+          <p>Empleados</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./tables.html">
-          <i class="material-icons">content_paste</i>
-          <p>Table List</p>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home/empleados/registrar_empleado">
+          <i class="material-icons">person</i>
+          <p>Agregar Empleado</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./typography.html">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home/hospital/aprobar_hospital">
           <i class="material-icons">library_books</i>
-          <p>Typography</p>
+          <p>Hospitales</p>
         </a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./icons.html">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="especialidad">
+          <i class="material-icons">content_paste</i>
+          <p>Especialidades</p>
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="genero">
+          <i class="material-icons">content_paste</i>
+          <p>Generos</p>
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home/estadocivil/formulario">
           <i class="material-icons">bubble_chart</i>
-          <p>Icons</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./map.html">
-          <i class="material-icons">location_ons</i>
-          <p>Maps</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./notifications.html">
-          <i class="material-icons">notifications</i>
-          <p>Notifications</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="./rtl.html">
-          <i class="material-icons">language</i>
-          <p>RTL Support</p>
-        </a>
-      </li>
-      
-      <li class="nav-item active-pro ">
-        <a class="nav-link" href="./upgrade.html">
-          <i class="material-icons">unarchive</i>
-          <p>Upgrade to PRO</p>
+          <p>Estado Civil</p>
         </a>
       </li>
     </ul>

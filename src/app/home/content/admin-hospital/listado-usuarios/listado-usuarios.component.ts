@@ -15,9 +15,10 @@ export class ListadoUsuariosComponent implements OnInit {
   usuario: Usuario = new Usuario();
   usuariosHabilitados: Usuario[];
   usuariosDeshabilitados: Usuario[];
+  usuariosBloqueados: Usuario[];
 
   constructor(private usuarioService: UsuarioService,
-              private hospitalService: HospitalService, 
+              private hospitalService: HospitalService,
               private router: Router,
               private activatedRoute: ActivatedRoute) { }
 
@@ -38,6 +39,9 @@ export class ListadoUsuariosComponent implements OnInit {
               )
               this.usuarioService.usuariosDeshabilitadosPorHosp(this.usuario.hospital.id).subscribe(
                 users => this.usuariosDeshabilitados = users
+              )
+              this.usuarioService.usuariosBloqueadosPorHosp(this.usuario.hospital.id).subscribe(
+                users => this.usuariosBloqueados = users
               )
             }
           )
@@ -63,7 +67,7 @@ export class ListadoUsuariosComponent implements OnInit {
         this.usuarioService.habilitarUsuario(u).subscribe(
           response => {
             this.router.navigateByUrl(`/usuarios/${this.usuario.hospital.id}`, {skipLocationChange: true}).then(()=>
-            this.router.navigate([`/home/usuarios/${this.usuario.hospital.id}`])); 
+            this.router.navigate([`/home/usuarios/${this.usuario.hospital.id}`]));
           }
         )
       }
@@ -89,7 +93,7 @@ export class ListadoUsuariosComponent implements OnInit {
           response => {
             console.log('Dengados :(');
             this.router.navigateByUrl(`/usuarios/${this.usuario.hospital.id}`, {skipLocationChange: true}).then(()=>
-            this.router.navigate([`/home/usuarios/${this.usuario.hospital.id}`])); 
+            this.router.navigate([`/home/usuarios/${this.usuario.hospital.id}`]));
           }
         )
       }

@@ -4,17 +4,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Genero } from '../models/genero';
 
-@Injectable()
-export class EspecialidadService {
+@Injectable({
+  providedIn: 'root'
+})
+export class GeneroService {
 
-  private urlEndPoint: string ='http://localhost:8080/genero/crear';
-
+  private urlEndPoint: string ='http://localhost:8080/genero';
+  private urlEndPointget: string ='http://localhost:8080/genero/lista';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
   constructor(private http: HttpClient) { }
 
   public getGeneros(): Observable<Genero[]>{
-   return this.http.get<Genero[]>(this.urlEndPoint + "/lista");
+    return this.http.get(this.urlEndPointget).pipe(
+       map(response => response as Genero[])
+      );
  }
 
  getGenero(id: number): Observable<Genero>{
