@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -53,6 +54,7 @@ import { Crear1Component } from './home/content/admin-general/genero/crear1.comp
     BrowserModule,
     RouterModule,
     HttpClientModule,
+    NgSelectModule,
     FormsModule,
     AppRoutingModule
 
