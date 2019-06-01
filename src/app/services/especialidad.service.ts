@@ -32,7 +32,7 @@ export class EspecialidadService {
   }
 
   delete(id: number): Observable<Especialidad>{
-    return this.http.delete<Especialidad>(`${this.urlEndPoint}/${id}`);
+    return this.http.delete<Especialidad>(`${this.urlEndPoint}/${id}` ,{headers: this.httpHeaders});
   }
 
 }

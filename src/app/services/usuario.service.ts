@@ -11,6 +11,11 @@ import swal from 'sweetalert2';
 export class UsuarioService {
 
   private urlEndPoint:string = "http://localhost:8080/usuario";
+  private urlEndPointHabilitar: string = "http://127.0.0.1:8080/usuario/habilitar";
+  private urlEndPointDeshabilitar: string = "http://127.0.0.1:8080/usuario/deshabilitar";
+  private urlUserHabHosp: string = 'http://127.0.0.1:8080/usuario/habilitado/hospital';
+  private urlUserDeshabHosp: string = 'http://127.0.0.1:8080/usuario/deshabilitado/hospital';
+  private urlUserBloqHosp: string =  'http://localhost:8080/usuario/bloqueado/hospital';
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
   constructor(private http: HttpClient) { }
@@ -48,5 +53,25 @@ export class UsuarioService {
 
   public editUsuario(usuario: Usuario, id: number): Observable<Usuario>{
     return this.http.put<Usuario>(`${this.urlEndPoint}/${id}`, usuario, {headers: this.httpHeaders});
+  }
+
+  public habilitarUsuario(usuario: Usuario): Observable<Usuario>{
+    return this.http.put<Usuario>(`${this.urlEndPointHabilitar}/${usuario.id}`, usuario, {headers: this.httpHeaders})
+  }
+
+  public deshabilitarUsuario(usuario: Usuario): Observable<Usuario>{
+    return this.http.put<Usuario>(`${this.urlEndPointDeshabilitar}/${usuario.id}`,usuario, {headers: this.httpHeaders})
+  }
+
+  public usuariosHabilitadosPorHosp(id: number): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(`${this.urlUserHabHosp}/${id}`);
+  }
+
+  public usuariosDeshabilitadosPorHosp(id: number): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(`${this.urlUserDeshabHosp}/${id}`);
+  }
+
+  public usuariosBloqueadosPorHosp(id: number): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(`${this.urlUserBloqHosp}/${id}`);
   }
 }
