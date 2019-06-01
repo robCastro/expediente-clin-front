@@ -4,9 +4,11 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
+import { RegistrarHospitalComponent } from './home/content/admin-hospital/registrar-hospital/registrar-hospital.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'registrar_hospital', component: RegistrarHospitalComponent },
   { path: 'home',
     component: HomeComponent,
     children: [

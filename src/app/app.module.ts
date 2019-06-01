@@ -13,6 +13,8 @@ import { FooterComponent } from './home/footer/footer.component';
 import { ContentComponent } from './home/content/content.component';
 import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
+import { RegistrarHospitalComponent } from './home/content/admin-hospital/registrar-hospital/registrar-hospital.component';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { IndexComponent } from './home/content/index/index.component';
     ContentComponent,
     NotFountComponent,
     IndexComponent,
+    RegistrarHospitalComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,7 @@ import { IndexComponent } from './home/content/index/index.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
