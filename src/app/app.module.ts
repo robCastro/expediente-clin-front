@@ -17,6 +17,7 @@ import {EstadoFormComponent} from './home/content/admin-general/estado-civil/est
 import {EstadoTablaComponent} from './home/content/admin-general/estado-civil/estado-tabla/estado-tabla.component';
 import { UsuarioFormComponent } from './home/content/admin-hospital/usuario-form/usuario-form.component';
 import { DatePipe } from '@angular/common';
+import { RegistrarHospitalComponent } from './home/content/admin-hospital/registrar-hospital/registrar-hospital.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DatePipe } from '@angular/common';
     EstadoFormComponent,
     EstadoTablaComponent,
     UsuarioFormComponent,
+    RegistrarHospitalComponent,
   ],
   imports: [
     BrowserModule,
