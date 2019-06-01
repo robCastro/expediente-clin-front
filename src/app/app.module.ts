@@ -16,6 +16,7 @@ import { IndexComponent } from './home/content/index/index.component';
 import {EstadoFormComponent} from './home/content/admin-general/estado-civil/estado-form/estado-form.component';
 import {EstadoTablaComponent} from './home/content/admin-general/estado-civil/estado-tabla/estado-tabla.component';
 import { UsuarioFormComponent } from './home/content/admin-hospital/usuario-form/usuario-form.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { UsuarioFormComponent } from './home/content/admin-hospital/usuario-form
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
