@@ -27,6 +27,7 @@ import { GeneroService } from './services/genero.service';
 import { RouterModule, Routes } from '@angular/router';
 import { GeneroComponent } from './home/content/admin-general/genero/genero.component';
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
+import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { Crear1Component } from './home/content/admin-general/genero/crear1.comp
     ListadoHospitalComponent,
     EditarHospitalComponent,
     ListadoUsuariosComponent,
+    ListadoPacientesComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,138 @@
+<h2><strong>Pacientes</strong></h2>
+
+<br>
+<strong>Usuario Actual:</strong> {{usuarioActual.username}}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-success">
+        <h3 class="card-title ">Activos</h3>
+        <p class="card-category">Pacientes que cuentan con acceso al sitio.</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-success">
+              <th>
+                Nombre
+              </th>
+              <th>
+                Apellido
+              </th>
+              <th>
+                Email
+              </th>
+              <th>
+                Usuario
+              </th>
+              <th>
+                Desactivar
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of pacientesHabilitados">
+                <td>{{p.usuario.nombres}}</td>
+                <td>{{p.usuario.apellidos}}</td>
+                <td>{{p.usuario.email}}</td>
+                <td>{{p.usuario.username}}</td>
+                <td>
+                  <button type="button" (click)="deshabilitarUsuario(u)" rel="tooltip" class="btn  btn-fab-mini btn-just-icon btn-round ">
+                    <i class="material-icons">remove</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-gray">
+        <h3 class="card-title ">Inactivos</h3>
+        <p class="card-category">Empleados que fueron dados de baja en sus labores.</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text">
+              <th>
+                Nombre
+              </th>
+              <th>
+                Apellido
+              </th>
+              <th>
+                Email
+              </th>
+              <th>
+                Usuario
+              </th>
+              <th>
+                Activar
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let u of usuariosDeshabilitados">
+                  <td>{{u.nombres}}</td>
+                  <td>{{u.apellidos}}</td>
+                  <td>{{u.email}}</td>
+                  <td>{{u.username}}</td>
+                <td>
+                  <button type="button" (click)="habilitarUsuario(u)" rel="tooltip" class="btn btn-success btn-fab-mini btn-just-icon btn-round">
+                    <i class="material-icons">add</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h3 class="card-title ">Bloqueados</h3>
+          <p class="card-category">Empleados que sobrepasaron el máximo de intentos al escribir su contraseña.</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text">
+                <th>
+                  Nombre
+                </th>
+                <th>
+                  Apellido
+                </th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Teléfono
+                </th>
+                <th>
+                  Desbloquear
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let u of usuariosBloqueados">
+                    <td>{{u.nombres}}</td>
+                    <td>{{u.apellidos}}</td>
+                    <td>{{u.email}}</td>
+                    <td>{{u.username}}</td>
+                  <td>
+                    <button (click)="habilitarUsuario(u)" type="button" rel="tooltip" class="btn btn-success btn-fab-mini btn-just-icon btn-round">
+                      <i class="material-icons">lock_open</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
