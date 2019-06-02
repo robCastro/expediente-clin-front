@@ -26,6 +26,9 @@ import { GeneroService } from './services/genero.service';
 import { RouterModule, Routes } from '@angular/router';
 import { GeneroComponent } from './home/content/admin-general/genero/genero.component';
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
+import { PacienteFormComponent } from './home/content/admin-hospital/paciente-form/paciente-form.component';
+import { PacienteService } from './services/paciente.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -48,16 +51,17 @@ import { Crear1Component } from './home/content/admin-general/genero/crear1.comp
     ListadoHospitalComponent,
     EditarHospitalComponent,
     ListadoUsuariosComponent,
+    PacienteFormComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
 
   ],
-  providers: [EspecialidadService,GeneroService],
+  providers: [EspecialidadService,GeneroService,PacienteService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

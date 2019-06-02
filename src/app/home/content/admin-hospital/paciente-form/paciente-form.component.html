@@ -1,0 +1,184 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Datos Personales</h4>
+          <p class="card-category">Datos Personales del Paciente a registrar</p>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Nombres*</label>
+                  <input for="nombres" type="text" class="form-control" [(ngModel)]="usuario.nombres" names="nombres" required #nombres="ngModel">
+                  <div class="alert alert-danger" *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)">
+                    <div *ngIf="nombres.errors.required">
+                      Nombres son requeridos
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                            <label class="bmd-label-floating">Apellidos*</label>
+                  <input for="apellidos" type="text" class="form-control"[(ngModel)]="usuario.apellidos" name="apellidos"required #apellidos="ngModel">
+                  <div class="alert alert-danger" *ngIf="apellidos.invalid && (apellidos.dirty || nombres.touched)">
+                    <div *ngIf="apellidos.errors.required">
+                      Apellidos son requeridos
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Email*</label>
+                  <input for="email" type="email" class="form-control" [(ngModel)]="usuario.email" name="email"required email #email="ngModel">
+                  <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                    <div *ngIf="email.errors.required">
+                      Email es requerido
+                    </div>
+                    <div *ngIf="email.errors.email">
+                      Email debe tener un formato válido
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Telefono</label>
+                  <input for="telefono" type="text" class="form-control" [(ngModel)]="usuario.telefono" name="telefono" pattern="[0-9]{4}[-]{1}[0-9]{4}" #telefono="ngModel">
+                  <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                    <div *ngIf="telefono.errors.pattern">
+                      Teléfono debe tener un formato válido ####-####
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="bmd-label-floating ">Fecha de Nacimiento</label>
+                  <input for="fecha" for="fecha" type="date" class="form-control" [(ngModel)]="usuario.fecha" name="fecha" required #fecha="ngModel">
+                  <div class="alert alert-danger" *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)">
+                    <div *ngIf="fecha.errors.required">
+                      Fecha de Nacimiento es requerida
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-row col-md-12">
+                <div class="form-group col-md-2">
+                    <label for="exampleFormControlSelect1">Genero</label>
+                    <select class="form-control selectpicker" #genero [(ngModel)]="usuario.genero" name="generop" data-style="btn btn-link" id="exampleFormControlSelect1">
+                      <option *ngFor="let genero of generos" [ngValue]="genero">
+                        {{genero.nombre}}
+                      </option>
+                    </select>
+                  </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2">
+                  <label for="exampleFormControlSelect1">Estado Civil</label>
+                  <select class="form-control selectpicker" #estadocivil [(ngModel)]="usuario.estadoCivil" name="estadop" data-style="btn btn-link" id="exampleFormControlSelect1">
+                    <option *ngFor="let estado of estadociviles" [ngValue]="estado">
+                      {{estado.nombre}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+              </div>
+            <div class="form-row col-md-12">
+                <div class="form-group col-md-2">
+                    <label for="exampleFormControlSelect1">Ubicación</label>
+                    <select [compareWith]="compararPais" class="form-control selectpicker" #pais [(ngModel)]="usuario.pais" name="paisp"   data-style="btn btn-link" id="exampleFormControlSelect1" required #p="ngModel">
+                      <option *ngFor="let pais of paises" [ngValue]="pais">
+                        {{pais.nombre}}
+                      </option>
+                    </select>
+                    <div class="alert alert-danger" *ngIf="p.invalid && (p.dirty || p.touched)">
+                      <div *ngIf="p.errors.required">
+                        Pais es requerido
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2">
+                  <label for="exampleFormControlSelect1"> </label>
+                  <select class="form-control selectpicker" #departamento data-style="btn btn-link" id="exampleFormControlSelect1"
+                  (change)="obtenerMunicipios(departamento.value)" [disabled]="validarPais() || p.invalid">
+                    <option *ngFor="let dpto of departamentos" value = "{{dpto.id}}">
+                      {{dpto.nombre}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2">
+                  <label for="exampleFormControlSelect1"> </label>
+                  <select class="form-control selectpicker" #municipio [(ngModel)]="usuario.municipio" name="municipiop" data-style="btn btn-link" id="exampleFormControlSelect1"  [disabled]="validarPais()">
+                    <option *ngFor="let mun of municipios" [ngValue]="mun">
+                      {{mun.nombre}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+
+                <label class="bmd-label-floating">Dirección Exacta</label>
+                <div class="form-group">
+                  <label class="bmd-label-floating">Intersección de calle ## con Avenida ##</label>
+                  <input for="detalle" type="text" class="form-control" [(ngModel)]="usuario.detalle" name="detalle">
+                </div>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Datos de Emergencia</h4>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Nombres Emergencia</label>
+                    <input for="nombres" type="text" class="form-control" [(ngModel)]="paciente.nombres" names="nombres_emergencia">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                              <label class="bmd-label-floating">Apellidos Emergencia</label>
+                    <input for="apellidos" type="text" class="form-control"[(ngModel)]="paciente.apellidos" name="apellidos_emergencia">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Telefono</label>
+                    <input for="telefono" type="text" class="form-control" [(ngModel)]="paciente.telefono" name="telefono_Emergencia" pattern="[0-9]{4}[-]{1}[0-9]{4}" #telefono="ngModel">
+                    <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                      <div *ngIf="telefono.errors.pattern">
+                        Teléfono debe tener un formato válido ####-####
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              <button type="submit" class="btn btn-primary pull-right" (click)='create()' [disabled]="nombres.invalid || apellidos.invalid || email.invalid || telefono.invalid || fecha.invalid">Guardar</button>
+
+
+
+
+
+            <div class="clearfix"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

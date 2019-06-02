@@ -15,6 +15,7 @@ import { ListadoUsuariosComponent } from './home/content/admin-hospital/listado-
 import { CrearComponent } from './home/content/admin-general/especialidad/crear.component';
 import { GeneroComponent } from './home/content/admin-general/genero/genero.component';
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
+import { PacienteFormComponent } from './home/content/admin-hospital/paciente-form/paciente-form.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'genero', component: GeneroComponent},
       { path: 'genero/crear1', component: Crear1Component},
       { path: 'genero/crear1/:id', component: Crear1Component},
+      { path: 'paciente/crearPaciente', component: PacienteFormComponent},
       {
         path: 'login',
         component: LoginComponent,

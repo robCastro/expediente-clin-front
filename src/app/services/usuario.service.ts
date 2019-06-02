@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Usuario } from '../models/usuario';
+import { catchError } from 'rxjs/operators';
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +58,14 @@ export class UsuarioService {
 
   public usuariosBloqueadosPorHosp(id: number): Observable<Usuario[]>{
     return this.http.get<Usuario[]>(`${this.urlUserBloqHosp}/${id}`);
+  }
+
+  public createUsuarioPaciente(usuario: Usuario): Observable<Usuario>{
+    return this.http.post<Usuario>(this.urlEndPoint + "/crearPaciente", usuario, {headers: this.httpHeaders}).pipe(
+      catchError(e=>{
+        swal.fire('Error al registrar el Paciente',`El correo del usuario debe ser unico, utilice otro correo`, 'error')
+        return throwError(e);
+      })
+    );
   }
 }
