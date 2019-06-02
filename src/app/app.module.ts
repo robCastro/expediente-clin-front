@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { NgSelectModule } from '@ng-select/ng-select';
+//import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -60,7 +60,7 @@ import { DatePipe } from '@angular/common';
     BrowserModule,
     RouterModule,
     HttpClientModule,
-    NgSelectModule,
+    //NgSelectModule,
     FormsModule,
     AppRoutingModule,
 
