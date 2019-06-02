@@ -16,6 +16,7 @@ import { ListadoUsuariosComponent } from './home/content/admin-hospital/listado-
 import { CrearComponent } from './home/content/admin-general/especialidad/crear.component';
 import { GeneroComponent } from './home/content/admin-general/genero/genero.component';
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
+import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -74,6 +75,10 @@ const routes: Routes = [
         path:'usuario_form',
         component:UsuarioFormComponent
       },
+      {
+        path:'pacientes/:id',
+        component: ListadoPacientesComponent,
+      }
 
     ]
   },

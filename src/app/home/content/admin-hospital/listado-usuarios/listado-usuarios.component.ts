@@ -50,7 +50,7 @@ export class ListadoUsuariosComponent implements OnInit {
     )
   }
 
-  //Deshabilitar Usuario
+  //Habilitar Usuario
   habilitarUsuario(u:Usuario): void {
     swal.fire({
       title: '¿Activar usuario?',
@@ -66,8 +66,8 @@ export class ListadoUsuariosComponent implements OnInit {
         u.enabled = true
         this.usuarioService.habilitarUsuario(u).subscribe(
           response => {
-            this.router.navigateByUrl(`/usuarios/${this.usuario.hospital.id}`, {skipLocationChange: true}).then(()=>
-            this.router.navigate([`/home/usuarios/${this.usuario.hospital.id}`]));
+            this.router.navigateByUrl(`/usuarios/${this.usuario.id}`, {skipLocationChange: true}).then(()=>
+            this.router.navigate([`/home/usuarios/${this.usuario.id}`]));
           }
         )
       }
@@ -92,8 +92,8 @@ export class ListadoUsuariosComponent implements OnInit {
         this.usuarioService.deshabilitarUsuario(u).subscribe(
           response => {
             console.log('Dengados :(');
-            this.router.navigateByUrl(`/usuarios/${this.usuario.hospital.id}`, {skipLocationChange: true}).then(()=>
-            this.router.navigate([`/home/usuarios/${this.usuario.hospital.id}`]));
+            this.router.navigateByUrl(`/usuarios/${this.usuario.id}`, {skipLocationChange: true}).then(()=>
+            this.router.navigate([`/home/usuarios/${this.usuario.id}`]));
           }
         )
       }
