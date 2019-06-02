@@ -36,7 +36,7 @@
                 <td>{{p.usuario.email}}</td>
                 <td>{{p.usuario.username}}</td>
                 <td>
-                  <button type="button" (click)="deshabilitarUsuario(u)" rel="tooltip" class="btn  btn-fab-mini btn-just-icon btn-round ">
+                  <button type="button" (click)="deshabilitarPaciente(p)" rel="tooltip" class="btn  btn-fab-mini btn-just-icon btn-round ">
                     <i class="material-icons">remove</i>
                   </button>
                 </td>
@@ -74,13 +74,13 @@
               </th>
             </thead>
             <tbody>
-              <tr *ngFor="let u of usuariosDeshabilitados">
-                  <td>{{u.nombres}}</td>
-                  <td>{{u.apellidos}}</td>
-                  <td>{{u.email}}</td>
-                  <td>{{u.username}}</td>
+              <tr *ngFor="let p of pacientesInhabilitados">
+                <td>{{p.usuario.nombres}}</td>
+                <td>{{p.usuario.apellidos}}</td>
+                <td>{{p.usuario.email}}</td>
+                <td>{{p.usuario.username}}</td>
                 <td>
-                  <button type="button" (click)="habilitarUsuario(u)" rel="tooltip" class="btn btn-success btn-fab-mini btn-just-icon btn-round">
+                  <button type="button" (click)="habilitarPaciente(p)" rel="tooltip" class="btn btn-success btn-fab-mini btn-just-icon btn-round">
                     <i class="material-icons">add</i>
                   </button>
                 </td>
@@ -118,13 +118,14 @@
                 </th>
               </thead>
               <tbody>
-                <tr *ngFor="let u of usuariosBloqueados">
-                    <td>{{u.nombres}}</td>
-                    <td>{{u.apellidos}}</td>
-                    <td>{{u.email}}</td>
-                    <td>{{u.username}}</td>
+                <tr *ngFor="let p of pacientesBloqueados">
+                  <td>{{p.usuario.nombres}}</td>
+                  <td>{{p.usuario.apellidos}}</td>
+                  <td>{{p.usuario.email}}</td>
+                  <td>{{p.usuario.username}}</td>
                   <td>
-                    <button (click)="habilitarUsuario(u)" type="button" rel="tooltip" class="btn btn-success btn-fab-mini btn-just-icon btn-round">
+                  <td>
+                    <button (click)="habilitarPaciente(p)" type="button" rel="tooltip" class="btn btn-success btn-fab-mini btn-just-icon btn-round">
                       <i class="material-icons">lock_open</i>
                     </button>
                   </td>

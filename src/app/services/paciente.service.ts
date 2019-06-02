@@ -13,6 +13,8 @@ export class PacienteService {
   private urlPacientesHabilitados: string = 'http://127.0.0.1:8080/paciente/habilitados';
   private urlPacientesInhabilitados: string = 'http://127.0.0.1:8080/paciente/inhabilitados';
   private urlPacientesBloqueados: string = 'http://127.0.0.1:8080/paciente/bloqueados';
+  private urlActivarPaciente: string = 'http://127.0.0.1:8080/paciente/activar';
+  private urlDesactivarPaciente: string = 'http://127.0.0.1:8080/paciente/desactivar';
 
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
@@ -42,6 +44,16 @@ export class PacienteService {
   //Paciente por id.
   getPaciente(id: number): Observable<Paciente> {
     return this.http.get<Paciente>(`${this.urlEndPoint}/${id}`)
+  }
+
+  //Activar Paciente
+  activarPaciente(paciente: Paciente): Observable<Paciente> {
+    return this.http.put<Paciente>(`${this.urlActivarPaciente}/${paciente.id}`,paciente, {headers: this.httpHeaders})
+  }
+
+  //Desactivar Paciente
+  desactivarPaciente(paciente: Paciente): Observable<Paciente> {
+    return this.http.put<Paciente>(`${this.urlDesactivarPaciente}/${paciente.id}`,paciente, {headers: this.httpHeaders})
   }
 
 }
