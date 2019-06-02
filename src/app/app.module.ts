@@ -29,6 +29,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GeneroComponent } from './home/content/admin-general/genero/genero.component';
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
 import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
+import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ListadoPacientesComponent } from './home/content/admin-hospital/listado
     EditarHospitalComponent,
     ListadoUsuariosComponent,
     ListadoPacientesComponent,
+    ListadoHistorialesComponent,
   ],
   imports: [
     BrowserModule,
