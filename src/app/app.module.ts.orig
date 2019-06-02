@@ -27,10 +27,13 @@ import { GeneroService } from './services/genero.service';
 import { RouterModule, Routes } from '@angular/router';
 import { GeneroComponent } from './home/content/admin-general/genero/genero.component';
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
+<<<<<<< HEAD
 import { PacienteFormComponent } from './home/content/admin-hospital/paciente-form/paciente-form.component';
-import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
 import { PacienteService } from './services/paciente.service';
 import { DatePipe } from '@angular/common';
+=======
+import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
+>>>>>>> 4f92852eb06e2e1fb2687853b7bd072346e0d96d
 
 @NgModule({
   declarations: [
@@ -53,8 +56,11 @@ import { DatePipe } from '@angular/common';
     ListadoHospitalComponent,
     EditarHospitalComponent,
     ListadoUsuariosComponent,
+<<<<<<< HEAD
     PacienteFormComponent,
+=======
     ListadoPacientesComponent,
+>>>>>>> 4f92852eb06e2e1fb2687853b7bd072346e0d96d
   ],
   imports: [
     BrowserModule,

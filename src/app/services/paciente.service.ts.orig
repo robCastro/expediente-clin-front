@@ -1,24 +1,50 @@
 import { Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { of, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map } from 'rxjs/operators';
 import { Paciente } from '../models/paciente';
-
 import { Usuario } from '../models/usuario';
+=======
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Paciente } from '../models/paciente';
+import { map } from 'rxjs/operators';
+>>>>>>> 4f92852eb06e2e1fb2687853b7bd072346e0d96d
 
 @Injectable({
   providedIn: 'root'
 })
 export class PacienteService {
 
+<<<<<<< HEAD
   private urlEndPointCreate: string = 'http://localhost:8080/paciente/crear';
-  private urlPacientesHabilitados: string = 'http://127.0.0.1:8080/paciente/habilitados';
   private urlEndPoint: string = 'http://localhost:8080/paciente';
+
+  private httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
+
+  constructor(private http: HttpClient) { }
+
+  //Crear Paciente
+  create(paciente: Paciente): Observable<Paciente> {
+    return this.http.post<Paciente>(this.urlEndPointCreate, paciente, {headers: this.httpHeaders});
+  }
+
+  //Actualizar Paciente
+    update(paciente: Paciente): Observable<Paciente>{
+    return this.http.put<Paciente>(`${this.urlEndPoint}/${paciente.id}`, paciente, {headers: this.httpHeaders});
+  }
+
+  public editPaciente(paciente: Paciente, id: number): Observable<Paciente>{
+    return this.http.put<Paciente>(`${this.urlEndPoint}/${id}`, paciente, {headers: this.httpHeaders});
+  }
+=======
+  private urlEndPoint:string = "http://localhost:8080/paciente";
+  private urlPacientesHabilitados: string = 'http://127.0.0.1:8080/paciente/habilitados';
   private urlPacientesInhabilitados: string = 'http://127.0.0.1:8080/paciente/inhabilitados';
   private urlPacientesBloqueados: string = 'http://127.0.0.1:8080/paciente/bloqueados';
   private urlActivarPaciente: string = 'http://127.0.0.1:8080/paciente/activar';
   private urlDesactivarPaciente: string = 'http://127.0.0.1:8080/paciente/desactivar';
-
 
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
@@ -44,7 +70,7 @@ export class PacienteService {
       map( response => response as Paciente[])
     )
   }
-
+  
   //Paciente por id.
   getPaciente(id: number): Observable<Paciente> {
     return this.http.get<Paciente>(`${this.urlEndPoint}/${id}`)
@@ -60,19 +86,5 @@ export class PacienteService {
     return this.http.put<Paciente>(`${this.urlDesactivarPaciente}/${paciente.id}`,paciente, {headers: this.httpHeaders})
   }
 
-
-
-  //Crear Paciente
-  create(paciente: Paciente): Observable<Paciente> {
-    return this.http.post<Paciente>(this.urlEndPointCreate, paciente, {headers: this.httpHeaders});
-  }
-
-  //Actualizar Paciente
-    update(paciente: Paciente): Observable<Paciente>{
-    return this.http.put<Paciente>(`${this.urlEndPoint}/${paciente.id}`, paciente, {headers: this.httpHeaders});
-  }
-
-  public editPaciente(paciente: Paciente, id: number): Observable<Paciente>{
-    return this.http.put<Paciente>(`${this.urlEndPoint}/${id}`, paciente, {headers: this.httpHeaders});
-  }
+>>>>>>> 4f92852eb06e2e1fb2687853b7bd072346e0d96d
 }

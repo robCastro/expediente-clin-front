@@ -23,6 +23,7 @@ export class EditarHospitalComponent implements OnInit {
   usuario: Usuario = new Usuario();
   pais: Pais = new Pais();
   departamento: Departamento = new Departamento();
+  departamentos: Departamento[];
   municipio: Municipio = new Municipio();
   paises: Pais[];
   municipios: Municipio[];
@@ -44,6 +45,9 @@ export class EditarHospitalComponent implements OnInit {
 
     this.paisService.getPaises().subscribe(
       paises => this.paises = paises
+    )
+    this.departamentoService.getDepartamentos().subscribe(
+      depto => this.departamentos = depto
     )
 
   }
@@ -71,8 +75,8 @@ export class EditarHospitalComponent implements OnInit {
                       this.pais = pais;
                       this.hospitalService.getDeptoHospital(this.usuario.hospital.id).subscribe(
                         num => {
-                          this.deptoNumber = num;
-                          this.municipioService.getMunicipios(this.deptoNumber).subscribe(
+                          this.departamento.id = num;
+                          this.municipioService.getMunicipios(this.departamento.id).subscribe(
                             mun => this.municipios = mun
                           )
                         }
@@ -86,6 +90,19 @@ export class EditarHospitalComponent implements OnInit {
         }
       }
     )
+  }
+
+  cargarMunicipios() {
+    console.log(this.departamento.id);
+    this.municipioService.getMunicipios(this.departamento.id).subscribe(
+      mun => this.municipios = mun
+    )
+  }
+
+  cargarDepartamentos(){
+    if(this.hospital.pais.id == 54){
+      console.log("Es El Salvador")
+    }
   }
 
   updateHospital(): void {

@@ -15,8 +15,11 @@ import { ListadoUsuariosComponent } from './home/content/admin-hospital/listado-
 import { CrearComponent } from './home/content/admin-general/especialidad/crear.component';
 import { GeneroComponent } from './home/content/admin-general/genero/genero.component';
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
+<<<<<<< HEAD
 import { PacienteFormComponent } from './home/content/admin-hospital/paciente-form/paciente-form.component';
+=======
 import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
+>>>>>>> 4f92852eb06e2e1fb2687853b7bd072346e0d96d
 
 const routes: Routes = [
   { path: '', component: LoginComponent },

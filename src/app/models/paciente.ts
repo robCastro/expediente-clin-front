@@ -5,5 +5,6 @@ export class Paciente {
   nombres: string;
   apellidos: string;
   telefono: string;
+  activo: boolean;
   usuario: Usuario;
 }

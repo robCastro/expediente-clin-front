@@ -1,0 +1,9 @@
+.card .card-header-gray .card-icon,
+.card .card-header-gray .card-text,
+.card .card-header-gray:not(.card-header-icon):not(.card-header-text),
+.card.bg-gray,
+.card.card-rotate.bg-gray .front,
+.card.card-rotate.bg-gray .back {
+  background: linear-gradient(60deg, #000000, #000000);
+  opacity: 0.9;
+}
