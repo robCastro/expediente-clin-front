@@ -79,6 +79,10 @@ const routes: Routes = [
         component:UsuarioFormComponent
       },
       {
+        path:'usuario_form/:id',
+        component:UsuarioFormComponent
+      },
+      {
         path:'pacientes/:id',
         component: ListadoPacientesComponent,
       },

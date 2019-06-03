@@ -8,7 +8,7 @@ import { TipoEnfermedad } from 'src/app/models/tipo-enfermedad';
 import { Paciente } from 'src/app/models/paciente';
 import { HistorialClinico } from 'src/app/models/historial-clinico';
 import swal from 'sweetalert2'
-import { ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router'
 
 @Component({
   selector: 'app-historial-editar',
@@ -20,11 +20,11 @@ export class HistorialEditarComponent implements OnInit {
   enfermedades:Enfermedad[];
   tipoEnfermedades:TipoEnfermedad[];
   historial:HistorialClinico= new HistorialClinico();
-  tipo:TipoEnfermedad=new TipoEnfermedad();
+  //tipo:TipoEnfermedad=new TipoEnfermedad();
 
   constructor(private enfermedadService: EnfermedadService, private pacienteService: PacienteService,
         private tipoEnfermedadService: TipoEnfermedadService, private historialService: HistorialClinicoService,
-        private activatedRoute:ActivatedRoute) {
+        private activatedRoute:ActivatedRoute, private router:Router) {
          }
 
 
@@ -49,7 +49,7 @@ export class HistorialEditarComponent implements OnInit {
   cargarHistorial(): void{
     this.activatedRoute.params.subscribe(params =>{
       let id= params['id']
-        //this.historialService.getHistorial(id).subscribe( his =>this.historial = his)
+        this.historialService.getHistorial(id).subscribe( his =>this.historial = his)
 
     }
 
@@ -61,10 +61,11 @@ export class HistorialEditarComponent implements OnInit {
   update():void{
 
 
-    console.log(this.historial.enfermedad.tipoEnfermedad.nombre)
+
     this.historialService.update(this.historial).subscribe(
       historial => {
-        swal.fire('Estado Civil Actualizado', 'success')
+        this.router.navigate([`/home/historial_paciente/${this.historial.paciente.id}`])
+        swal.fire('Historial Actualizado', 'success')
       }
     )
   }

@@ -11,15 +11,15 @@
             <div>
 
               <div class="form-row col-md-12">
-                  <div class="form-group col-md-5">
-                    <label for="exampleFormControlSelect1"> </label>
-                    <select  class="form-control selectpicker" #tipoEnfermedad [(ngModel)]="tipo" name="tipop" data-style="btn btn-link" id="exampleFormControlSelect1"
-                    (change)="obtenerEnfermedades(tipo.id)">
-                      <option *ngFor="let tEnf of tipoEnfermedades" [ngValue]="tEnf">
-                        {{tEnf.nombre}}
-                      </option>
-                    </select>
-                  </div>
+                <div class="form-group col-md-5">
+                  <label for="exampleFormControlSelect1"> </label>
+                  <select class="form-control selectpicker" #tipoEnfermedad data-style="btn btn-link" id="exampleFormControlSelect1"
+                  (change)="obtenerEnfermedades(tipoEnfermedad.value)">
+                    <option *ngFor="let tEnf of tipoEnfermedades" value = "{{tEnf.id}}">
+                      {{tEnf.nombre}}
+                    </option>
+                  </select>
+                </div>
                   <div class="col-md-1"></div>
                   <div class="form-group col-md-5">
                     <label for="exampleFormControlSelect1"> </label>

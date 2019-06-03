@@ -19,6 +19,7 @@ import {Especialidad} from 'src/app/models/especialidad'
 import {Hospital} from 'src/app/models/hospital'
 import swal from 'sweetalert2'
 import { DatePipe } from '@angular/common'
+import {Router, ActivatedRoute} from '@angular/router'
 
 
 @Component({
@@ -38,13 +39,14 @@ export class UsuarioFormComponent implements OnInit {
   usuario:Usuario= new Usuario();
   hospital:Hospital;
   rol:Rol;
+  id:number;
 
   constructor(private paisService: PaisService,
     private departamentoService:DepartamentoService,
     private municipioService:MunicipioService,private rolService: RolService,
     private generoService: GeneroService, private estadoService: EstadoCivilService,
     private especialidadService: EspecialidadService, private usuarioService: UsuarioService, private hospitalService: HospitalService,
-    public datepipe: DatePipe ) { }
+    public datepipe: DatePipe,private activatedRoute:ActivatedRoute, private router:Router ) { }
 
   ngOnInit() {
     this.paisService.getPaises().subscribe(paises=>this.paises=paises)
@@ -57,6 +59,7 @@ export class UsuarioFormComponent implements OnInit {
     this.hospitalService.getHospital(1).subscribe(hos =>this.hospital = hos)
     this.usuario.pais={"id":54,"nombre":"El Salvador"}
     this.usuario.roles=[{"id":3,"nombre":"Medico"}]
+    this.cargarUsuario()
   }
 
   obtenerMunicipios(id:number){
@@ -99,5 +102,24 @@ export class UsuarioFormComponent implements OnInit {
 
   compararPais(o1:Pais,o2:Pais){
     return o1===null || o2===null? false:o1.id===o2.id;
+  }
+
+  cargarUsuario(): void{
+    this.activatedRoute.params.subscribe(params =>{
+      let id= params['id']
+      if(id){
+        this.usuarioService.getUsuario(id).subscribe( (usuario) =>this.usuario =usuario)
+      }
+    }
+    )
+  }
+
+  update():void{
+    this.usuarioService.editUsuario(this.usuario,this.usuario.id).subscribe(
+      usuario => {
+        this.router.navigate([`/home/usuarios/${this.hospital.id}`])
+        swal.fire('Usuario Actualizado',`Usuario ${this.usuario.nombres} actualizado con éxito`, 'success')
+      }
+    )
   }
 }

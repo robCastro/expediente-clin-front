@@ -29,12 +29,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { GeneroComponent } from './home/content/admin-general/genero/genero.component';
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
 import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
-<<<<<<< HEAD
 import { HistorialCrearComponent } from './home/content/shared/historial-crear/historial-crear.component';
 import { HistorialEditarComponent } from './home/content/shared/historial-editar/historial-editar.component';
-=======
 import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
->>>>>>> 520bad937a61821f7f40020c134ac69fd6eb767d
 
 @NgModule({
   declarations: [
@@ -59,12 +56,9 @@ import { ListadoHistorialesComponent } from './home/content/shared/listado-histo
     EditarHospitalComponent,
     ListadoUsuariosComponent,
     ListadoPacientesComponent,
-<<<<<<< HEAD
     HistorialCrearComponent,
     HistorialEditarComponent,
-=======
     ListadoHistorialesComponent,
->>>>>>> 520bad937a61821f7f40020c134ac69fd6eb767d
   ],
   imports: [
     BrowserModule,

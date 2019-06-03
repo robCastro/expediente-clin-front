@@ -2,10 +2,16 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header card-header-primary">
+        <div class="card-header card-header-primary" *ngIf="!usuario.id else elseBlockCabecera">
           <h4 class="card-title">Datos Personales</h4>
           <p class="card-category">Datos Personales del empleado a registrar</p>
         </div>
+        <ng-template #elseBlockCabecera>
+          <div class="card-header card-header-primary" >
+            <h3 class="card-title ">Editar Datos Personales</h3>
+            <p class="card-category">Edite los datos personales</p>
+          </div>
+        </ng-template>
         <div class="card-body">
           <div>
             <div class="row">
@@ -161,8 +167,10 @@
                   <input for="detalle" type="text" class="form-control" [(ngModel)]="usuario.detalle" name="detalle">
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary pull-right" (click)='create()' [disabled]="nombres.invalid || apellidos.invalid || email.invalid || telefono.invalid || puesto.invalid || p.invalid || fecha.invalid">Guardar</button>
-
+              <button type="submit" class="btn btn-primary pull-right" (click)='create()' [disabled]="nombres.invalid || apellidos.invalid || email.invalid || telefono.invalid || puesto.invalid || p.invalid || fecha.invalid" *ngIf="!usuario.id else elseBlock">Guardar</button>
+              <ng-template #elseBlock>
+                <button type="submit" class="btn btn-primary pull-right" (click)='update()'>Editar</button>
+              </ng-template>
 
 
 

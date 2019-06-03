@@ -8,7 +8,7 @@ import { TipoEnfermedad } from 'src/app/models/tipo-enfermedad';
 import { Paciente } from 'src/app/models/paciente';
 import { HistorialClinico } from 'src/app/models/historial-clinico';
 import swal from 'sweetalert2'
-import { ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router'
 
 @Component({
   selector: 'app-historial-crear',
@@ -24,7 +24,7 @@ export class HistorialCrearComponent implements OnInit {
 
   constructor(private enfermedadService: EnfermedadService, private pacienteService: PacienteService,
         private tipoEnfermedadService: TipoEnfermedadService, private historialService: HistorialClinicoService,
-        private activatedRoute:ActivatedRoute) { }
+        private activatedRoute:ActivatedRoute, private router:Router) { }
 
   ngOnInit() {
     this.tipoEnfermedadService.getTipoEnfermedades().subscribe(tEnfermedades=>this.tipoEnfermedades=tEnfermedades),
@@ -58,6 +58,7 @@ export class HistorialCrearComponent implements OnInit {
 
     this.historialService.createUsuario(this.historial).subscribe(
       response => {
+        this.router.navigate([`/home/historial_paciente/${this.historial.paciente.id}`])
         swal.fire('Nuevo historial Clinico Creado', 'success')
       }
     );
