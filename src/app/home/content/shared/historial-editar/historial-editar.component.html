@@ -1,0 +1,55 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Editar Historial Clinico</h4>
+            <p class="card-category">Historial a editar</p>
+          </div>
+          <div class="card-body">
+            <div>
+
+              <div class="form-row col-md-12">
+                <div class="form-group col-md-5">
+                  <label for="exampleFormControlSelect1"> </label>
+                  <select class="form-control selectpicker" #tipoEnfermedad data-style="btn btn-link" id="exampleFormControlSelect1"
+                  (change)="obtenerEnfermedades(tipoEnfermedad.value)">
+                    <option *ngFor="let tEnf of tipoEnfermedades" value = "{{tEnf.id}}">
+                      {{tEnf.nombre}}
+                    </option>
+                  </select>
+                </div>
+                  <div class="col-md-1"></div>
+                  <div class="form-group col-md-5">
+                    <label for="exampleFormControlSelect1"> </label>
+                    <select [compareWith]="comparar" class="form-control selectpicker" #enfermedad [(ngModel)]="historial.enfermedad" name="enfermedadp" data-style="btn btn-link" id="exampleFormControlSelect1" >
+                      <option *ngFor="let enf of enfermedades" [ngValue]="enf">
+                        {{enf.nombre}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Fecha de Diagnostico de padecimiento</label>
+                    <input for="fecha" for="fecha" type="date" class="form-control" [(ngModel)]="historial.fecha" name="fecha" required #fecha="ngModel">
+                    <div class="alert alert-danger" *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)">
+                      <div *ngIf="fecha.errors.required">
+                        Fecha de Diagnostico es requerida
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary pull-right" (click)='update()'>Actualizar</button>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

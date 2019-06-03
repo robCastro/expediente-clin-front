@@ -4,6 +4,7 @@ import { LoginComponent } from './usuarios/login.component';
 import { HomeComponent } from './home/home.component';
 import { NotFountComponent } from './not-fount/not-fount.component';
 import { IndexComponent } from './home/content/index/index.component';
+import { RegistrarHospitalComponent } from './home/content/admin-hospital/registrar-hospital/registrar-hospital.component';
 import { ListadoHospitalComponent } from './home/content/admin-general/listado-hospital/listado-hospital.component';
 import {EstadoTablaComponent} from './home/content/admin-general/estado-civil/estado-tabla/estado-tabla.component';
 import { EspecialidadComponent } from './home/content/admin-general/especialidad/especialidad.component';
@@ -17,9 +18,13 @@ import { GeneroComponent } from './home/content/admin-general/genero/genero.comp
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
 import { PacienteFormComponent } from './home/content/admin-hospital/paciente-form/paciente-form.component';
 import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
+import {HistorialCrearComponent} from './home/content/shared/historial-crear/historial-crear.component';
+import {HistorialEditarComponent} from './home/content/shared/historial-editar/historial-editar.component';
+import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'registrar_hospital', component: RegistrarHospitalComponent },
   { path: 'home',
     component: HomeComponent,
     children: [
@@ -77,8 +82,24 @@ const routes: Routes = [
         component:UsuarioFormComponent
       },
       {
+        path:'usuario_form/:id',
+        component:UsuarioFormComponent
+      },
+      {
         path:'pacientes/:id',
         component: ListadoPacientesComponent,
+      },
+      {
+        path:'historial_crear/:id',
+        component:HistorialCrearComponent
+      },
+      {
+        path: 'historial_editar/:id',
+        component:HistorialEditarComponent
+      },
+      {
+        path:'historial_paciente/:id',
+        component: ListadoHistorialesComponent,
       }
 
     ]

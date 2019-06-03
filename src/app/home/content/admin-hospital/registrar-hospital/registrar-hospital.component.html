@@ -1,0 +1,178 @@
+<form (ngSubmit)= "create()" #hospitalForm="ngForm">
+<div class="container" style="height: auto;">
+  <div class="row align-items-center">
+    <div class="col-md-9 ml-auto mr-auto mb-3 text-center">
+      <h3><strong>XCL:</strong> Sistema de Expediente Clínico en Línea</h3>
+    </div>
+    
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h3 class="card-title ">Datos de Hospital</h3>
+            <p class="card-category">Datos generales para su sitio</p>
+          </div>
+          <div class="card-body">
+              <div class="input group col-md-8">
+                <input type="text" class="form-control" [(ngModel)]="hospital.nombre" name="nomHosp" placeholder="Nombre*" required #nombre="ngModel">
+                <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                  <div *ngIf="nombre.errors.required">
+                    Nombre es requerido
+                  </div>
+                </div>
+              </div>
+              <div class="input group col-md-8">
+                <label>Teléfono</label>
+                <input type="text" class="form-control" [(ngModel)]="hospital.telefono" name="telHosp" placeholder="####-####" pattern="[0-9]{4}[-]{1}[0-9]{4}" #telefono="ngModel">
+                <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                  <div *ngIf="telefono.errors.pattern">
+                    Teléfono debe tener un formato válido ####-####
+                  </div>
+                </div>
+              </div>
+              <div class="form-row col-md-12">
+                <div class="form-group col-md-2">
+                    <label for="exampleFormControlSelect1">Ubicación</label>
+                    <select [compareWith]="compararPais" class="form-control selectpicker" #pais [(ngModel)]="hospital.pais" name="paisHosp" data-style="btn btn-link" id="exampleFormControlSelect1" required #p="ngModel">
+                      <option *ngFor="let pais of paises" [ngValue] = "pais">
+                        {{pais.nombre}}
+                      </option>
+                    </select>
+                    <div class="alert alert-danger" *ngIf="p.invalid && (p.dirty || p.touched)">
+                      <div *ngIf="p.errors.required">
+                        Pais es requerido
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2" *ngIf="!validarPaisHosp()">
+                  <label for="exampleFormControlSelect1"></label>
+                  <select class="form-control selectpicker" #departamento data-style="btn btn-link" id="exampleFormControlSelect1"
+                  (change)="obtenerMunicipios(departamento.value)" [disabled]="validarPaisHosp() || p.invalid"
+                  >
+                    <option *ngFor="let dpto of departamentos" value = "{{dpto.id}}">
+                      {{dpto.nombre}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2" *ngIf="!validarPaisHosp()">
+                  <label for="exampleFormControlSelect1"></label>
+                  <select class="form-control selectpicker" [(ngModel)]="hospital.municipio" name="paisMun" data-style="btn btn-link" id="exampleFormControlSelect1"  [disabled]="validarPaisHosp() || p.invalid">
+                    <option *ngFor="let mun of municipios" [ngValue] = "mun">
+                      {{mun.nombre}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="input group col-md-12">
+                <label>Dirección Exacta</label>
+                    <input type="text" class="form-control" [(ngModel)]="hospital.detalle" name="detDirHosp" placeholder="Intesección de calle ## con avenida ##">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h3 class="card-title ">Datos de Administrador</h3>
+              <p class="card-category">El Administrador de su Hospital</p>
+            </div>
+            <div class="card-body">
+              <div class="input group col-md-8">
+                <input type="text" class="form-control" [(ngModel)]="usuario.nombres" name="nomUsuario" placeholder="Nombres*" required #nombres="ngModel">
+                <div class="alert alert-danger" *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)">
+                  <div *ngIf="nombres.errors.required">
+                    Nombres son requeridos
+                  </div>
+                </div>
+              </div>
+              <div class="input group col-md-8">
+                <input type="text" class="form-control" [(ngModel)]="usuario.apellidos" name="apellUsuario" placeholder="Apellidos*" required #apellidos="ngModel">
+                <div class="alert alert-danger" *ngIf="apellidos.invalid && (apellidos.dirty || nombres.touched)">
+                  <div *ngIf="apellidos.errors.required">
+                    Apellidos son requeridos
+                  </div>
+                </div>
+              </div>
+              <div class="row col-md-12">
+                <div class="col">
+                  <label>Email*</label>
+                  <input type="email" class="form-control" [(ngModel)]="usuario.email" name="emailUsuario" placeholder="Ejemplo: correo@gmail.com" required email #email="ngModel">
+                  <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                    <div *ngIf="email.errors.required">
+                      Email es requerido
+                    </div>
+                    <div *ngIf="email.errors.email">
+                      Email debe tener un formato válido
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <label>Teléfono</label>
+                  <input type="text" class="form-control" [(ngModel)]="usuario.telefono" name="telUsuario" placeholder="####-####" pattern="[0-9]{4}[-]{1}[0-9]{4}" #telefono1="ngModel">
+                  <div class="alert alert-danger" *ngIf="telefono1.invalid && (telefono1.dirty || telefono1.touched)">
+                    <div *ngIf="telefono1.errors.pattern">
+                      Teléfono debe tener un formato válido ####-####
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <label>Fecha de nacimiento*</label>
+                  <input type="date" class="form-control" [(ngModel)]="usuario.fecha" name="fechaUsuario" required #fecha="ngModel">
+                  <div class="alert alert-danger" *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)">
+                    <div *ngIf="fecha.errors.required">
+                      Fecha de Nacimiento es requerida
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row col-md-12">
+                <div class="form-group col-md-2">
+                    <label for="exampleFormControlSelect1">Ubicación</label>
+                    <select [compareWith]="compararPais" class="form-control selectpicker" #pais1 [(ngModel)]="usuario.pais" name="paisUsuario" data-style="btn btn-link" id="exampleFormControlSelect1" required #p1="ngModel">
+                      <option *ngFor="let pais of paises" [ngValue]="pais">
+                        {{pais.nombre}}
+                      </option>
+                    </select>
+                    <div class="alert alert-danger" *ngIf="p1.invalid && (p1.dirty || p1.touched)">
+                      <div *ngIf="p1.errors.required">
+                        Pais es requerido
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2" *ngIf="!validarPais()">
+                  <label for="exampleFormControlSelect1"></label>
+                  <select class="form-control selectpicker" #departamento1 data-style="btn btn-link" id="exampleFormControlSelect1"
+                  (change)="obtenerMunicipios1(departamento1.value)"  [disabled]="validarPais() || p1.invalid"
+                  >
+                    <option *ngFor="let dpto of departamentos" value = "{{dpto.id}}">
+                      {{dpto.nombre}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-group col-md-2" *ngIf="!validarPais()">
+                  <label for="exampleFormControlSelect1"></label>
+                  <select class="form-control selectpicker" [(ngModel)]="usuario.municipio" name="munUsuario" data-style="btn btn-link" id="exampleFormControlSelect1"  [disabled]="validarPais() || p1.invalid">
+                    <option *ngFor="let mun of municipios1" [ngValue] = "mun">
+                      {{mun.nombre}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="input group col-md-12">
+                <label>Dirección Exacta</label>
+                    <input type="text" class="form-control" [(ngModel)]="usuario.detalle" name="detDirUsuario" placeholder="Intesección de calle ## con avenida ##">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 pull-right">
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!hospitalForm.form.valid">Guardar</button>
+        </div>
+      
+  </div>
+</div>
+</form>
+

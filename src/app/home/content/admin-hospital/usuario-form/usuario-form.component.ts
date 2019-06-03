@@ -18,6 +18,8 @@ import {EstadoCivil} from 'src/app/models/estado-civil'
 import {Especialidad} from 'src/app/models/especialidad'
 import {Hospital} from 'src/app/models/hospital'
 import swal from 'sweetalert2'
+import { DatePipe } from '@angular/common'
+import {Router, ActivatedRoute} from '@angular/router'
 
 
 @Component({
@@ -37,12 +39,14 @@ export class UsuarioFormComponent implements OnInit {
   usuario:Usuario= new Usuario();
   hospital:Hospital;
   rol:Rol;
+  id:number;
 
   constructor(private paisService: PaisService,
     private departamentoService:DepartamentoService,
     private municipioService:MunicipioService,private rolService: RolService,
     private generoService: GeneroService, private estadoService: EstadoCivilService,
-    private especialidadService: EspecialidadService, private usuarioService: UsuarioService, private hospitalService: HospitalService ) { }
+    private especialidadService: EspecialidadService, private usuarioService: UsuarioService, private hospitalService: HospitalService,
+    public datepipe: DatePipe,private activatedRoute:ActivatedRoute, private router:Router ) { }
 
   ngOnInit() {
     this.paisService.getPaises().subscribe(paises=>this.paises=paises)
@@ -53,6 +57,9 @@ export class UsuarioFormComponent implements OnInit {
     this.estadoService.getEstadosCiviles().subscribe(estadosciviles=>this.estadociviles=estadosciviles)
     this.especialidadService.getEspecialidades().subscribe(especialidades=>this.especialidades=especialidades)
     this.hospitalService.getHospital(1).subscribe(hos =>this.hospital = hos)
+    this.usuario.pais={"id":54,"nombre":"El Salvador"}
+    this.usuario.roles=[{"id":3,"nombre":"Medico"}]
+    this.cargarUsuario()
   }
 
   obtenerMunicipios(id:number){
@@ -63,11 +70,56 @@ export class UsuarioFormComponent implements OnInit {
 
     this.usuario.hospital=this.hospital;
     console.log(this.usuario);
+
+
     this.usuarioService.createUsuario(this.usuario).subscribe(
       response => {
-        swal.fire('Nuevo Usuario',`Usuario: ${response.username} Contraseña: ${this.usuario.fecha}`, 'success')
+          let latest_date =this.datepipe.transform(this.usuario.fecha, 'dd/MM/yyyy');
+        swal.fire('Nuevo Usuario',`Usuario: ${Object.values(response)[0].username} Contraseña: ${latest_date}`, 'success')
       }
     );
   }
 
+  validarPais(){
+    if (this.usuario.pais.id==54)
+      return false;
+    else
+      this.usuario.municipio=null;
+      return true;
+
+
+  }
+
+  validarEspecialidad(){
+     this.rol=this.usuario.roles[0];
+    if (this.rol.id==3)
+      return false;
+    else
+    {
+      this.usuario.especialidad=null;
+      return true;}
+  }
+
+  compararPais(o1:Pais,o2:Pais){
+    return o1===null || o2===null? false:o1.id===o2.id;
+  }
+
+  cargarUsuario(): void{
+    this.activatedRoute.params.subscribe(params =>{
+      let id= params['id']
+      if(id){
+        this.usuarioService.getUsuario(id).subscribe( (usuario) =>this.usuario =usuario)
+      }
+    }
+    )
+  }
+
+  update():void{
+    this.usuarioService.editUsuario(this.usuario,this.usuario.id).subscribe(
+      usuario => {
+        this.router.navigate([`/home/usuarios/${this.hospital.id}`])
+        swal.fire('Usuario Actualizado',`Usuario ${this.usuario.nombres} actualizado con éxito`, 'success')
+      }
+    )
+  }
 }

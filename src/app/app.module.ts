@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +19,7 @@ import { EditarHospitalComponent } from './home/content/admin-hospital/editar-ho
 import {EstadoTablaComponent} from './home/content/admin-general/estado-civil/estado-tabla/estado-tabla.component';
 import { ListadoUsuariosComponent } from './home/content/admin-hospital/listado-usuarios/listado-usuarios.component';
 import { UsuarioFormComponent } from './home/content/admin-hospital/usuario-form/usuario-form.component';
+import { RegistrarHospitalComponent } from './home/content/admin-hospital/registrar-hospital/registrar-hospital.component';
 import { EspecialidadComponent } from './home/content/admin-general/especialidad/especialidad.component';
 import { CrearComponent } from './home/content/admin-general/especialidad/crear.component';
 import { EspecialidadService } from './services/especialidad.service';
@@ -29,6 +29,9 @@ import { GeneroComponent } from './home/content/admin-general/genero/genero.comp
 import { Crear1Component } from './home/content/admin-general/genero/crear1.component';
 import { PacienteFormComponent } from './home/content/admin-hospital/paciente-form/paciente-form.component';
 import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
+import { HistorialCrearComponent } from './home/content/shared/historial-crear/historial-crear.component';
+import { HistorialEditarComponent } from './home/content/shared/historial-editar/historial-editar.component';
+import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
 import { PacienteService } from './services/paciente.service';
 import { DatePipe } from '@angular/common';
 
@@ -49,23 +52,29 @@ import { DatePipe } from '@angular/common';
     EstadoTablaComponent,
     GeneroComponent,
     UsuarioFormComponent,
+    RegistrarHospitalComponent,
     Crear1Component,
     ListadoHospitalComponent,
     EditarHospitalComponent,
     ListadoUsuariosComponent,
     PacienteFormComponent,
     ListadoPacientesComponent,
+    HistorialCrearComponent,
+    HistorialEditarComponent,
+    ListadoHistorialesComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule,
     HttpClientModule,
-    NgSelectModule,
     FormsModule,
     AppRoutingModule,
 
   ],
-  providers: [EspecialidadService,GeneroService,PacienteService,DatePipe],
+  providers: [DatePipe,
+              EspecialidadService,
+              GeneroService
+              ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

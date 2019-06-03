@@ -1,0 +1,48 @@
+<h2>Paciente: <strong>{{paciente.usuario.nombres}} {{paciente.usuario.apellidos}}</strong></h2>
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-success">
+      <h3 class="card-title ">Historial Clinico</h3>
+      <p class="card-category">Historiales clinicos del paciente</p>
+    </div>
+    <div class="card-body">
+      <button type="button" rel="tooltip" class="btn btn-rounded btn-primary"
+        [routerLink]="['/home/historial_crear',paciente.id]">Nuevo
+      </button>
+      <div class="table-responsive" *ngIf="historialesEx()">
+        <table class="table">
+          <thead class=" text-success">
+            <th>
+              Enfermedad
+            </th>
+            <th>
+              Fecha
+            </th>
+            <th>
+              Acción
+            </th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let historial of historiales">
+              <td>{{historial.enfermedad.nombre}}</td>
+              <td>{{historial.fecha | date:'dd-MM-yyyy':'UTC'}}</td>
+              <td>
+                <button type="button" rel="tooltip" click='seleccionar(historial)' class="btn btn-success btn-fab btn-fab-mini"
+                  [routerLink]="['/home/historial_editar',historial.id]">
+                  <i class="material-icons">create</i>
+                </button>
+                <button type="button" rel="tooltip" (click)='delete(historial)' class="btn btn-danger btn-fab btn-fab-mini">
+                  <i class="material-icons">delete</i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="!historialesEx()">
+        El paciente no tiene historial registrado, ingrese uno nuevo.
+      </div>
+    </div>
+  </div>
+</div>
+
