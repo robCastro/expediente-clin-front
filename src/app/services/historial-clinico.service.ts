@@ -3,7 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import swal from 'sweetalert2';
-import { HistorialClinico } from 'src/app/models/historial-clinico';
+import { HistorialClinico } from '../models/historial-clinico';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { HistorialClinico } from 'src/app/models/historial-clinico';
 export class HistorialClinicoService {
   private urlEndPoint:string = "http://localhost:8080/historial";
   private urlEndPointGet:string = "http://localhost:8080/historial/uno";
-    private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
+  private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
   constructor(private http: HttpClient) { }
 
@@ -31,5 +31,14 @@ export class HistorialClinicoService {
 
   getHistorial(id): Observable<HistorialClinico> {
     return this.http.get<HistorialClinico>(`${this.urlEndPointGet}/${id}`);
+  }
+
+
+  public getHistorialPorPaciente(id: number): Observable<HistorialClinico[]>{
+    return this.http.get<HistorialClinico[]>(`${this.urlEndPoint}/${id}`);
+  }
+
+  public deleteHistorial(id: number): Observable<HistorialClinico>{
+    return this.http.delete<HistorialClinico>(`${this.urlEndPoint}/${id}`);
   }
 }

@@ -19,6 +19,7 @@ import { Crear1Component } from './home/content/admin-general/genero/crear1.comp
 import { ListadoPacientesComponent } from './home/content/admin-hospital/listado-pacientes/listado-pacientes.component';
 import {HistorialCrearComponent} from './home/content/shared/historial-crear/historial-crear.component';
 import {HistorialEditarComponent} from './home/content/shared/historial-editar/historial-editar.component';
+import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -88,6 +89,10 @@ const routes: Routes = [
       {
         path: 'historial_editar/:id',
         component:HistorialEditarComponent
+      },
+      {
+        path:'historial_paciente/:id',
+        component: ListadoHistorialesComponent,
       }
 
     ]
