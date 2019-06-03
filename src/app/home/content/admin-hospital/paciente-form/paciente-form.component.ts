@@ -17,7 +17,7 @@ import { HospitalService } from 'src/app/services/hospital.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { PacienteService } from 'src/app/services/paciente.service';
 import swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { Paciente } from 'src/app/models/paciente';
 import { DatePipe } from '@angular/common';
 
@@ -49,7 +49,8 @@ export class PacienteFormComponent implements OnInit {
     private usuarioService: UsuarioService, private hospitalService: HospitalService,
     private pacienteService: PacienteService,
     private router:Router,
-    public datepipe:DatePipe) { }
+    public datepipe:DatePipe,
+    private activatedRoute : ActivatedRoute) { }
 
 
     ngOnInit() {
@@ -60,7 +61,9 @@ export class PacienteFormComponent implements OnInit {
       this.rolService.getRol(6).subscribe(rol=>this.rol=rol)
       this.estadoService.getEstadosCiviles().subscribe(estadosciviles=>this.estadociviles=estadosciviles)
       this.hospitalService.getHospital(1).subscribe(hos =>this.hospital = hos)
-      this.usuario.pais={"id":54,"nombre":"El Salvador"}
+      this.cargarPaciente()
+      this.usuario.pais={"id":54,"nombre":"El Salvador"
+    }
 
     }
 
@@ -70,6 +73,7 @@ export class PacienteFormComponent implements OnInit {
 
     public create():void {
       this.usuario.roles=[this.rol]
+      this.usuario.hospital=this.hospital;
         this.usuarioService.createUsuarioPaciente(this.usuario).subscribe(
           usuarioNuevo=>{
             console.log(usuarioNuevo);
@@ -100,4 +104,47 @@ export class PacienteFormComponent implements OnInit {
           compararPais(o1:Pais,o2:Pais){
           return o1===null || o2===null? false:o1.id===o2.id;
           }
+
+          editarPaciente(): void {
+            console.log("Editado");
+            console.log(this.paciente);
+          }
+
+          cargarPaciente(): void{
+            this.activatedRoute.params.subscribe(
+              params => {
+                let id = params['id'];
+                if(id){
+                //Obtencion de Paciente.
+                  this.pacienteService.getPaciente(id).subscribe(
+                    paciente => {
+                      this.paciente = paciente;
+                      this.usuarioService.getUsuario(this.paciente.usuario.id).subscribe(
+                        user => {
+                          this.usuario = user;
+              //this.usuarioService.getUsuario(id).subscribe((paciente) => this.usuario = paciente)
+            //  this.usuarioService.getUsuario(id).subscribe( (paciente) => this.paciente.usuario = paciente)
+                              }
+                            )
+                          }
+                        )
+                      }
+                    }
+                  )
+                }
+
+          update(): void {
+            this.pacienteService.update(this.paciente).subscribe(
+              paciente => {
+                this.paciente = paciente;
+                this.usuarioService.update(this.usuario).subscribe(
+                  usuario =>{
+                    this.router.navigate(['home'])
+                  swal.fire('Editado con éxito', `Paciente Actualizado: ${this.usuario.nombres}`, 'success')
+                  }
+                )
+              }
+            )
+          }
+
   }

@@ -75,4 +75,6 @@ export class PacienteService {
   public editPaciente(paciente: Paciente, id: number): Observable<Paciente>{
     return this.http.put<Paciente>(`${this.urlEndPoint}/${id}`, paciente, {headers: this.httpHeaders});
   }
+
+
 }

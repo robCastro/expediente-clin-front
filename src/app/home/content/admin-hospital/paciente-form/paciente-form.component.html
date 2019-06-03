@@ -168,11 +168,10 @@
                   </div>
                 </div>
 
-
-              <button type="submit" class="btn btn-primary pull-right" (click)='create()' [disabled]="nombres.invalid || apellidos.invalid || email.invalid || telefono.invalid || fecha.invalid">Guardar</button>
-
-
-
+              <button type="submit" class="btn btn-primary pull-right" (click)='create()' *ngIf="!paciente.id else elseBlock" [disabled]="nombres.invalid || apellidos.invalid || email.invalid || telefono.invalid || fecha.invalid">Guardar</button>
+              <ng-template #elseBlock>
+              <button type="submit" class="btn btn-primary pull-right" (click)='update()'>Editar</button>
+              </ng-template>
 
 
             <div class="clearfix"></div>

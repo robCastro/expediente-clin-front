@@ -35,6 +35,7 @@ const routes: Routes = [
       { path: 'genero/crear1', component: Crear1Component},
       { path: 'genero/crear1/:id', component: Crear1Component},
       { path: 'paciente/crearPaciente', component: PacienteFormComponent},
+      { path: 'paciente/crearPaciente/:id', component: PacienteFormComponent},
       {
         path: 'login',
         component: LoginComponent,
