@@ -10,46 +10,58 @@
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/home/empleados">
+      <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
+        <a class="nav-link" routerLink="/home/usuario_form">
           <i class="material-icons">person</i>
-          <p>Empleados</p>
+          <p>Agregar Usuario</p>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/home/empleados/registrar_empleado">
-          <i class="material-icons">person</i>
-          <p>Agregar Empleado</p>
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/home/hospital/aprobar_hospital">
+      <li *ngIf="authService.hasRole('ROLE_AdminGen')" class="nav-item active">
+        <a class="nav-link" routerLink="/home/hospital">
           <i class="material-icons">library_books</i>
           <p>Hospitales</p>
         </a>
       </li>
-      <li class="nav-item active">
+      <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
+        <a class="nav-link" routerLink="/home/registrar_hospital">
+          <i class="material-icons">library_books</i>
+          <p>Registrar Hospital</p>
+        </a>
+      </li>
+      <li *ngIf="authService.hasRole('ROLE_AdminGen')" class="nav-item active">
         <a class="nav-link" routerLink="especialidad">
           <i class="material-icons">content_paste</i>
           <p>Especialidades</p>
         </a>
       </li>
-      <li class="nav-item active">
+      <li *ngIf="authService.hasRole('ROLE_AdminGen')" class="nav-item active">
+        <a class="nav-link" routerLink="estado_civil_t">
+          <i class="material-icons">content_paste</i>
+          <p>Estado Civil</p>
+        </a>
+      </li>
+      <li *ngIf="authService.hasRole('ROLE_AdminGen')" class="nav-item active">
         <a class="nav-link" routerLink="genero">
           <i class="material-icons">content_paste</i>
           <p>Generos</p>
         </a>
       </li>
-      <li class="nav-item active">
+      <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
         <a class="nav-link" routerLink="/home/paciente/crearPaciente">
           <i class="material-icons">content_paste</i>
           <p>Crear Paciente</p>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/home/estadocivil/formulario">
-          <i class="material-icons">bubble_chart</i>
-          <p>Estado Civil</p>
+      <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
+        <a class="nav-link" routerLink="/home/pacientes/:id">
+          <i class="material-icons">content_paste</i>
+          <p>Lista de Pacientes</p>
+        </a>
+      </li>
+      <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
+        <a class="nav-link" routerLink="/home/historial_paciente/:id">
+          <i class="material-icons">content_paste</i>
+          <p>Historial Clinico</p>
         </a>
       </li>
     </ul>

@@ -14,12 +14,12 @@ export class LoginComponent implements OnInit {
     titulo:string = 'Por Favor Sign In!';
     usuario: Usuario;
 
-  constructor(private authService : AuthService, private router: Router) {
-  this.usuario=new Usuario() }
+  constructor(private authService: AuthService, private router: Router) {
+  this.usuario=new Usuario(); }
 
   ngOnInit() {
     if(this.authService.isAuthenticated()){
-      swal.fire('login',`Hola ${this.authService.usuario.nombres},ya estas autenticado`,'info');
+      swal.fire('login',`Hola ${this.authService.usuario.username},ya estas autenticado`,'info');
       this.router.navigate(['home/index']);
     }
   }
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       let usuario = this.authService.usuario;
 
       this.router.navigate(['home/index']);
-      swal.fire('login',`Hola ${usuario.nombres},haz iniciado sesion con exito`,'success');
+      swal.fire('login',`Hola ${usuario.username},haz iniciado sesion con exito`,'success');
     },err =>{
       if(err.status == 400){
         swal.fire('Error Login','Usuario o Contraseña Incorrectas!','error');

@@ -21,10 +21,11 @@ import { ListadoPacientesComponent } from './home/content/admin-hospital/listado
 import {HistorialCrearComponent} from './home/content/shared/historial-crear/historial-crear.component';
 import {HistorialEditarComponent} from './home/content/shared/historial-editar/historial-editar.component';
 import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
+import { AuthGuard } from './usuarios/guards/auth.guard';
+import { RoleGuard } from './usuarios/guards/role.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'registrar_hospital', component: RegistrarHospitalComponent },
   { path: 'home',
     component: HomeComponent,
     children: [
@@ -33,28 +34,18 @@ const routes: Routes = [
         component: IndexComponent,
         children: []
       },
-      { path: 'especialidad', component: EspecialidadComponent},
-      { path: 'especialidad/crear', component: CrearComponent},
-      { path: 'especialidad/crear/:id', component: CrearComponent},
-      { path: 'genero', component: GeneroComponent},
-      { path: 'genero/crear1', component: Crear1Component},
-      { path: 'genero/crear1/:id', component: Crear1Component},
-      { path: 'paciente/crearPaciente', component: PacienteFormComponent},
-      { path: 'paciente/crearPaciente/:id', component: PacienteFormComponent},
-      {
-        path: 'login',
-        component: LoginComponent,
-      },
-      {
-        path: 'hospital',
-        component: ListadoHospitalComponent,
-        children: []
-      },
-      {
-        path: 'hospital/editar/:id',
-        component: EditarHospitalComponent,
-        children: []
-      },
+      { path: 'especialidad', component: EspecialidadComponent, canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
+      { path: 'especialidad/crear', component: CrearComponent,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
+      { path: 'especialidad/crear/:id', component: CrearComponent,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
+      { path: 'genero', component: GeneroComponent,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
+      { path: 'genero/crear1', component: Crear1Component,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
+      { path: 'genero/crear1/:id', component: Crear1Component,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
+      { path: 'paciente/crearPaciente', component: PacienteFormComponent,canActivate:[AuthGuard]},
+      { path: 'paciente/crearPaciente/:id', component: PacienteFormComponent,canActivate:[AuthGuard]},
+      { path: 'registrar_hospital', component: RegistrarHospitalComponent,canActivate:[AuthGuard] },
+      { path: 'login',component: LoginComponent},
+      { path: 'hospital',component: ListadoHospitalComponent},
+      { path: 'hospital/editar/:id',component: EditarHospitalComponent},
       {
         path: 'usuarios/:id',
         component: ListadoUsuariosComponent,
@@ -66,16 +57,14 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path:'estado_civil_t',
-        component:EstadoTablaComponent
-      },
+        path:'estado_civil_t',component:EstadoTablaComponent,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
       {
         path:'estado_civil_f',
-        component:EstadoFormComponent
+        component:EstadoFormComponent,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}
       },
       {
         path:'estado_civil_f/:id',
-        component:EstadoFormComponent
+        component:EstadoFormComponent,canActivate:[AuthGuard]
       },
       {
         path:'usuario_form',

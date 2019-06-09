@@ -17,12 +17,12 @@ export class Usuario {
     detalle: string;
     email: string;
     telefono: string;
-    
+
     hospital: Hospital;
     municipio: Municipio;
     pais: Pais;
     genero: Genero;
     estadoCivil: EstadoCivil;
-    roles: Rol[];
+    roles: string[]= [];
     especialidad: Especialidad;
 }

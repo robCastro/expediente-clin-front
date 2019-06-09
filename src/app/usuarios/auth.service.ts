@@ -25,7 +25,7 @@ export class AuthService {
     }
     return new Usuario();
   }
-  public get token(): String{
+  public get token(): string{
     if(this._token != null){
       return this._token
     }
@@ -56,9 +56,11 @@ export class AuthService {
     let payload = this.obtenerDatosToken(accessToken);
     this._usuario = new Usuario();
     this._usuario.nombres = payload.nombres;
+    this._usuario.apellidos = payload.apellidos;
     this._usuario.username = payload.user_name;
-    this._usuario.roles = payload.Authorities;
+    this._usuario.roles = payload.authorities;
     sessionStorage.setItem('Usuario',JSON.stringify(this._usuario));
+    console.log(sessionStorage.getItem('Usuario'));
   }
 
   guardarToken(accessToken: string):void{
@@ -72,7 +74,7 @@ export class AuthService {
     return null;
   }
   isAuthenticated(): boolean{
-    let payload = this.obtenerDatosToken(this._token);
+    let payload = this.obtenerDatosToken(this.token);
     if(payload != null && payload.user_name && payload.user_name.length>0){
       return true;
     }
@@ -80,7 +82,7 @@ export class AuthService {
 
   }
 
-  hasRole( role: Rol): boolean{
+  hasRole( role: string ): boolean{
   if(this.usuario.roles.includes(role)){
     return true;
   }

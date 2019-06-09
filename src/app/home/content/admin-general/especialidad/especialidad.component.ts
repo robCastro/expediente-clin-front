@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Especialidad } from 'src/app/models/especialidad';
 import { EspecialidadService } from 'src/app/services/especialidad.service';
 import swal from 'sweetalert2';
+import { ActivatedRoute} from '@angular/router';
+import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
   selector: 'app-especialidad',
@@ -12,7 +14,9 @@ export class EspecialidadComponent implements OnInit {
 
 especialidades: Especialidad[];
 
-  constructor(private especialidadService: EspecialidadService) { }
+  constructor(private especialidadService: EspecialidadService,
+  private authService : AuthService,
+  private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
    this.especialidadService.getEspecialidades().subscribe(
