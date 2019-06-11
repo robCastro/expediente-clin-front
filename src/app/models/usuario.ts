@@ -23,6 +23,6 @@ export class Usuario {
     pais: Pais;
     genero: Genero;
     estadoCivil: EstadoCivil;
-    roles: string[]= [];
+    roles: Rol[];
     especialidad: Especialidad;
 }

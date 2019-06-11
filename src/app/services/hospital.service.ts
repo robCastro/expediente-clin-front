@@ -4,6 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map } from 'rxjs/operators';
 import { Hospital } from '../models/hospital';
 import { Usuario } from '../models/usuario';
+import { AuthService } from '../usuarios/auth.service';
+import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +28,16 @@ export class HospitalService {
 
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router,
+  private authService: AuthService) { }
+
+  private agregarAuthotizationHeader(){
+    let token = this.authService.token;
+    if(token != null){
+      return this.httpHeaders.append('Authorization','Bearer ' + token);
+    }
+    return this.httpHeaders;
+  }
 
     //Hospitales Aprobados.
     getHospitalesAprobados(): Observable<Hospital[]>{
@@ -33,6 +45,8 @@ export class HospitalService {
         map( response => response as Hospital[])
       );
     }
+
+
 
     //Usuario del Hospital Aprobado y por consiguiente Hospital Aprobado.
     getUserHospitalAprobados(): Observable<Usuario[]>{

@@ -38,7 +38,7 @@ export class UsuarioFormComponent implements OnInit {
   especialidades:Especialidad[];
   usuario:Usuario= new Usuario();
   hospital:Hospital;
-  rol:Rol;
+  rol: Rol;
   id:number;
 
   constructor(private paisService: PaisService,

@@ -72,7 +72,7 @@ export class PacienteFormComponent implements OnInit {
     }
 
     public create():void {
-      this.usuario.roles=[]
+      this.usuario.roles=[this.rol]
       this.usuario.hospital=this.hospital;
         this.usuarioService.createUsuarioPaciente(this.usuario).subscribe(
           usuarioNuevo=>{

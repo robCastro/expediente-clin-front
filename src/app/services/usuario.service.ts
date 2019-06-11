@@ -4,6 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { Usuario } from '../models/usuario';
 import { catchError } from 'rxjs/operators';
 import swal from 'sweetalert2';
+import { AuthService } from '../usuarios/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,34 @@ export class UsuarioService {
   private urlUserBloqHosp: string =  'http://localhost:8080/usuario/bloqueado/hospital';
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router,
+  private authService: AuthService) { }
+
+  private agregarAuthotizationHeader(){
+    let token = this.authService.token;
+    if(token != null){
+      return this.httpHeaders.append('Authorization','Bearer ' + token);
+    }
+    return this.httpHeaders;
+  }
+
+  private isNoAutorizado(e): boolean{
+    if(e.status==401 ){
+
+      if(this.authService.isAuthenticated()){
+        this.authService.logout();
+      }
+      this.router.navigate(['/login']);
+      return true;
+    }
+
+    if(e.status==403 ){
+      swal.fire('Acceso Denegado',`Hola ${this.authService.usuario.username},no tienes aaceso a este recurso!`,'warning');
+      this.router.navigate(['/usuario'])
+      return true;
+    }
+    return false;
+  }
 
   public getUsuarios(): Observable<Usuario[]>{
     return this.http.get<Usuario[]>(this.urlEndPoint + "/todos");

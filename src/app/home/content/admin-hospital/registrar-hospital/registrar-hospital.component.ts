@@ -57,7 +57,7 @@ export class RegistrarHospitalComponent implements OnInit {
   }
   obtenerMunicipios1(id:number){
     this.municipioService.getMunicipios(id).subscribe(municipios1=>this.municipios1=municipios1)
-  }   
+  }
 
   public create():void{
     let fechaHoy=this.datepipe.transform(new Date().toLocaleString("en-UTC"),'yyyy-MM-dd');
@@ -68,15 +68,15 @@ export class RegistrarHospitalComponent implements OnInit {
         let fecha=this.datepipe.transform(this.usuario.fecha,'dd/MM/yyyy')
         this.usuarioN=Object.values(usuarioNuevo)[0]
         this.hospitalService.create(this.hospital).subscribe(
-          hospitalNuevo=>{ 
+          hospitalNuevo=>{
             this.usuarioN.hospital=Object.values(hospitalNuevo)[0]
             this.usuarioService.editUsuario(this.usuarioN,this.usuarioN.id).subscribe(
               usuarioAc=>this.usuarioN=Object.values(usuarioAc)[0]
             );
           }
         );
-        swal.fire('Nuevo Hospital',`Hospital ${this.hospital.nombre} registrado con éxito, 
-        se le enviara un correo cuando el hospital sea aprobado. El usuario para el administrador 
+        swal.fire('Nuevo Hospital',`Hospital ${this.hospital.nombre} registrado con éxito,
+        se le enviara un correo cuando el hospital sea aprobado. El usuario para el administrador
         es ${Object.values(usuarioNuevo)[0].username} y la contraseña es ${fecha}`, 'success')
         this.router.navigate(['/'])
       }

@@ -22,12 +22,6 @@
           <p>Hospitales</p>
         </a>
       </li>
-      <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
-        <a class="nav-link" routerLink="/home/registrar_hospital">
-          <i class="material-icons">library_books</i>
-          <p>Registrar Hospital</p>
-        </a>
-      </li>
       <li *ngIf="authService.hasRole('ROLE_AdminGen')" class="nav-item active">
         <a class="nav-link" routerLink="especialidad">
           <i class="material-icons">content_paste</i>
@@ -46,7 +40,7 @@
           <p>Generos</p>
         </a>
       </li>
-      <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
+      <li *ngIf="authService.hasRole('ROLE_Recepcionista')" class="nav-item active">
         <a class="nav-link" routerLink="/home/paciente/crearPaciente">
           <i class="material-icons">content_paste</i>
           <p>Crear Paciente</p>
@@ -58,10 +52,11 @@
           <p>Lista de Pacientes</p>
         </a>
       </li>
+
       <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
-        <a class="nav-link" routerLink="/home/historial_paciente/:id">
+        <a class="nav-link" routerLink="/home/usuarios/:id">
           <i class="material-icons">content_paste</i>
-          <p>Historial Clinico</p>
+          <p>Lista de Usuarios</p>
         </a>
       </li>
     </ul>

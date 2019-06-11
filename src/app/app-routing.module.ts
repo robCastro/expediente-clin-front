@@ -25,6 +25,7 @@ import { AuthGuard } from './usuarios/guards/auth.guard';
 import { RoleGuard } from './usuarios/guards/role.guard';
 
 const routes: Routes = [
+  { path: 'registrar_hospital', component: RegistrarHospitalComponent},
   { path: '', component: LoginComponent },
   { path: 'home',
     component: HomeComponent,
@@ -42,7 +43,6 @@ const routes: Routes = [
       { path: 'genero/crear1/:id', component: Crear1Component,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
       { path: 'paciente/crearPaciente', component: PacienteFormComponent,canActivate:[AuthGuard]},
       { path: 'paciente/crearPaciente/:id', component: PacienteFormComponent,canActivate:[AuthGuard]},
-      { path: 'registrar_hospital', component: RegistrarHospitalComponent,canActivate:[AuthGuard] },
       { path: 'login',component: LoginComponent},
       { path: 'hospital',component: ListadoHospitalComponent},
       { path: 'hospital/editar/:id',component: EditarHospitalComponent},

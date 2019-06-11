@@ -3,8 +3,10 @@ import { of, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map } from 'rxjs/operators';
 import { Paciente } from '../models/paciente';
-
+import swal from 'sweetalert2';
 import { Usuario } from '../models/usuario';
+import { AuthService } from '../usuarios/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,34 @@ export class PacienteService {
 
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router,
+  private authService: AuthService) { }
+
+  private agregarAuthotizationHeader(){
+    let token = this.authService.token;
+    if(token != null){
+      return this.httpHeaders.append('Authorization','Bearer ' + token);
+    }
+    return this.httpHeaders;
+  }
+
+  private isNoAutorizado(e): boolean{
+    if(e.status==401 ){
+
+      if(this.authService.isAuthenticated()){
+        this.authService.logout();
+      }
+      this.router.navigate(['/login']);
+      return true;
+    }
+
+    if(e.status==403 ){
+      swal.fire('Acceso Denegado',`Hola ${this.authService.usuario.username},no tienes aaceso a este recurso!`,'warning');
+      this.router.navigate(['/paciente'])
+      return true;
+    }
+    return false;
+  }
 
   //Pacientes habilitados de un hospital específico.
   pacientesHabilitadosPorHospital(id: number): Observable<Paciente[]>{
