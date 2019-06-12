@@ -23,6 +23,7 @@ import {HistorialEditarComponent} from './home/content/shared/historial-editar/h
 import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
 import { AuthGuard } from './usuarios/guards/auth.guard';
 import { RoleGuard } from './usuarios/guards/role.guard';
+import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
 
 const routes: Routes = [
   { path: 'registrar_hospital', component: RegistrarHospitalComponent},
@@ -89,7 +90,11 @@ const routes: Routes = [
       {
         path:'historial_paciente/:id',
         component: ListadoHistorialesComponent,
-      }
+      },
+      {
+        path:'consulta/signos_vitales/:id',
+        component: SignosVitalesComponent,
+      },
 
     ]
   },

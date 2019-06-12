@@ -1,0 +1,56 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-primary">
+      <h3 class="card-title ">Signos vitales</h3>
+      <p class="card-category">Para asistir en el diagnostico del paciente (respetar las unidades de medida)</p>
+    </div>
+    <div class="card-body">
+      <h4>Paciente: <strong>{{consulta.paciente.usuario.nombres}} {{consulta.usuario.apellidos}}</strong></h4>
+      <br>
+      <form>
+            <div class="row">
+              <div class="col">
+                  <div class="form-group">
+                      <label>Temperatura (°C):</label>
+                      <input for="temperatura" type="text" class="form-control"[(ngModel)]="consulta.temperatura" name="temperatura">
+                    </div>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col">
+                  <div class="form-group">
+                      <label>Peso (Kg):</label>
+                      <input for="peso" type="text" class="form-control"[(ngModel)]="consulta.peso" name="peso">
+                    </div>  
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col">
+                  <div class="form-group">
+                      <label>Estatura (cm):</label>
+                      <input for="estatura" type="text" class="form-control"[(ngModel)]="consulta.estatura" name="estatura">
+                    </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>Presión ():</label>
+                        <input for="presion" type="text" class="form-control"[(ngModel)]="consulta.presion" name="presion">
+                      </div>   
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>Ritmo Cardiaco ():</label>
+                        <input for="ritmo" type="text" class="form-control"[(ngModel)]="consulta.ritmo" name="ritmo">
+                      </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col"></div>
+              </div>          
+        <button type="submit" class="btn btn-primary pull-right" (click)='guardar()'>Guardar</button>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+  </div>
+</div>
