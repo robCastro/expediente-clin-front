@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { Usuario } from '../../../../models/usuario';
 import swal from 'sweetalert2';
+import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
   selector: 'app-listado-pacientes',
@@ -22,37 +23,39 @@ export class ListadoPacientesComponent implements OnInit {
   constructor(private pacienteService: PacienteService,
               private usuarioService: UsuarioService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private authService : AuthService) { }
 
   ngOnInit() {
     this.cargarPaciente();
   }
 
   cargarPaciente(): void{
-    this.activatedRoute.params.subscribe(
+    this.usuarioService.getUsuarioPorUsername(this.authService.usuario.username).subscribe(
+      usuario => {
+        this.usuarioActual = usuario;
+        //Usuarios habilitados a partir del hospital.
+        this.pacienteService.pacientesHabilitadosPorHospital(this.usuarioActual.hospital.id).subscribe(
+          pacientes => this.pacientesHabilitados = pacientes
+        )
+        //Usuarios inhabilitados a partir del hospital.
+        this.pacienteService.pacientesInhabilitadosPorHospital(this.usuarioActual.hospital.id).subscribe(
+          pacientes => this.pacientesInhabilitados = pacientes
+        )
+        //Usuarios bloqueados a partir del hospital.
+        this.pacienteService.pacientesBloqueadosPorHospital(this.usuarioActual.hospital.id).subscribe(
+          pacientes => this.pacientesBloqueados = pacientes
+        )
+      }
+    )
+    /*this.activatedRoute.params.subscribe(
       params => {
         let id = params['id'];
         if(id){
-          this.usuarioService.getUsuario(id).subscribe(
-            usuario => {
-              this.usuarioActual = usuario;
-              //Usuarios habilitados a partir del hospital.
-              this.pacienteService.pacientesHabilitadosPorHospital(this.usuarioActual.hospital.id).subscribe(
-                pacientes => this.pacientesHabilitados = pacientes
-              )
-              //Usuarios inhabilitados a partir del hospital.
-              this.pacienteService.pacientesInhabilitadosPorHospital(this.usuarioActual.hospital.id).subscribe(
-                pacientes => this.pacientesInhabilitados = pacientes
-              )    
-              //Usuarios bloqueados a partir del hospital.
-              this.pacienteService.pacientesBloqueadosPorHospital(this.usuarioActual.hospital.id).subscribe(
-                pacientes => this.pacientesBloqueados = pacientes
-              )                         
-            }
-          )
+
         }
       }
-    )
+    )*/
   }
 
   //Habilitar Usuario
@@ -75,8 +78,8 @@ export class ListadoPacientesComponent implements OnInit {
             this.usuarioService.habilitarUsuario(p.usuario).subscribe(
               response => {
                 console.log(p);
-                this.router.navigateByUrl(`/pacientes/${this.usuarioActual.id}`, {skipLocationChange: true}).then(()=>
-                this.router.navigate([`/home/pacientes/${this.usuarioActual.id}`]));
+                this.router.navigateByUrl(`/pacientes`, {skipLocationChange: true}).then(()=>
+                this.router.navigate([`/home/pacientes`]));
               }
             )
           }
@@ -105,8 +108,8 @@ export class ListadoPacientesComponent implements OnInit {
             this.usuarioService.deshabilitarUsuario(p.usuario).subscribe(
               response => {
                 console.log(p);
-                this.router.navigateByUrl(`/pacientes/${this.usuarioActual.id}`, {skipLocationChange: true}).then(()=>
-                this.router.navigate([`/home/pacientes/${this.usuarioActual.id}`]));
+                this.router.navigateByUrl(`/pacientes`, {skipLocationChange: true}).then(()=>
+                this.router.navigate([`/home/pacientes`]));
               }
             )
           }

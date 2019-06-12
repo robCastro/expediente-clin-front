@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class UsuarioService {
 
   private urlEndPoint:string = "http://localhost:8080/usuario";
+  private urlEndPointUsername: string = "http://localhost:8080/usuario/username";
   private urlEndPointHabilitar: string = "http://127.0.0.1:8080/usuario/habilitar";
   private urlEndPointDeshabilitar: string = "http://127.0.0.1:8080/usuario/deshabilitar";
   private urlUserHabHosp: string = 'http://127.0.0.1:8080/usuario/habilitado/hospital';
@@ -55,6 +56,10 @@ export class UsuarioService {
 
   public getUsuario(id: number): Observable<Usuario>{
     return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`);
+  }
+
+  public getUsuarioPorUsername(username: string): Observable<Usuario>{
+    return this.http.get<Usuario>(`${this.urlEndPointUsername}/${username}`);
   }
 
   public createUsuario(usuario: Usuario): Observable<Usuario>{

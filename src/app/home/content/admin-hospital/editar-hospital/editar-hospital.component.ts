@@ -11,6 +11,7 @@ import { Pais } from '../../../../models/pais';
 import { Departamento } from '../../../../models/departamento';
 import { Municipio } from '../../../../models/municipio';
 import swal from 'sweetalert2';
+import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
   selector: 'app-editar-hospital',
@@ -38,7 +39,9 @@ export class EditarHospitalComponent implements OnInit {
               private departamentoService: DepartamentoService,
               private municipioService: MunicipioService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private authService : AuthService
+            ) { }
 
   ngOnInit() {
     this.cargarUsuario();
@@ -58,38 +61,38 @@ export class EditarHospitalComponent implements OnInit {
   }
 
   cargarUsuario(): void{
-    this.activatedRoute.params.subscribe(
+    this.usuarioService.getUsuarioPorUsername(this.authService.usuario.username).subscribe(
+      user => {
+        this.usuario = user;
+        //Obtencion de Hospital.
+        this.hospitalService.getHospital(this.usuario.hospital.id).subscribe(
+          hosp => {
+            this.hospital = hosp
+            this.paisService.getPais(this.usuario.hospital.pais.id).subscribe(
+              pais => {
+                this.pais = pais;
+                this.hospitalService.getDeptoHospital(this.usuario.hospital.id).subscribe(
+                  num => {
+                    this.departamento.id = num;
+                    this.municipioService.getMunicipios(this.departamento.id).subscribe(
+                      mun => this.municipios = mun
+                    )
+                  }
+                )
+              }
+            )
+          }
+        )
+      }
+    )
+    /*this.activatedRoute.params.subscribe(
       params => {
         let id = params['id'];
         if(id){
           //Obtencion de usuario
-          this.usuarioService.getUsuario(id).subscribe(
-            user => {
-              this.usuario = user;
-              //Obtencion de Hospital.
-              this.hospitalService.getHospital(this.usuario.hospital.id).subscribe(
-                hosp => {
-                  this.hospital = hosp
-                  this.paisService.getPais(this.usuario.hospital.pais.id).subscribe(
-                    pais => {
-                      this.pais = pais;
-                      this.hospitalService.getDeptoHospital(this.usuario.hospital.id).subscribe(
-                        num => {
-                          this.departamento.id = num;
-                          this.municipioService.getMunicipios(this.departamento.id).subscribe(
-                            mun => this.municipios = mun
-                          )
-                        }
-                      )
-                    }
-                  )
-                }
-              )
-            }
-          )
         }
       }
-    )
+    )*/
   }
 
   cargarMunicipios() {
@@ -108,6 +111,7 @@ export class EditarHospitalComponent implements OnInit {
   updateHospital(): void {
     this.hospitalService.update(this.hospital).subscribe(
       hospital => {
+        this.router.navigate(['home'])
         swal.fire('Editado con éxito', `Hospital Actualizado: ${this.hospital.nombre}`, 'success')
       }
     )
