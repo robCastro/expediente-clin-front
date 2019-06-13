@@ -23,8 +23,10 @@ import {HistorialEditarComponent} from './home/content/shared/historial-editar/h
 import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
 import { AuthGuard } from './usuarios/guards/auth.guard';
 import { RoleGuard } from './usuarios/guards/role.guard';
+import { ConsultaComponent } from './home/content/medico/consulta/consulta.component';
 
 const routes: Routes = [
+  { path: 'medico/consulta/:id',component: ConsultaComponent},
   { path: 'registrar_hospital', component: RegistrarHospitalComponent},
   { path: '', component: LoginComponent },
   { path: 'home',
@@ -89,8 +91,7 @@ const routes: Routes = [
       {
         path:'historial_paciente/:id',
         component: ListadoHistorialesComponent,
-      }
-
+      },
     ]
   },
   { path: '**', component: NotFountComponent}
