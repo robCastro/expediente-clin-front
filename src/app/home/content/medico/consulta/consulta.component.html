@@ -7,15 +7,15 @@
         </div>
         <div class="card-body ml-4">
             <div class="input group col-md-10">
-              <input type="text" class="form-control" name="nomPac" placeholder="Nombres*" disabled>
+              <input type="text" class="form-control" name="nomPac" placeholder="{{consulta.paciente.usuario.nombres}}" disabled>
             </div>
             <div class="input group col-md-10 my-1">
-              <input type="text" class="form-control" name="apePac" placeholder="Apellidos*" disabled>
+              <input type="text" class="form-control" name="apePac" placeholder="{{consulta.paciente.usuario.apellidos}}" disabled>
             </div>
             <div class="form-row col-md-12 my-3">
               <div class="form-group col-md-5">
                 <label>Fecha de Nacimiento</label>
-                <input type="text" class="form-control my-1" name="fecPac" placeholder="dd/mm/yyyy" disabled>
+                <input type="date" class="form-control my-1" name="fecPac" value="{{consulta.paciente.usuario.fecha}}" disabled>
               </div>
               <div class="col-md-3"></div>
               <div class="form-group col-md-4" >
@@ -34,34 +34,34 @@
         <div class="card-body mx-2">
           <div class="row">
             <div class="form-group col-md-12">
-              <input class="form-control" type="text" placeholder="72 Kg" disabled>
+              <input class="form-control" type="text" placeholder="{{consulta.peso}} Kg" disabled>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-12">
-              <input class="form-control" type="text" placeholder="175 cm" disabled>
+              <input class="form-control" type="text" placeholder="{{consulta.estatura}} cm" disabled>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-12">
-              <input class="form-control" type="text" placeholder="38 °C" disabled>
+              <input class="form-control" type="text" placeholder="{{consulta.temperatura}} °C" disabled>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-12">
-              <input class="form-control" type="text" placeholder="60 /s" disabled>
+              <input class="form-control" type="text" placeholder="{{consulta.ritmo}} /s" disabled>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-12">
-              <input class="form-control" type="text" placeholder="120/80 mm Hg" disabled>
+              <input class="form-control" type="text" placeholder="{{consulta.presion}} mm Hg" disabled>
             </div>
           </div>
         </div>
       </div>
     </div>
 </div>
-<form>
+<form #consultaForm="ngForm">
   <div class="row">
     <div class="col-md-9">
       <div class="card">
@@ -72,7 +72,14 @@
         <div class="card-body mx-4">
           <div class="row">
             <div class="col-md-12 mt-3">
-              <textarea class="form-control" maxlength="2048" placeholder="Descripción detallada de maximo 2048 caracteres" name="" id="" cols="30" rows="10"></textarea>
+              <textarea [(ngModel)]="consulta.sintoma" class="form-control"
+               maxlength="2048" placeholder="Descripción detallada de maximo 2048 caracteres" 
+               name="sintoma" id="" cols="30" rows="10" required #sintoma="ngModel"></textarea>
+              <div class="alert alert-danger" *ngIf="sintoma.invalid && (sintoma.dirty || sintoma.touched)">
+                <div *ngIf="sintoma.errors.required">
+                  Sintomas es Requerido
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -95,7 +102,7 @@
           <div class="row">
             <div class="form-group col-md-12">
               <label>Enfermedad</label>
-              <select class="form-control">
+              <select class="form-control" #enfermedad [(ngModel)]="consulta.enfermedad.id" name="enfermedad">
                 <option *ngFor="let enfermedad of enfermedades" [ngValue]="enfermedad.id">{{enfermedad.nombre}}</option>
               </select>
             </div>

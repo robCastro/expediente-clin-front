@@ -5,6 +5,7 @@ import { Enfermedad } from '../../../../models/enfermedad';
 import { EnfermedadService } from '../../../../services/enfermedad.service';
 import { ActivatedRoute } from '@angular/router';
 import { Consulta } from '../../../../models/consulta';
+import { ConsultaService } from '../../../../services/consulta.service';
 
 
 @Component({
@@ -21,10 +22,12 @@ export class ConsultaComponent implements OnInit {
   constructor(
     private tipoEnfermedadService: TipoEnfermedadService,
     private enfermedadService: EnfermedadService,
+    private consultaService:ConsultaService,
     private activatedRoute:ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.cargarConsulta();
     console.log("On init");
     this.tipoEnfermedadService.getTipoEnfermedades().subscribe(tipos => {
       this.tiposEnfermedades = tipos;
@@ -32,7 +35,6 @@ export class ConsultaComponent implements OnInit {
     this.enfermedadService.getEnfermedades(1).subscribe(enfermedades => {
       this.enfermedades = enfermedades;
     });
-    this.cargarConsulta();
   }
 
   obtenerEnfermedades(id:number){
@@ -42,10 +44,17 @@ export class ConsultaComponent implements OnInit {
     });
   }
 
-  cargarConsulta(): void{
+  private cargarConsulta(): void{
     this.activatedRoute.params.subscribe(params => {
       let id = params['id'];
-      console.log(id);
+      if(id){
+        this.consultaService.getConsulta(id).subscribe(
+          consulta =>{
+            this.consulta=consulta;
+            this.consulta.paciente.usuario.fecha = this.consulta.paciente.usuario.fecha.substring(0, 10);
+            console.log(this.consulta);
+          });
+      }
     });
   }
 }
