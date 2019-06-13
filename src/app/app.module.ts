@@ -36,6 +36,7 @@ import { PacienteService } from './services/paciente.service';
 import { DatePipe } from '@angular/common';
 import { ConsultaComponent } from './home/content/medico/consulta/consulta.component';
 
+import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ConsultaComponent } from './home/content/medico/consulta/consulta.compo
     HistorialEditarComponent,
     ListadoHistorialesComponent,
     ConsultaComponent,
+    SignosVitalesComponent,
   ],
   imports: [
     BrowserModule,
