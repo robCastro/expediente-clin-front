@@ -24,6 +24,7 @@ import { ListadoHistorialesComponent } from './home/content/shared/listado-histo
 import { AuthGuard } from './usuarios/guards/auth.guard';
 import { RoleGuard } from './usuarios/guards/role.guard';
 import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
+import { ListadoPacientesRecComponent } from './home/content/recepcionista/listado-pacientes-rec/listado-pacientes-rec.component';
 
 const routes: Routes = [
   { path: 'registrar_hospital', component: RegistrarHospitalComponent},
@@ -94,6 +95,10 @@ const routes: Routes = [
       {
         path:'consulta/signos_vitales/:id',
         component: SignosVitalesComponent,
+      },
+      {
+        path:'listado_pacientes_rec/:id',
+        component: ListadoPacientesRecComponent,
       },
 
     ]
