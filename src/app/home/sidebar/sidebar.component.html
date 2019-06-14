@@ -22,6 +22,12 @@
           <p>Hospitales</p>
         </a>
       </li>
+      <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
+        <a class="nav-link" [routerLink]="['/home/hospital/editar']">
+          <i class="material-icons">library_books</i>
+          <p>Editar Hospital</p>
+        </a>
+      </li>
       <li *ngIf="authService.hasRole('ROLE_AdminGen')" class="nav-item active">
         <a class="nav-link" routerLink="especialidad">
           <i class="material-icons">content_paste</i>
@@ -47,14 +53,14 @@
         </a>
       </li>
       <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
-        <a class="nav-link" routerLink="/home/pacientes/:id">
+        <a class="nav-link" [routerLink]="['/home/pacientes']">
           <i class="material-icons">content_paste</i>
           <p>Lista de Pacientes</p>
         </a>
       </li>
 
       <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">
-        <a class="nav-link" routerLink="/home/usuarios/:id">
+        <a class="nav-link" [routerLink]="['/home/usuarios']">
           <i class="material-icons">content_paste</i>
           <p>Lista de Usuarios</p>
         </a>

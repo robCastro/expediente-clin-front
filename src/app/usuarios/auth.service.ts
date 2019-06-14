@@ -11,6 +11,7 @@ export class AuthService {
 
   private _usuario: Usuario;
   private _token: string;
+  rol:String[] = [];
 
 
   constructor(private http: HttpClient) { }

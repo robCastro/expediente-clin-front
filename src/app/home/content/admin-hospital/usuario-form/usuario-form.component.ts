@@ -20,6 +20,7 @@ import {Hospital} from 'src/app/models/hospital'
 import swal from 'sweetalert2'
 import { DatePipe } from '@angular/common'
 import {Router, ActivatedRoute} from '@angular/router'
+import { AuthService } from 'src/app/usuarios/auth.service';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class UsuarioFormComponent implements OnInit {
   estadociviles:EstadoCivil[];
   especialidades:Especialidad[];
   usuario:Usuario= new Usuario();
+  usuarioActual:Usuario= new Usuario();
   hospital:Hospital;
   rol: Rol;
   id:number;
@@ -46,7 +48,8 @@ export class UsuarioFormComponent implements OnInit {
     private municipioService:MunicipioService,private rolService: RolService,
     private generoService: GeneroService, private estadoService: EstadoCivilService,
     private especialidadService: EspecialidadService, private usuarioService: UsuarioService, private hospitalService: HospitalService,
-    public datepipe: DatePipe,private activatedRoute:ActivatedRoute, private router:Router ) { }
+    public datepipe: DatePipe,private activatedRoute:ActivatedRoute, private router:Router,
+    private authService : AuthService ) { }
 
   ngOnInit() {
     this.paisService.getPaises().subscribe(paises=>this.paises=paises)
@@ -56,7 +59,7 @@ export class UsuarioFormComponent implements OnInit {
     this.rolService.getRoles().subscribe(roles=>this.roless=roles)
     this.estadoService.getEstadosCiviles().subscribe(estadosciviles=>this.estadociviles=estadosciviles)
     this.especialidadService.getEspecialidades().subscribe(especialidades=>this.especialidades=especialidades)
-    this.hospitalService.getHospital(1).subscribe(hos =>this.hospital = hos)
+    this.usuarioService.getUsuarioPorUsername(this.authService.usuario.username).subscribe(user=>this.usuarioActual=user)
     this.usuario.pais={"id":54,"nombre":"El Salvador"}
     this.usuario.roles=[{"id":3,"nombre":"Medico"}]
     this.cargarUsuario()
@@ -68,7 +71,7 @@ export class UsuarioFormComponent implements OnInit {
 
   public create(): void{
 
-    this.usuario.hospital=this.hospital;
+    this.usuario.hospital=this.usuarioActual.hospital;
     console.log(this.usuario);
 
 
