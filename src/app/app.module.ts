@@ -36,6 +36,7 @@ import { PacienteService } from './services/paciente.service';
 import { DatePipe } from '@angular/common';
 import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
 import { ListadoPacientesRecComponent } from './home/content/recepcionista/listado-pacientes-rec/listado-pacientes-rec.component';
+import { ListadoPacientesEnfComponent } from './home/content/enfermero/listado-pacientes-enf/listado-pacientes-enf.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ListadoPacientesRecComponent } from './home/content/recepcionista/lista
     ListadoHistorialesComponent,
     SignosVitalesComponent,
     ListadoPacientesRecComponent,
+    ListadoPacientesEnfComponent,
   ],
   imports: [
     BrowserModule,

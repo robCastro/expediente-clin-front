@@ -46,10 +46,16 @@
           <p>Generos</p>
         </a>
       </li>
-      <li *ngIf="authService.hasRole('ROLE_Recepcionista')" class="nav-item active">
-        <a class="nav-link" routerLink="/home/paciente/crearPaciente">
+      <li *ngIf="authService.hasRole('ROLE_Enfermero')" class="nav-item active">
+        <a class="nav-link" routerLink="/home/listado_pacientes_enf">
           <i class="material-icons">content_paste</i>
-          <p>Crear Paciente</p>
+          <p>Lista de Pacientes</p>
+        </a>
+      </li>
+      <li *ngIf="authService.hasRole('ROLE_Recepcionista')" class="nav-item active">
+        <a class="nav-link" routerLink="/home/listado_pacientes_rec">
+          <i class="material-icons">content_paste</i>
+          <p>Lista de Pacientes</p>
         </a>
       </li>
       <li *ngIf="authService.hasRole('ROLE_AdminHosp')" class="nav-item active">

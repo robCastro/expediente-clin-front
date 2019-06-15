@@ -5,11 +5,11 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
-  selector: 'app-listado-pacientes-rec',
-  templateUrl: './listado-pacientes-rec.component.html',
-  styleUrls: ['./listado-pacientes-rec.component.css']
+  selector: 'app-listado-pacientes-enf',
+  templateUrl: './listado-pacientes-enf.component.html',
+  styleUrls: ['./listado-pacientes-enf.component.css']
 })
-export class ListadoPacientesRecComponent implements OnInit {
+export class ListadoPacientesEnfComponent implements OnInit {
 
   pacientes: Object[];
   usuarioActual: Usuario = new Usuario();
@@ -32,5 +32,4 @@ export class ListadoPacientesRecComponent implements OnInit {
       }
     )
   }
-
 }

@@ -105,5 +105,8 @@ export class PacienteService {
     return this.http.put<Paciente>(`${this.urlEndPoint}/${id}`, paciente, {headers: this.httpHeaders});
   }
 
+  getPacientesBasicos(id: number): Observable<Object[]> {
+    return this.http.get<Object[]>(`${this.urlEndPoint}/datos/${id}`)
+  }
 
 }

@@ -5,9 +5,6 @@
       <p class="card-category">Listado de pacientes del hospital</p>
     </div>
     <div class="card-body">
-      <button type="button" rel="tooltip" class="btn btn-rounded btn-primary"
-        [routerLink]="['/home/paciente/crearPaciente']">Nuevo
-      </button>
       <div class="table-responsive">
         <table class="table">
           <thead class=" text-success">
@@ -30,13 +27,9 @@
               <td>{{paciente[2]}}</td>
               <td>{{paciente[3] | date:'dd-MM-yyyy':'UTC'}}</td>
               <td>
-                <button type="button" rel="tooltip" click='seleccionar(paciente)' class="btn btn-success btn-fab btn-fab-mini"
-                  [routerLink]="['/home/paciente/crearPaciente',paciente[0]]">
-                  <i class="material-icons">create</i>
-                </button>
                 <button type="button" rel="tooltip" click='seleccionar(paciente)' class="btn btn-info btn-fab btn-fab-mini"
-                  [routerLink]="['/home/paciente/crearPaciente',paciente[0]]">
-                  <i class="material-icons">event</i>
+                  [routerLink]="['/home/historial_paciente',paciente[0]]">
+                  <i class="material-icons">assignment</i>
                 </button>
               </td>
             </tr>
@@ -46,3 +39,4 @@
     </div>
   </div>
 </div>
+

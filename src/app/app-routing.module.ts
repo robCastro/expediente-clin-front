@@ -25,6 +25,7 @@ import { AuthGuard } from './usuarios/guards/auth.guard';
 import { RoleGuard } from './usuarios/guards/role.guard';
 import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
 import { ListadoPacientesRecComponent } from './home/content/recepcionista/listado-pacientes-rec/listado-pacientes-rec.component';
+import { ListadoPacientesEnfComponent } from './home/content/enfermero/listado-pacientes-enf/listado-pacientes-enf.component';
 
 const routes: Routes = [
   {
@@ -98,8 +99,14 @@ const routes: Routes = [
         component: SignosVitalesComponent,
       },
       {
-        path:'listado_pacientes_rec/:id',
+        path:'listado_pacientes_rec',
         component: ListadoPacientesRecComponent,
+        canActivate:[AuthGuard]
+      },
+      {
+        path:'listado_pacientes_enf',
+        component: ListadoPacientesEnfComponent,
+        canActivate:[AuthGuard]
       },
 
     ]
