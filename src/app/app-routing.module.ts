@@ -21,6 +21,7 @@ import { ListadoPacientesComponent } from './home/content/admin-hospital/listado
 import {HistorialCrearComponent} from './home/content/shared/historial-crear/historial-crear.component';
 import {HistorialEditarComponent} from './home/content/shared/historial-editar/historial-editar.component';
 import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
+import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -100,6 +101,10 @@ const routes: Routes = [
       {
         path:'historial_paciente/:id',
         component: ListadoHistorialesComponent,
+      },
+      {
+        path:'cita',
+        component: CitaCrearComponent
       }
 
     ]

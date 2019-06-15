@@ -34,6 +34,7 @@ import { HistorialEditarComponent } from './home/content/shared/historial-editar
 import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
 import { PacienteService } from './services/paciente.service';
 import { DatePipe } from '@angular/common';
+import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { DatePipe } from '@angular/common';
     HistorialCrearComponent,
     HistorialEditarComponent,
     ListadoHistorialesComponent,
+    CitaCrearComponent,
   ],
   imports: [
     BrowserModule,
