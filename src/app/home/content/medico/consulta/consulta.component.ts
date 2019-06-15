@@ -6,7 +6,7 @@ import { EnfermedadService } from '../../../../services/enfermedad.service';
 import { ActivatedRoute } from '@angular/router';
 import { Consulta } from '../../../../models/consulta';
 import { ConsultaService } from '../../../../services/consulta.service';
-
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-consulta',
@@ -44,6 +44,20 @@ export class ConsultaComponent implements OnInit {
     });
   }
 
+  guardarDiagnostico(){
+    this.consultaService.updateDiagnostico(this.consulta).subscribe(resp => {
+      console.log(resp);
+      var strEnfermedad: String;
+      for(var i = 0; i<this.enfermedades.length; i++){
+        if(this.enfermedades[i].id === resp.consulta.enfermedad.id){
+          strEnfermedad = this.enfermedades[i].nombre;
+        }
+      }
+      swal.fire('Guardado', `Diagnostico realizado: ${strEnfermedad}, redirigiendo a tratamiento`, 'success');
+      //Redireccion a Tratamiento aqui
+    });
+  }
+
   private cargarConsulta(): void{
     this.activatedRoute.params.subscribe(params => {
       let id = params['id'];
@@ -57,4 +71,6 @@ export class ConsultaComponent implements OnInit {
       }
     });
   }
+
+
 }

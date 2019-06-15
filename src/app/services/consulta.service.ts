@@ -19,4 +19,8 @@ export class ConsultaService {
   getConsulta(id): Observable<Consulta> {
     return this.http.get<Consulta>(`${this.urlEndPoint}/${id}`);
   }
+
+  updateDiagnostico(consulta: Consulta): Observable<any>{
+    return this.http.put<any>(`${this.urlEndPoint}/diagnosticar/${consulta.id}`, consulta, {headers: this.httpHeaders});
+  }
 }
