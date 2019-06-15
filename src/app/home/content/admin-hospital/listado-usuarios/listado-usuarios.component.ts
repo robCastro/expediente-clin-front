@@ -4,6 +4,7 @@ import { HospitalService } from '../../../../services/hospital.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Usuario } from '../../../../models/usuario';
 import swal from 'sweetalert2';
+import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -20,34 +21,36 @@ export class ListadoUsuariosComponent implements OnInit {
   constructor(private usuarioService: UsuarioService,
               private hospitalService: HospitalService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private authService : AuthService) { }
 
   ngOnInit() {
     this.cargarUsuario();
   }
 
   cargarUsuario(): void{
-    this.activatedRoute.params.subscribe(
+    this.usuarioService.getUsuarioPorUsername(this.authService.usuario.username).subscribe(
+      user => {
+        this.usuario = user;
+        this.usuarioService.usuariosHabilitadosPorHosp(this.usuario.hospital.id).subscribe(
+          users => this.usuariosHabilitados = users
+        )
+        this.usuarioService.usuariosDeshabilitadosPorHosp(this.usuario.hospital.id).subscribe(
+          users => this.usuariosDeshabilitados = users
+        )
+        this.usuarioService.usuariosBloqueadosPorHosp(this.usuario.hospital.id).subscribe(
+          users => this.usuariosBloqueados = users
+        )
+      }
+    )
+    /*this.activatedRoute.params.subscribe(
       params => {
         let id = params['id'];
         if(id){
-          this.usuarioService.getUsuario(id).subscribe(
-            user => {
-              this.usuario = user;
-              this.usuarioService.usuariosHabilitadosPorHosp(this.usuario.hospital.id).subscribe(
-                users => this.usuariosHabilitados = users
-              )
-              this.usuarioService.usuariosDeshabilitadosPorHosp(this.usuario.hospital.id).subscribe(
-                users => this.usuariosDeshabilitados = users
-              )
-              this.usuarioService.usuariosBloqueadosPorHosp(this.usuario.hospital.id).subscribe(
-                users => this.usuariosBloqueados = users
-              )
-            }
-          )
+          //this.usuarioService.getUsuario(id).subscribe(
         }
       }
-    )
+    )*/
   }
 
   //Habilitar Usuario
@@ -66,8 +69,8 @@ export class ListadoUsuariosComponent implements OnInit {
         u.enabled = true
         this.usuarioService.habilitarUsuario(u).subscribe(
           response => {
-            this.router.navigateByUrl(`/usuarios/${this.usuario.id}`, {skipLocationChange: true}).then(()=>
-            this.router.navigate([`/home/usuarios/${this.usuario.id}`]));
+            this.router.navigateByUrl(`/usuarios`, {skipLocationChange: true}).then(()=>
+            this.router.navigate([`/home/usuarios`]));
           }
         )
       }
@@ -92,8 +95,8 @@ export class ListadoUsuariosComponent implements OnInit {
         this.usuarioService.deshabilitarUsuario(u).subscribe(
           response => {
             console.log('Dengados :(');
-            this.router.navigateByUrl(`/usuarios/${this.usuario.id}`, {skipLocationChange: true}).then(()=>
-            this.router.navigate([`/home/usuarios/${this.usuario.id}`]));
+            this.router.navigateByUrl(`/usuarios`, {skipLocationChange: true}).then(()=>
+            this.router.navigate([`/home/usuarios`]));
           }
         )
       }

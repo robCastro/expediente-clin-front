@@ -20,6 +20,7 @@ import swal from 'sweetalert2';
 import { Router,ActivatedRoute } from '@angular/router';
 import { Paciente } from 'src/app/models/paciente';
 import { DatePipe } from '@angular/common';
+import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
   selector: 'app-paciente-form',
@@ -41,6 +42,7 @@ export class PacienteFormComponent implements OnInit {
   paciente: Paciente= new Paciente();
   usuario: Usuario=new Usuario();
   idHospital:number;
+  usuarioActual:Usuario= new Usuario();
 
   constructor(private paisService: PaisService,
     private departamentoService:DepartamentoService,
@@ -50,6 +52,7 @@ export class PacienteFormComponent implements OnInit {
     private pacienteService: PacienteService,
     private router:Router,
     public datepipe:DatePipe,
+    private authService : AuthService,
     private activatedRoute : ActivatedRoute) { }
 
 
@@ -60,7 +63,7 @@ export class PacienteFormComponent implements OnInit {
       this.generoService.getGeneros().subscribe(generos=>this.generos=generos)
       this.rolService.getRol(6).subscribe(rol=>this.rol=rol)
       this.estadoService.getEstadosCiviles().subscribe(estadosciviles=>this.estadociviles=estadosciviles)
-      this.hospitalService.getHospital(1).subscribe(hos =>this.hospital = hos)
+      this.usuarioService.getUsuarioPorUsername(this.authService.usuario.username).subscribe(user=>this.usuarioActual=user)
       this.cargarPaciente()
       this.usuario.pais={"id":54,"nombre":"El Salvador"
     }
@@ -73,7 +76,7 @@ export class PacienteFormComponent implements OnInit {
 
     public create():void {
       this.usuario.roles=[this.rol]
-      this.usuario.hospital=this.hospital;
+      this.usuario.hospital=this.usuarioActual.hospital;
         this.usuarioService.createUsuarioPaciente(this.usuario).subscribe(
           usuarioNuevo=>{
             console.log(usuarioNuevo);

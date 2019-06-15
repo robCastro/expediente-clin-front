@@ -26,6 +26,10 @@ import { RoleGuard } from './usuarios/guards/role.guard';
 import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
 
 const routes: Routes = [
+  {
+    path:'usuario_form/:id',
+    component:UsuarioFormComponent
+  },
   { path: 'registrar_hospital', component: RegistrarHospitalComponent},
   { path: '', component: LoginComponent },
   { path: 'home',
@@ -46,11 +50,15 @@ const routes: Routes = [
       { path: 'paciente/crearPaciente/:id', component: PacienteFormComponent,canActivate:[AuthGuard]},
       { path: 'login',component: LoginComponent},
       { path: 'hospital',component: ListadoHospitalComponent},
-      { path: 'hospital/editar/:id',component: EditarHospitalComponent},
+      { path: 'hospital/editar',component: EditarHospitalComponent},
       {
-        path: 'usuarios/:id',
+        path:'usuario_form',
+        component:UsuarioFormComponent
+      },
+      {
+        path: 'usuarios',
         component: ListadoUsuariosComponent,
-        children: []
+        canActivate:[AuthGuard]
       },
       {
         path: '',
@@ -68,16 +76,9 @@ const routes: Routes = [
         component:EstadoFormComponent,canActivate:[AuthGuard]
       },
       {
-        path:'usuario_form',
-        component:UsuarioFormComponent
-      },
-      {
-        path:'usuario_form/:id',
-        component:UsuarioFormComponent
-      },
-      {
-        path:'pacientes/:id',
+        path:'pacientes',
         component: ListadoPacientesComponent,
+        canActivate:[AuthGuard]
       },
       {
         path:'historial_crear/:id',
