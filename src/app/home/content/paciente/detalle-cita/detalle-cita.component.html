@@ -1,0 +1,135 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="card-title">Tratamiento médico de {{consulta.paciente.usuario.nombres}}</h4>
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Datos de Paciente</h4>
+            <p class="card-category">Datos personales del paciente</p>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="row">
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label >nombre: </label>
+                  </div>
+                </div>
+
+                <div class="col-md-11">
+                  <div class="form-group">
+                    <label >{{consulta.paciente.usuario.nombres}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label >apellido: </label>
+                  </div>
+                </div>
+
+                <div class="col-md-11">
+                  <div class="form-group">
+                    <label >{{consulta.paciente.usuario.apellidos}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label >Enfermedad:</label>
+                  </div>
+                </div>
+
+                <div class="col-md-11">
+                  <div class="form-group">
+                    <label >{{consulta.enfermedad.nombre}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Sintomatologia</h4>
+            <p class="card-category">Descripción detallada de los sintomas del paciente</p>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label >{{consulta.sintoma}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Tratamiento</h4>
+        <p class="card-category">Listado de Medicamentos Recetados</p>
+      </div>
+      <div class="card-body">
+        <div class="row"></div>
+        <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-success">
+                      <th>
+                        Nombre
+                      </th>
+                      <th>
+                        Inicio
+                      </th>
+                      <th>
+                        Fin
+                      </th>
+                      <th>
+                        Frecuencia
+                      </th>
+                      <th>
+                        Dosis
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let trata of tratamientos">
+                        <td>{{trata.medicamento.nombre}}</td>
+                        <td>{{trata.fechaInicio | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{trata.fechaFin | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{trata.frecuencia}}</td>
+                        <td>{{trata.dosis}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+          </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</div>

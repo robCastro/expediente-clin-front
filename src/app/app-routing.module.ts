@@ -24,12 +24,16 @@ import { ListadoHistorialesComponent } from './home/content/shared/listado-histo
 import { AuthGuard } from './usuarios/guards/auth.guard';
 import { RoleGuard } from './usuarios/guards/role.guard';
 import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
+import {TratamientoComponent} from './home/content/medico/tratamiento/tratamiento.component';
+import {DetalleCitaComponent} from './home/content/paciente/detalle-cita/detalle-cita.component';
 
 const routes: Routes = [
   {
     path:'usuario_form/:id',
     component:UsuarioFormComponent
   },
+  { path: 'tratamiento/:id', component: TratamientoComponent},
+  { path: 'detalle_cita/:id', component: DetalleCitaComponent},
   { path: 'registrar_hospital', component: RegistrarHospitalComponent},
   { path: '', component: LoginComponent },
   { path: 'home',
