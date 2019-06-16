@@ -22,6 +22,7 @@ export class CitaCrearComponent implements OnInit {
   cita_nueva: Consulta = new Consulta();
   paciente: Paciente = new Paciente();
   doctor: Usuario = new Usuario();
+  doctores: Usuario[];
   fecha: string;
 
   //Eventos del FullCalendar.
@@ -37,7 +38,8 @@ export class CitaCrearComponent implements OnInit {
     if (start.isAfter(moment())) {
       swal.fire({
         title: '¿Desea reservar cita?',
-        text: "Fecha de reserva: "+ start.format('DD-MM-YYYY') + " y su hora de reserva: "+ start.format("h(:mm)a"),
+        text: "Fecha de reserva: "+ start.format('DD-MM-YYYY') + " y su hora de reserva: "+ start.format("h(:mm)a")
+              + " con el Doctor: "+this.doctor.nombres,
         type: 'question',
         showCancelButton: true,
         confirmButtonColor: 'btn btn-primary',
@@ -64,107 +66,108 @@ export class CitaCrearComponent implements OnInit {
   //ngOnInit
   ngOnInit(){
 
-    //Desplegar las fechas de las citas por doctor y el hospital del paciente.
-    this.citasService.citasPorDoctor('3','1').subscribe(
-    
-      citas_service => {
-
-        this.citas = citas_service;
-        var nueva_fecha_fin = [];
-        for(var i =0; i < this.citas.length; i++) 
-        {
-          if(parseInt(this.citas[i].hora)<=9){
-            this.citas[i].hora = "0"+this.citas[i].hora;
-          } 
-
-          nueva_fecha_fin[i] = parseInt(this.citas[i].hora)+1;
-          if(nueva_fecha_fin[i]<=9){
-            nueva_fecha_fin[i] = "0"+nueva_fecha_fin[i];
-          } 
-
-          console.log(
-            "Inicio" +
-            new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00")
-            +"Fin"+
-            new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
-          );
-
-          //Insertando en el Array de Eventos para desplegar el FullCalendar.
-          this.eventos.push( 
-            {
-              title: this.citas[i].usuario.nombres, 
-              start: new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00"),
-              end: new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
-            })
-        }
-
-        //FullCalendar.
-        $('#calendar').fullCalendar({
-          defaultView: 'agendaDay',
-          selectable: true,
-          minTime: "08:00:00",
-          maxTime: "17:00:00",
-          slotDuration: '00:60:00',
-          slotLabelInterval: 15,
-          slotLabelFormat: 'h(:mm)a',
-          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'agendaDay,agendaWeek,listDay'
-          },
-          events: this.eventos,
-          businessHours: [{
-            dow: [1, 2, 3, 4, 5], // Monday - Friday
-            start: '08:00',
-            end: '12:00',
-          }, {
-            dow: [1, 2, 3, 4, 5], // Monday - Friday (if adding lunch hours)
-            start: '13:00',
-            end: '17:00',
-          }],
-          selectConstraint: "businessHours",
-          /*select: function(start, end, jsEvent, view) {
-            if (start.isAfter(moment())) {
-      
-              var eventTitle = prompt("Provide Event Title");
-              if (eventTitle) {
-                $("#calendar").fullCalendar('renderEvent', {
-                  title: eventTitle,
-                  start: start,
-                  end: end,
-                  stick: true
-                });
-                alert('Appointment booked at: ' + start.format("h(:mm)a"));
-                console.log('Clicked on: ' + start.format());
-              }
-            } else {
-              alert('Cannot book an appointment in the past');
-            }
-          },*/
-          select: (start, end, jsEvent, view) => {
-            this.select(start, end, jsEvent, view);
-          },
-          eventClick: function(calEvent, jsEvent, view) {
-            alert('Event: ' + calEvent.title);
-          },
-        });
-
-
-      }
+    //Los doctores del hospital especifico (del hospital del paciente u enfermera).
+    this.doctorService.doctoresPorHospital(1).subscribe(
+      doc => this.doctores = doc
     )
 
+    //El paciente que se encuentra en sesion. Por el momento esta quemado.
     this.pacienteService.getPaciente(1).subscribe(
       pacient => this.paciente = pacient
     )
 
-    this.doctorService.getUsuario(3).subscribe(
-      doc => this.doctor = doc
-    )
-
-    console.log(this.eventos);
-
   } // Fin ngOnInit
 
+  calendario(id: any): void{
+    //El doctor especifico.
+    if (id == "0"){
+
+    } else {
+      console.log(id);
+      //Inicializando eventos otra vez a 0 para que no guarde nada.
+      this.eventos = [];
+      this.doctorService.getUsuario(id).subscribe(
+
+        doc => {
+          this.doctor = doc;
+            //Desplegar las fechas de las citas por doctor y el hospital del paciente.
+            this.citasService.citasPorDoctor((id).toString(),'1').subscribe(
+            
+              citas_service => {
+  
+                this.citas = citas_service;
+                var nueva_fecha_fin = [];
+                for(var i =0; i < this.citas.length; i++) 
+                {
+                  if(parseInt(this.citas[i].hora)<=9){
+                    this.citas[i].hora = "0"+this.citas[i].hora;
+                  } 
+  
+                  nueva_fecha_fin[i] = parseInt(this.citas[i].hora)+1;
+                  if(nueva_fecha_fin[i]<=9){
+                    nueva_fecha_fin[i] = "0"+nueva_fecha_fin[i];
+                  } 
+  
+                  console.log(
+                    "Inicio" +
+                    new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00")
+                    +"Fin"+
+                    new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
+                  );
+  
+                  //Insertando en el Array de Eventos para desplegar el FullCalendar.
+                  this.eventos.push( 
+                    {
+                      title: this.citas[i].usuario.nombres, 
+                      start: new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00"),
+                      end: new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
+                    })
+                }
+  
+                //FullCalendar.
+                $("#calendar").fullCalendar("destroy");
+                $("#calendar").fullCalendar("render");
+                $('#calendar').fullCalendar({
+                  locale: 'es',
+                  contentHeight: "auto",
+                  defaultView: 'agendaDay',
+                  selectable: true,
+                  minTime: "08:00:00",
+                  maxTime: "17:00:00",
+                  slotDuration: '00:60:00',
+                  slotLabelInterval: 15,
+                  slotLabelFormat: 'h(:mm)a',
+                  header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaDay,agendaWeek,listDay'
+                  },
+                  events: this.eventos,
+                  businessHours: [{
+                    dow: [1, 2, 3, 4, 5], // Monday - Friday
+                    start: '08:00',
+                    end: '12:00',
+                  }, {
+                    dow: [1, 2, 3, 4, 5], // Monday - Friday (if adding lunch hours)
+                    start: '13:00',
+                    end: '17:00',
+                  }],
+                  selectConstraint: "businessHours",
+                  select: (start, end, jsEvent, view) => {
+                    this.select(start, end, jsEvent, view);
+                  },
+                  eventClick: function(calEvent, jsEvent, view) {
+                    alert('Event: ' + calEvent.title);
+                  },
+                });
+                console.log(this.eventos);
+              }
+            )
+        }
+      )
+    }
+
+  }
 
   crear_cita(time, hour): void {
  

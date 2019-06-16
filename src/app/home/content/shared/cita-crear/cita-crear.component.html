@@ -1,13 +1,48 @@
-<div class="card card-nav-tabs text-center">
-  <div class="card-header card-header-rose">
-      <h4 class="card-title">Calendarización de citas</h4>
-      <p class="card-category">Por doctor.</p>
-  </div>
-  <div class="card-body">
-    <!--Calendario-->
-    <div id="calendar"></div>
-  </div>
-  <div class="card-footer text-muted">
-    <button  class="btn btn-primary">Crear cita</button>
+<h2><strong>Crear nueva cita</strong></h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">face</i>
+              </div>
+              <p class="card-category">Doctores</p>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Seleccione el doctor de su preferencia.</h4>
+                <div class="form-group col-md-12">
+                    <select class="form-control selectpicker" #doctor data-style="btn btn-link" id="exampleFormControlSelect1"
+                    (change)="calendario($event.target.value)">
+                      <option value="0">Seleccione un doctor</option>
+                      <option *ngFor="let d of doctores" value="{{d.id}}">
+                        {{d.nombres}}
+                      </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+  <div class="col-md-8">
+      <div class="card text-center card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">calendar_today</i>
+            </div>
+            <p class="card-category">Calendarización de citas</p>
+          </div>
+          <div class="card-body">
+              <div class="alert alert-rose">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="material-icons">close</i>
+                  </button>
+                  <span>Seleccione el doctor y luego <strong>seleccione la fecha</strong> para reservar cita.</span>
+              </div>
+            <!--Calendario-->
+            <div id="calendar"></div>
+          </div>
+      </div>
   </div>
 </div>
+  
