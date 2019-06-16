@@ -25,7 +25,8 @@
             "styles": [
               "src/styles.css",
               "src/assets/css/material-dashboard.css",
-              "node_modules/sweetalert2/dist/sweetalert2.min.css"
+              "node_modules/sweetalert2/dist/sweetalert2.min.css",
+              "node_modules/fullcalendar/dist/fullcalendar.min.css"
             ],
             "scripts": [
               "src/assets/js/core/jquery.min.js",
@@ -35,7 +36,8 @@
               "src/assets/js/plugins/chartist.min.js",
               "src/assets/js/plugins/bootstrap-notify.js",
               "src/assets/js/material-dashboard.js",
-              "node_modules/sweetalert2/dist/sweetalert2.min.js"   
+              "node_modules/sweetalert2/dist/sweetalert2.min.js",
+              "node_modules/fullcalendar/dist/locale/es.js"  
             ],
             "es5BrowserSupport": true
           },

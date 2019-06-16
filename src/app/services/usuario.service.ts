@@ -19,6 +19,7 @@ export class UsuarioService {
   private urlUserHabHosp: string = 'http://127.0.0.1:8080/usuario/habilitado/hospital';
   private urlUserDeshabHosp: string = 'http://127.0.0.1:8080/usuario/deshabilitado/hospital';
   private urlUserBloqHosp: string =  'http://localhost:8080/usuario/bloqueado/hospital';
+  private urlDocHosp: string = 'http://127.0.0.1:8080/cita/doctores/hospital';
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
 
   constructor(private http: HttpClient,private router: Router,
@@ -117,9 +118,15 @@ export class UsuarioService {
       })
     );
   }
+
   //Actualizar usuario de paciente
     update(usuario: Usuario): Observable<Usuario>{
     return this.http.put<Usuario>(`${this.urlEndPoint}/${usuario.id}`, usuario, {headers: this.httpHeaders});
   }
 
+  // Obtener doctores por hospital para las citas.
+  public doctoresPorHospital(id: number): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(`${this.urlDocHosp}/${id}`);
+  }
+  
 }

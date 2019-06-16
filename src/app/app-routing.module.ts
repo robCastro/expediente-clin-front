@@ -22,6 +22,7 @@ import {HistorialCrearComponent} from './home/content/shared/historial-crear/his
 import {HistorialEditarComponent} from './home/content/shared/historial-editar/historial-editar.component';
 import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
 import { AuthGuard } from './usuarios/guards/auth.guard';
+import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
 import { RoleGuard } from './usuarios/guards/role.guard';
 
 const routes: Routes = [
@@ -90,6 +91,10 @@ const routes: Routes = [
       {
         path:'historial_paciente/:id',
         component: ListadoHistorialesComponent,
+      },
+      {
+        path:'cita',
+        component: CitaCrearComponent
       }
 
     ]
