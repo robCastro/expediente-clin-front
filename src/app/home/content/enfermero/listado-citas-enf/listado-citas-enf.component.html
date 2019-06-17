@@ -1,0 +1,88 @@
+<h2><strong>Citas</strong></h2>
+
+<br>
+<strong>Usuario Actual:</strong> {{usuarioActual.username}}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-success">
+        <h3 class="card-title ">Pendientes</h3>
+        <p class="card-category">Citas Pendientes</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-success">
+              <th>
+                Paciente
+              </th>
+              <th>
+                Fecha
+              </th>
+              <th>
+                Hora
+              </th>
+              <th>
+                Doctor
+              </th>
+              <th>
+                Signos Vitales
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of citasPendientes">
+                <td>{{c.paciente.usuario.nombres}}</td>
+                <td>{{c.fecha}}</td>
+                <td>{{c.hora}}</td>
+                <td>{{c.usuario.nombres}}</td>
+                <td>
+                  <button type="button" routerLink="" rel="tooltip" class="btn  btn-fab-mini btn-just-icon ">
+                    <i class="material-icons">asignación</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h3 class="card-title ">Pasadas</h3>
+        <p class="card-category">Citas Pasadas</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-success">
+              <th>
+                Paciente
+              </th>
+              <th>
+                Fecha
+              </th>
+              <th>
+                Hora
+              </th>
+              <th>
+                Doctor
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of citasPasadas">
+                <td>{{c.paciente.usuario.nombres}}</td>
+                <td>{{c.fecha}}</td>
+                <td>{{c.hora}}</td>
+                <td>{{c.usuario.nombres}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

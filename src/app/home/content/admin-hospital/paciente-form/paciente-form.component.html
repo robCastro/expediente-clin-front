@@ -138,9 +138,11 @@
                 </div>
               </div>
               </div>
+              </div>
               <div class="row">
                 <div class="col-md-12">
-                <div class="card-header card-header-primary">
+                  <div class="card">
+                    <div class="card-header card-header-primary">
                   <h4 class="card-title">Datos de Emergencia</h4>
                 </div>
 
@@ -166,6 +168,7 @@
                       </div>
                     </div>
                   </div>
+                  </div>
                 </div>
 
               <button type="submit" class="btn btn-primary pull-right" (click)='create()' *ngIf="!paciente.id else elseBlock" [disabled]="nombres.invalid || apellidos.invalid || email.invalid || telefono.invalid || fecha.invalid">Guardar</button>
@@ -173,9 +176,8 @@
               <button type="submit" class="btn btn-primary pull-right" (click)='update()'>Editar</button>
               </ng-template>
 
-
             <div class="clearfix"></div>
-        </div>
+
         </div>
       </div>
     </div>

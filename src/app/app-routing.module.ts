@@ -24,6 +24,9 @@ import { ListadoHistorialesComponent } from './home/content/shared/listado-histo
 import { AuthGuard } from './usuarios/guards/auth.guard';
 import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
 import { RoleGuard } from './usuarios/guards/role.guard';
+import { ListadoCitasComponent } from './home/content/recepcionista/listado-citas/listado-citas.component';
+import { ListadoCitasEnfComponent } from './home/content/enfermero/listado-citas-enf/listado-citas-enf.component';
+import { ListadoCitasDocComponent } from './home/content/medico/listado-citas-doc/listado-citas-doc.component';
 
 const routes: Routes = [
   {
@@ -50,7 +53,9 @@ const routes: Routes = [
       { path: 'paciente/crearPaciente/:id', component: PacienteFormComponent,canActivate:[AuthGuard]},
       { path: 'login',component: LoginComponent},
       { path: 'hospital',component: ListadoHospitalComponent},
-      { path: 'hospital/editar',component: EditarHospitalComponent},
+      { path: 'citas',component: ListadoCitasComponent},
+      { path: 'citasEnf',component: ListadoCitasEnfComponent},
+      { path: 'citasDoc',component: ListadoCitasDocComponent},
       {
         path:'usuario_form',
         component:UsuarioFormComponent

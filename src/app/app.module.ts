@@ -35,6 +35,9 @@ import { ListadoHistorialesComponent } from './home/content/shared/listado-histo
 import { PacienteService } from './services/paciente.service';
 import { DatePipe } from '@angular/common';
 import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
+import { ListadoCitasComponent } from './home/content/recepcionista/listado-citas/listado-citas.component';
+import { ListadoCitasEnfComponent } from './home/content/enfermero/listado-citas-enf/listado-citas-enf.component';
+import { ListadoCitasDocComponent } from './home/content/medico/listado-citas-doc/listado-citas-doc.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +67,9 @@ import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.
     HistorialEditarComponent,
     ListadoHistorialesComponent,
     CitaCrearComponent,
+    ListadoCitasComponent,
+    ListadoCitasEnfComponent,
+    ListadoCitasDocComponent,
   ],
   imports: [
     BrowserModule,

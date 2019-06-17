@@ -65,6 +65,24 @@
           <p>Lista de Usuarios</p>
         </a>
       </li>
+      <li *ngIf="authService.hasRole('ROLE_Recepcionista')" class="nav-item active">
+        <a class="nav-link" [routerLink]="['/home/citas']">
+          <i class="material-icons">content_paste</i>
+          <p>Lista de Citas</p>
+        </a>
+      </li>
+      <li *ngIf="authService.hasRole('ROLE_Enfermero')" class="nav-item active">
+        <a class="nav-link" [routerLink]="['/home/citasEnf']">
+          <i class="material-icons">content_paste</i>
+          <p>Lista de Citas</p>
+        </a>
+      </li>
+      <li *ngIf="authService.hasRole('ROLE_Medico')" class="nav-item active">
+        <a class="nav-link" [routerLink]="['/home/citasDoc']">
+          <i class="material-icons">content_paste</i>
+          <p>Lista de Citas</p>
+        </a>
+      </li>
     </ul>
   </div>
 </div>
