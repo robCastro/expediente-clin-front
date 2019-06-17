@@ -22,6 +22,7 @@ import {HistorialCrearComponent} from './home/content/shared/historial-crear/his
 import {HistorialEditarComponent} from './home/content/shared/historial-editar/historial-editar.component';
 import { ListadoHistorialesComponent } from './home/content/shared/listado-historiales/listado-historiales.component';
 import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
+import { CitaListaComponent } from './home/content/paciente/cita-lista/cita-lista.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -103,8 +104,12 @@ const routes: Routes = [
         component: ListadoHistorialesComponent,
       },
       {
-        path:'cita',
-        component: CitaCrearComponent
+        path:'cita/:id',
+        component: CitaCrearComponent,
+      },
+      {
+        path:'cita_listado/:id',
+        component: CitaListaComponent,
       }
 
     ]
