@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Consulta } from '../models/consulta';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -45,11 +47,21 @@ export class CitaService {
 
   //Crear Cita.
   create(cita: Consulta): Observable<Consulta> {
-    return this.http.post<Consulta>(this.urlEndPointCreate, cita, {headers: this.httpHeaders});
+    return this.http.post<Consulta>(this.urlEndPointCreate, cita, {headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        swal.fire('Error al crear', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
   }
 
   //Eliminar físicamente la cita (unicamente si no es consulta).
   delete(id:number): Observable<Consulta>{
-    return this.http.delete<Consulta>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders})
+    return this.http.delete<Consulta>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        swal.fire('Error al eliminar', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    )
   }
 }

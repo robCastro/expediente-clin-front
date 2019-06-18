@@ -6,12 +6,17 @@
         <p class="card-category">Datos básicos del Hospital.</p>
       </div>
       <div class="card-body">
-        <form>
+        <form #editarForm="ngForm">
           <div class="row">
             <div class="col-md-8">
               <div class="form-group">
                 <label for="nombre" class="label-floating">Nombre</label>
-                <input type="text" class="form-control" [(ngModel)]="hospital.nombre" name="nombre">
+                <input type="text" class="form-control" [(ngModel)]="hospital.nombre" name="nombre" required #nombre="ngModel">
+                <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                  <div *ngIf="nombre.errors.required">
+                    Nombre es requerido.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -19,7 +24,12 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="fecha" class="label-floating">Fecha</label>
-                <input class="form-control" [ngModel]="hospital.fecha | date:'yyyy-MM-dd'" (ngModelChange)="hospital.fecha = $event" type="date" name="fecha" required/>
+                <input class="form-control" [ngModel]="hospital.fecha | date:'yyyy-MM-dd'" (ngModelChange)="hospital.fecha = $event" type="date" name="fecha" required #fecha="ngModel"/>
+                <div class="alert alert-danger" *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)">
+                    <div *ngIf="fecha.errors.required">
+                      Fecha es requerida
+                    </div>
+                </div>
               </div>
             </div>
           </div>
@@ -27,7 +37,15 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="telefono" class="label-floating">Telefóno</label>
-                <input type="text" class="form-control" [(ngModel)]="hospital.telefono" name="telefono">
+                <input type="text" class="form-control" [(ngModel)]="hospital.telefono" name="telefono" pattern="[0-9]{4}[-]{1}[0-9]{4}" #telefono="ngModel">
+                <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                  <div *ngIf="telefono.errors.required">
+                      Telefono es requerido.
+                  </div>   
+                  <div *ngIf="telefono.errors.pattern">
+                      Teléfono debe tener un formato válido ####-####
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -35,9 +53,14 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="pais">País</label>
-                <select (change)="cargarDepartamentos()"class="form-control selectpicker" data-style="btn btn-link" name="pais" id="pais" [(ngModel)]="hospital.pais.id">
+                <select (change)="cargarDepartamentos()"class="form-control selectpicker" data-style="btn btn-link" name="pais" id="pais" [(ngModel)]="hospital.pais.id" required #p="ngModel">
                     <option *ngFor="let p of paises" [value]="p.id" [selected]="p.id === pais.id" >{{p.nombre}}</option>
                 </select>
+                <div class="alert alert-danger" *ngIf="p.invalid && (p.dirty || p.touched)">
+                    <div *ngIf="p.errors.required">
+                      Pais es requerido
+                    </div>
+                </div>
               </div>
             </div>
             <!--<div class="col-md-4">
@@ -73,11 +96,16 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="detalle" class="label-floating">Dirección</label>
-                  <input type="text" class="form-control" name="detalle" [(ngModel)]="hospital.detalle">
+                  <input type="text" class="form-control" name="detalle" [(ngModel)]="hospital.detalle" required #direccion="ngModel" >
+                  <div class="alert alert-danger" *ngIf="p.invalid && (p.dirty || p.touched)">
+                      <div *ngIf="direccion.errors.required">
+                        Dirección es requerida
+                      </div>
+                  </div>
                 </div>
               </div>
           </div>
-          <button type="submit"  (click)="updateHospital()" class="btn btn-info pull-left">Editar</button>
+          <button type="submit"  (click)="updateHospital()" class="btn btn-info pull-left" [disabled]="!editarForm.form.valid">Editar</button>
           <button type="submit"  (click)="updateHospital()" class="btn btn-danger pull-right">Desactivar</button>
           <div class="clearfix"></div>
         </form>

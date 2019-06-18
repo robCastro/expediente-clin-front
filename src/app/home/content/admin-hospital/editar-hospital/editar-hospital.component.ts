@@ -11,6 +11,7 @@ import { Pais } from '../../../../models/pais';
 import { Departamento } from '../../../../models/departamento';
 import { Municipio } from '../../../../models/municipio';
 import swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-editar-hospital',
@@ -38,7 +39,8 @@ export class EditarHospitalComponent implements OnInit {
               private departamentoService: DepartamentoService,
               private municipioService: MunicipioService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              public datepipe:DatePipe) { }
 
   ngOnInit() {
     this.cargarUsuario();
