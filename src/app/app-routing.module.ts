@@ -25,6 +25,7 @@ import { AuthGuard } from './usuarios/guards/auth.guard';
 import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
 import { RoleGuard } from './usuarios/guards/role.guard';
 import { CitaListaComponent } from './home/content/paciente/cita-lista/cita-lista.component';
+import { ConsultaComponent } from './home/content/medico/consulta/consulta.component';
 import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
 import { ListadoCitasComponent } from './home/content/recepcionista/listado-citas/listado-citas.component';
 import { ListadoPacientesRecComponent } from './home/content/recepcionista/listado-pacientes-rec/listado-pacientes-rec.component';
@@ -33,6 +34,7 @@ import { ListadoPacientesEnfComponent } from './home/content/enfermero/listado-p
 import { ListadoCitasDocComponent } from './home/content/medico/listado-citas-doc/listado-citas-doc.component';
 
 const routes: Routes = [
+
   {
     path:'usuario_form/:id',
     component:UsuarioFormComponent
@@ -49,6 +51,7 @@ const routes: Routes = [
       },
       { path: 'especialidad', component: EspecialidadComponent, canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
       { path: 'especialidad/crear', component: CrearComponent,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
+      { path: 'medico/consulta/:id',component: ConsultaComponent, canActivate:[AuthGuard]},
       { path: 'especialidad/crear/:id', component: CrearComponent,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
       { path: 'genero', component: GeneroComponent,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},
       { path: 'genero/crear1', component: Crear1Component,canActivate:[AuthGuard],data: {role: 'ROLE_AdminGen'}},

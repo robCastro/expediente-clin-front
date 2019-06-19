@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h3 class="card-title "><span><i class="material-icons">face</i></span> Datos de Paciente</h3>
+          <p class="card-category">Datos personales del paciente</p>
+        </div>
+        <div class="card-body ml-4">
+            <div class="input group col-md-10">
+              <input type="text" class="form-control" name="nomPac" placeholder="{{consulta.paciente.usuario.nombres}}" disabled>
+            </div>
+            <div class="input group col-md-10 my-1">
+              <input type="text" class="form-control" name="apePac" placeholder="{{consulta.paciente.usuario.apellidos}}" disabled>
+            </div>
+            <div class="form-row col-md-12 my-3">
+              <div class="form-group col-md-5">
+                <label>Fecha de Nacimiento</label>
+                <input type="date" class="form-control my-1" name="fecPac" value="{{consulta.paciente.usuario.fecha}}" disabled>
+              </div>
+              <div class="col-md-3"></div>
+              <div class="form-group col-md-4" >
+                <a href="#">Historial Clinico</a>
+              </div>
+              <div class="col-md-1"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header card-header-info">
+          <h4 class="card-title "><span><i class="material-icons">favorite_border</i></span> Signos Vitales</h4>
+        </div>
+        <div class="card-body mx-2">
+          <div class="row">
+            <div class="form-group col-md-12">
+              <input class="form-control" type="text" placeholder="{{consulta.peso}} Kg" disabled>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <input class="form-control" type="text" placeholder="{{consulta.estatura}} cm" disabled>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <input class="form-control" type="text" placeholder="{{consulta.temperatura}} °C" disabled>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <input class="form-control" type="text" placeholder="{{consulta.ritmo}} /s" disabled>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <input class="form-control" type="text" placeholder="{{consulta.presion}} mm Hg" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<form #consultaForm="ngForm">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header card-header-warning">
+            <h3 class="card-title"><span><i class="material-icons">view_headline</i></span> Sintomatología</h3>
+            <p class="card-category">Sintomas que presenta el paciente</p>
+        </div>
+        <div class="card-body mx-4">
+          <div class="row">
+            <div class="col-md-12 mt-3">
+              <textarea [(ngModel)]="consulta.sintoma" class="form-control"
+               maxlength="2048" placeholder="Descripción detallada de maximo 2048 caracteres"
+               name="sintoma" id="" cols="30" rows="10" required #sintoma="ngModel"></textarea>
+              <div class="alert alert-danger" *ngIf="sintoma.invalid && (sintoma.dirty || sintoma.touched)">
+                <div *ngIf="sintoma.errors.required">
+                  Sintomas es Requerido
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header card-header-info">
+            <h4 class="card-title"><span><i class="material-icons">local_hospital</i></span> Diagnostico</h4>
+        </div>
+        <div class="card-body mx-2">
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label>Tipo de Enfermedad</label>
+              <select class="form-control" #tipo (change)="obtenerEnfermedades(tipo.value)" id="slcTipo">
+                <option *ngFor="let tipo of tiposEnfermedades" value="{{tipo.id}}">{{tipo.nombre}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label>Enfermedad</label>
+              <select class="form-control" #enfermedad [(ngModel)]="consulta.enfermedad" name="enfermedad">
+                <option *ngFor="let enfermedad of enfermedades" [ngValue]="enfermedad">{{enfermedad.nombre}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" (click)="guardarDiagnostico()" class="btn btn-success pull-right">Guardar</button>
+    </div>
+  </div>
+</form>

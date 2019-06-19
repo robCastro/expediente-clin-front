@@ -36,7 +36,7 @@
                 <td>{{c.hora}}</td>
                 <td>{{c.usuario.nombres}}</td>
                 <td>
-                  <button type="button"  rel="tooltip" routerLink="" rel="tooltip" class="btn  btn-fab-mini btn-just-icon ">
+                  <button type="button"  rel="tooltip" [routerLink]="['/home/medico/consulta',c.id]" rel="tooltip" class="btn  btn-fab-mini btn-just-icon ">
                     <i class="material-icons">event</i>
                   </button>
                 </td>
