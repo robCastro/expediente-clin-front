@@ -83,6 +83,12 @@
           <p>Lista de Citas</p>
         </a>
       </li>
+      <li *ngIf="authService.hasRole('ROLE_Paciente')" class="nav-item active">
+        <a class="nav-link" [routerLink]="['/home/cita_listado']">
+          <i class="material-icons">content_paste</i>
+          <p>Mis Citas</p>
+        </a>
+      </li>
     </ul>
   </div>
 </div>

@@ -36,6 +36,7 @@ import { PacienteService } from './services/paciente.service';
 import { DatePipe } from '@angular/common';
 import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
 import { ListadoCitasComponent } from './home/content/recepcionista/listado-citas/listado-citas.component';
+import { CitaListaComponent } from './home/content/paciente/cita-lista/cita-lista.component';
 import { ListadoCitasEnfComponent } from './home/content/enfermero/listado-citas-enf/listado-citas-enf.component';
 import { ListadoCitasDocComponent } from './home/content/medico/listado-citas-doc/listado-citas-doc.component';
 
@@ -68,6 +69,7 @@ import { ListadoCitasDocComponent } from './home/content/medico/listado-citas-do
     ListadoHistorialesComponent,
     CitaCrearComponent,
     ListadoCitasComponent,
+    CitaListaComponent,
     ListadoCitasEnfComponent,
     ListadoCitasDocComponent,
   ],

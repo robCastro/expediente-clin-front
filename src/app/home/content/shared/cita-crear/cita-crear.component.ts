@@ -9,6 +9,7 @@ import { Usuario } from '../../../../models/usuario';
 import { CitaService } from '../../../../services/cita.service';
 import { PacienteService } from '../../../../services/paciente.service';
 import { UsuarioService } from '../../../../services/usuario.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cita-crear',
@@ -30,7 +31,9 @@ export class CitaCrearComponent implements OnInit {
 
   constructor(private citasService: CitaService, 
               private pacienteService: PacienteService,
-              private doctorService: UsuarioService) {}
+              private doctorService: UsuarioService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {}
 
   //Select del FullCalendar e Inicio para Crear una Cita.            
   select(start, end, jsEvent, view){
@@ -66,15 +69,24 @@ export class CitaCrearComponent implements OnInit {
   //ngOnInit
   ngOnInit(){
 
-    //Los doctores del hospital especifico (del hospital del paciente u enfermera).
-    this.doctorService.doctoresPorHospital(1).subscribe(
-      doc => this.doctores = doc
-    )
-
-    //El paciente que se encuentra en sesion. Por el momento esta quemado.
-    this.pacienteService.getPaciente(1).subscribe(
-      pacient => this.paciente = pacient
-    )
+    //El paciente que se encuentra en sesion o el que pondra el recepcionista.
+    this.activatedRoute.params.subscribe(
+      params => {
+        let id = params['id'];
+        if(id){
+          //Obtencion del paciente.
+          this.pacienteService.getPaciente(id).subscribe(
+            pacient => {
+              this.paciente = pacient;
+                //Los doctores del hospital especifico (del hospital del paciente u enfermera).
+                this.doctorService.doctoresPorHospital(this.paciente.usuario.hospital.id).subscribe(
+                  doc => this.doctores = doc
+                )
+            }
+          )
+        }
+      }
+    );
 
   } // Fin ngOnInit
 
@@ -91,7 +103,7 @@ export class CitaCrearComponent implements OnInit {
         doc => {
           this.doctor = doc;
             //Desplegar las fechas de las citas por doctor y el hospital del paciente.
-            this.citasService.citasPorDoctor((id).toString(),'1').subscribe(
+            this.citasService.citasPorDoctor((id).toString(), (this.paciente.usuario.hospital.id).toString()).subscribe(
             
               citas_service => {
   
@@ -157,7 +169,15 @@ export class CitaCrearComponent implements OnInit {
                     this.select(start, end, jsEvent, view);
                   },
                   eventClick: function(calEvent, jsEvent, view) {
-                    alert('Event: ' + calEvent.title);
+                    var inicio_date = new Date((calEvent.start).toString());
+                    var inicio_moment = moment(inicio_date).format('DD-MM-YYYY h:mma');
+                    var fin_date = new Date((calEvent.end).toString());
+                    var fin_moment = moment(fin_date).format('DD-MM-YYYY h:mma');
+
+                    swal.fire({
+                      title: 'Cita',
+                      html: `Cita doctor: ${calEvent.title} <br> <strong>Inicio</strong>: ${inicio_moment} <br> <strong>Fin</strong>: ${fin_moment}`,
+                    })
                   },
                 });
                 console.log(this.eventos);
@@ -188,6 +208,8 @@ export class CitaCrearComponent implements OnInit {
     this.citasService.create(this.cita_nueva).subscribe(
       response => {
         console.log(this.cita_nueva);
+        this.router.navigateByUrl(`/cita_listado/${this.paciente.id}`, {skipLocationChange: true}).then(()=>
+        this.router.navigate([`/home/cita_listado/${this.paciente.id}`]));
       }
     );
   }

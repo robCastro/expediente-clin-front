@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Consulta } from '../models/consulta';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
@@ -14,7 +15,9 @@ import swal from 'sweetalert2';
 export class CitaService {
 
   //URLs.
+  private urlEndPoint: string = 'http://127.0.0.1:8080/cita';
   private urlCitasPorDoctor: string = 'http://127.0.0.1:8080/cita/doctor';
+  private urlCitasPorPaciente: string = 'http://127.0.0.1:8080/cita/paciente';
   private urlEndPointCreate: string = 'http://127.0.0.1:8080/cita/crear_cita';
   private urlCitasPendientes: string = 'http://127.0.0.1:8080/cita/pendientes';
   private urlCitasPasadas: string = 'http://127.0.0.1:8080/cita/pasadas';
@@ -52,7 +55,7 @@ export class CitaService {
     return false;
   }
 
-
+//citas por doctor
   citasPorDoctor(id_doc: string, id_hos: string): any {
     return this.http.get("http://127.0.0.1:8080/cita/doctor",
       {
@@ -64,12 +67,39 @@ export class CitaService {
     );
   };
 
+  //Citas por paciente.
+  citasPorPaciente(id_pac: string, id_hos: string): any {
+    return this.http.get("http://127.0.0.1:8080/cita/paciente",
+      {
+        params : {
+          'id_paciente': id_pac,
+          'id_hospital': id_hos
+        },
+      },
+    );
+  };
+
   //Crear Cita.
   create(cita: Consulta): Observable<Consulta> {
-    return this.http.post<Consulta>(this.urlEndPointCreate, cita, {headers: this.httpHeaders});
+    return this.http.post<Consulta>(this.urlEndPointCreate, cita, {headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        swal.fire('Error al crear', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
   }
 
-  //citas Pendientes
+//Eliminar físicamente la cita (unicamente si no es consulta).
+  delete(id:number): Observable<Consulta>{
+    return this.http.delete<Consulta>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        swal.fire('Error al eliminar', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    )
+  }
+
+//citas Pendientes
   CitasPendientes(id: number): Observable<Consulta[]>{
     return this.http.get(`${this.urlCitasPendientes}/${id}`).pipe(
       map( response => response as Consulta[])
@@ -96,5 +126,4 @@ export class CitaService {
       map( response => response as Consulta[])
     )
   }
-
 }

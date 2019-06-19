@@ -11,6 +11,7 @@ import { Pais } from '../../../../models/pais';
 import { Departamento } from '../../../../models/departamento';
 import { Municipio } from '../../../../models/municipio';
 import swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
@@ -40,8 +41,8 @@ export class EditarHospitalComponent implements OnInit {
               private municipioService: MunicipioService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private authService : AuthService
-            ) { }
+              public datepipe:DatePipe,
+              private authService : AuthService) { }
 
   ngOnInit() {
     this.cargarUsuario();
@@ -90,6 +91,7 @@ export class EditarHospitalComponent implements OnInit {
         let id = params['id'];
         if(id){
           //Obtencion de usuario
+
         }
       }
     )*/
@@ -111,16 +113,16 @@ export class EditarHospitalComponent implements OnInit {
   updateHospital(): void {
     this.hospitalService.update(this.hospital).subscribe(
       hospital => {
-        this.router.navigate(['home'])
         swal.fire('Editado con éxito', `Hospital Actualizado: ${this.hospital.nombre}`, 'success')
+        this.router.navigate(['/home'])
       }
     )
   }
 
-  desactivarHospital(u:Usuario): void {
+  desactivarHospital(): void {
     swal.fire({
       title: '¿Desactivar hospital?',
-      text: `¿Esta seguro de desactivar el hospital: ${u.hospital.nombre} y su usuario: ${u.username}?`,
+      text: `¿Esta seguro de desactivar el hospital: ${this.usuario.hospital.nombre} y su usuario: ${this.usuario.username}?`,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -129,15 +131,18 @@ export class EditarHospitalComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.value) {
-        u.enabled = false
-        u.hospital.activo = false
-        this.hospitalService.desactivarHospital(u.hospital).subscribe(
+        this.usuario.enabled = false
+        this.usuario.hospital.activo = false
+        this.hospitalService.desactivarHospital(this.usuario.hospital).subscribe(
           response => {
-            this.usuarioService.deshabilitarUsuario(u).subscribe(
+            this.usuarioService.deshabilitarUsuario(this.usuario).subscribe(
               response => {
-                console.log(u.hospital);
-                //this.router.navigateByUrl('/hospital', {skipLocationChange: true}).then(()=>
-                //this.router.navigate(['home/hospital']));
+                console.log(this.usuario.hospital);
+                this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+                this.router.navigate(['/']));
+                this.authService.logout();
+                this.router.navigate(['/']);
+
               }
             )
           }
