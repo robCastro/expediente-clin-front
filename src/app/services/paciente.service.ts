@@ -20,6 +20,7 @@ export class PacienteService {
   private urlPacientesBloqueados: string = 'http://127.0.0.1:8080/paciente/bloqueados';
   private urlActivarPaciente: string = 'http://127.0.0.1:8080/paciente/activar';
   private urlDesactivarPaciente: string = 'http://127.0.0.1:8080/paciente/desactivar';
+  private urlPacientePorUser: string = 'http://localhost:8080/paciente/usuario';
 
 
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'});
@@ -105,5 +106,13 @@ export class PacienteService {
     return this.http.put<Paciente>(`${this.urlEndPoint}/${id}`, paciente, {headers: this.httpHeaders});
   }
 
+  getPacientesBasicos(id: number): Observable<Object[]> {
+    return this.http.get<Object[]>(`${this.urlEndPoint}/datos/${id}`)
+  }
+
+  //Paciente por id.
+  getPacientePorUsuario(id: number): Observable<Paciente> {
+    return this.http.get<Paciente>(`${this.urlPacientePorUser}/${id}`)
+  }
 
 }

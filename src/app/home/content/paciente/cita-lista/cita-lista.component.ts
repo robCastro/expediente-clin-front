@@ -10,6 +10,7 @@ import { CitaService } from '../../../../services/cita.service';
 import { PacienteService } from '../../../../services/paciente.service';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
   selector: 'app-cita-lista',
@@ -19,6 +20,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CitaListaComponent implements OnInit {
 
   //Variables
+  usuarioActual: Usuario = new Usuario();
   paciente: Paciente = new Paciente();
   citas: Consulta[];
   cita: Consulta = new Consulta();
@@ -26,9 +28,11 @@ export class CitaListaComponent implements OnInit {
   //Eventos del FullCalendar.
   eventos = [];
 
-  constructor(private citasService: CitaService, 
+  constructor(private citasService: CitaService,
               private pacienteService: PacienteService,
               private doctorService: UsuarioService,
+              private usuarioService: UsuarioService,
+              private authService : AuthService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {}
 
@@ -79,86 +83,96 @@ export class CitaListaComponent implements OnInit {
 
   ngOnInit() {
 
+    this.usuarioService.getUsuarioPorUsername(this.authService.usuario.username).subscribe(
+      usuario => {
+        this.usuarioActual = usuario;
+        this.pacienteService.getPacientePorUsuario(this.usuarioActual.id).subscribe(
+          paciente => {
+            this.paciente = paciente;
+            this.citasService.citasPorPaciente((this.paciente.id).toString(), (this.paciente.usuario.hospital.id).toString()).subscribe(
+              citas => {
+                this.citas = citas;
+                var nueva_fecha_fin = [];
+                for(var i =0; i < this.citas.length; i++)
+                {
+                  if(parseInt(this.citas[i].hora)<=9){
+                    this.citas[i].hora = "0"+this.citas[i].hora;
+                  }
+
+                  nueva_fecha_fin[i] = parseInt(this.citas[i].hora)+1;
+                  if(nueva_fecha_fin[i]<=9){
+                    nueva_fecha_fin[i] = "0"+nueva_fecha_fin[i];
+                  }
+
+                  console.log(
+                    "Inicio" +
+                    new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00")
+                    +"Fin"+
+                    new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
+                  );
+
+                  //Insertando en el Array de Eventos para desplegar el FullCalendar.
+                  this.eventos.push(
+                    {
+                      id: this.citas[i].id,
+                      title: this.citas[i].usuario.nombres,
+                      start: new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00"),
+                      end: new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
+                    })
+                }
+                console.log(this.eventos);
+                $('#calendar').fullCalendar({
+                  locale: 'es',
+                  contentHeight: "auto",
+                  defaultView: 'agendaDay',
+                  selectable: true,
+                  minTime: "08:00:00",
+                  maxTime: "17:00:00",
+                  slotDuration: '00:60:00',
+                  slotLabelInterval: 15,
+                  slotLabelFormat: 'h(:mm)a',
+                  header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaDay,agendaWeek,listDay'
+                  },
+                  events: this.eventos,
+                  businessHours: [{
+                    dow: [1, 2, 3, 4, 5], // Monday - Friday
+                    start: '08:00',
+                    end: '12:00',
+                  }, {
+                    dow: [1, 2, 3, 4, 5], // Monday - Friday (if adding lunch hours)
+                    start: '13:00',
+                    end: '17:00',
+                  }],
+                  selectConstraint: "businessHours",
+                  eventClick: (calEvent, jsEvent, view) => {
+                    this.eventClick(calEvent, jsEvent, view);
+                  },
+
+                });
+              }
+            );
+
+          }
+
+        )
+
+      }
+    )
+
+
     //El paciente que se encuentra en sesion.
-    this.activatedRoute.params.subscribe(
+    /*this.activatedRoute.params.subscribe(
       params => {
         let id = params['id'];
         if(id){
           //Obtencion del paciente.
-          this.pacienteService.getPaciente(id).subscribe(
-            pacient => {
-              this.paciente = pacient;
-              this.citasService.citasPorPaciente((this.paciente.id).toString(), (this.paciente.usuario.hospital.id).toString()).subscribe(
-                citas => {
-                  this.citas = citas;
-                  var nueva_fecha_fin = [];
-                  for(var i =0; i < this.citas.length; i++) 
-                  {
-                    if(parseInt(this.citas[i].hora)<=9){
-                      this.citas[i].hora = "0"+this.citas[i].hora;
-                    } 
-    
-                    nueva_fecha_fin[i] = parseInt(this.citas[i].hora)+1;
-                    if(nueva_fecha_fin[i]<=9){
-                      nueva_fecha_fin[i] = "0"+nueva_fecha_fin[i];
-                    } 
-    
-                    console.log(
-                      "Inicio" +
-                      new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00")
-                      +"Fin"+
-                      new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
-                    );
-    
-                    //Insertando en el Array de Eventos para desplegar el FullCalendar.
-                    this.eventos.push( 
-                      {
-                        id: this.citas[i].id,
-                        title: this.citas[i].usuario.nombres, 
-                        start: new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00"),
-                        end: new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
-                      })
-                  }
-                  console.log(this.eventos);
-                  $('#calendar').fullCalendar({
-                    locale: 'es',
-                    contentHeight: "auto",
-                    defaultView: 'agendaDay',
-                    selectable: true,
-                    minTime: "08:00:00",
-                    maxTime: "17:00:00",
-                    slotDuration: '00:60:00',
-                    slotLabelInterval: 15,
-                    slotLabelFormat: 'h(:mm)a',
-                    header: {
-                      left: 'prev,next today',
-                      center: 'title',
-                      right: 'agendaDay,agendaWeek,listDay'
-                    },
-                    events: this.eventos,
-                    businessHours: [{
-                      dow: [1, 2, 3, 4, 5], // Monday - Friday
-                      start: '08:00',
-                      end: '12:00',
-                    }, {
-                      dow: [1, 2, 3, 4, 5], // Monday - Friday (if adding lunch hours)
-                      start: '13:00',
-                      end: '17:00',
-                    }],
-                    selectConstraint: "businessHours",
-                    eventClick: (calEvent, jsEvent, view) => {
-                      this.eventClick(calEvent, jsEvent, view);
-                    },
-                    
-                  });
-                }
-              );
 
-            }
-          )
         }
       }
-    );
+    );*/
 
 
   }

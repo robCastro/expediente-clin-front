@@ -25,8 +25,11 @@ import { AuthGuard } from './usuarios/guards/auth.guard';
 import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
 import { RoleGuard } from './usuarios/guards/role.guard';
 import { CitaListaComponent } from './home/content/paciente/cita-lista/cita-lista.component';
+import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
 import { ListadoCitasComponent } from './home/content/recepcionista/listado-citas/listado-citas.component';
+import { ListadoPacientesRecComponent } from './home/content/recepcionista/listado-pacientes-rec/listado-pacientes-rec.component';
 import { ListadoCitasEnfComponent } from './home/content/enfermero/listado-citas-enf/listado-citas-enf.component';
+import { ListadoPacientesEnfComponent } from './home/content/enfermero/listado-pacientes-enf/listado-pacientes-enf.component';
 import { ListadoCitasDocComponent } from './home/content/medico/listado-citas-doc/listado-citas-doc.component';
 
 const routes: Routes = [
@@ -106,6 +109,20 @@ const routes: Routes = [
       {
         path:'historial_paciente/:id',
         component: ListadoHistorialesComponent,
+      },
+      {
+      path:'consulta/signos_vitales/:id',
+      component: SignosVitalesComponent,canActivate:[AuthGuard]
+      },
+      {
+        path:'listado_pacientes_rec',
+        component: ListadoPacientesRecComponent,
+        canActivate:[AuthGuard]
+      },
+      {
+        path:'listado_pacientes_enf',
+        component: ListadoPacientesEnfComponent,
+        canActivate:[AuthGuard]
       },
 
     ]

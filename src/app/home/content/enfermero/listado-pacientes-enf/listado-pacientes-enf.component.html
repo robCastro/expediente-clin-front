@@ -1,0 +1,42 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-success">
+      <h3 class="card-title ">Pacientes</h3>
+      <p class="card-category">Listado de pacientes del hospital</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-success">
+            <th>
+              Nombre
+            </th>
+            <th>
+              Apellido
+            </th>
+            <th>
+              Fecha de Nacimiento
+            </th>
+            <th>
+              Acción
+            </th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let paciente of pacientes">
+              <td>{{paciente[1]}}</td>
+              <td>{{paciente[2]}}</td>
+              <td>{{paciente[3] | date:'dd-MM-yyyy':'UTC'}}</td>
+              <td>
+                <button type="button" rel="tooltip" click='seleccionar(paciente)' class="btn btn-info btn-fab btn-fab-mini"
+                  [routerLink]="['/home/historial_paciente',paciente[0]]">
+                  <i class="material-icons">assignment</i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

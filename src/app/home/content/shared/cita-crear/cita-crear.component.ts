@@ -29,13 +29,13 @@ export class CitaCrearComponent implements OnInit {
   //Eventos del FullCalendar.
   eventos = [];
 
-  constructor(private citasService: CitaService, 
+  constructor(private citasService: CitaService,
               private pacienteService: PacienteService,
               private doctorService: UsuarioService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {}
 
-  //Select del FullCalendar e Inicio para Crear una Cita.            
+  //Select del FullCalendar e Inicio para Crear una Cita.
   select(start, end, jsEvent, view){
 
     if (start.isAfter(moment())) {
@@ -104,38 +104,38 @@ export class CitaCrearComponent implements OnInit {
           this.doctor = doc;
             //Desplegar las fechas de las citas por doctor y el hospital del paciente.
             this.citasService.citasPorDoctor((id).toString(), (this.paciente.usuario.hospital.id).toString()).subscribe(
-            
+
               citas_service => {
-  
+
                 this.citas = citas_service;
                 var nueva_fecha_fin = [];
-                for(var i =0; i < this.citas.length; i++) 
+                for(var i =0; i < this.citas.length; i++)
                 {
                   if(parseInt(this.citas[i].hora)<=9){
                     this.citas[i].hora = "0"+this.citas[i].hora;
-                  } 
-  
+                  }
+
                   nueva_fecha_fin[i] = parseInt(this.citas[i].hora)+1;
                   if(nueva_fecha_fin[i]<=9){
                     nueva_fecha_fin[i] = "0"+nueva_fecha_fin[i];
-                  } 
-  
+                  }
+
                   console.log(
                     "Inicio" +
                     new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00")
                     +"Fin"+
                     new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
                   );
-  
+
                   //Insertando en el Array de Eventos para desplegar el FullCalendar.
-                  this.eventos.push( 
+                  this.eventos.push(
                     {
-                      title: this.citas[i].usuario.nombres, 
+                      title: this.citas[i].usuario.nombres,
                       start: new Date(this.citas[i].fecha +"T"+this.citas[i].hora+":00:00"),
                       end: new Date(this.citas[i].fecha +"T"+nueva_fecha_fin[i]+":00:00")
                     })
                 }
-  
+
                 //FullCalendar.
                 $("#calendar").fullCalendar("destroy");
                 $("#calendar").fullCalendar("render");
@@ -190,7 +190,7 @@ export class CitaCrearComponent implements OnInit {
   }
 
   crear_cita(time, hour): void {
- 
+
     //let time = this.datepipe.transform(fecha.toLocaleString("en-UTC"),'yyyy-MM-dd');
     //this.cita_nueva.fecha = (time.getTime()).toString();
     this.cita_nueva.fecha = time;
@@ -208,8 +208,8 @@ export class CitaCrearComponent implements OnInit {
     this.citasService.create(this.cita_nueva).subscribe(
       response => {
         console.log(this.cita_nueva);
-        this.router.navigateByUrl(`/cita_listado/${this.paciente.id}`, {skipLocationChange: true}).then(()=>
-        this.router.navigate([`/home/cita_listado/${this.paciente.id}`]));
+        this.router.navigateByUrl(`/home`, {skipLocationChange: true}).then(()=>
+        this.router.navigate([`/home`]));
       }
     );
   }

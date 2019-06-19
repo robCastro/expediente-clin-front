@@ -35,8 +35,11 @@ import { ListadoHistorialesComponent } from './home/content/shared/listado-histo
 import { PacienteService } from './services/paciente.service';
 import { DatePipe } from '@angular/common';
 import { CitaCrearComponent } from './home/content/shared/cita-crear/cita-crear.component';
+import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
 import { ListadoCitasComponent } from './home/content/recepcionista/listado-citas/listado-citas.component';
+import { ListadoPacientesRecComponent } from './home/content/recepcionista/listado-pacientes-rec/listado-pacientes-rec.component';
 import { CitaListaComponent } from './home/content/paciente/cita-lista/cita-lista.component';
+import { ListadoPacientesEnfComponent } from './home/content/enfermero/listado-pacientes-enf/listado-pacientes-enf.component';
 import { ListadoCitasEnfComponent } from './home/content/enfermero/listado-citas-enf/listado-citas-enf.component';
 import { ListadoCitasDocComponent } from './home/content/medico/listado-citas-doc/listado-citas-doc.component';
 
@@ -68,8 +71,11 @@ import { ListadoCitasDocComponent } from './home/content/medico/listado-citas-do
     HistorialEditarComponent,
     ListadoHistorialesComponent,
     CitaCrearComponent,
+    SignosVitalesComponent,
     ListadoCitasComponent,
+    ListadoPacientesRecComponent,
     CitaListaComponent,
+    ListadoPacientesEnfComponent,
     ListadoCitasEnfComponent,
     ListadoCitasDocComponent,
   ],
