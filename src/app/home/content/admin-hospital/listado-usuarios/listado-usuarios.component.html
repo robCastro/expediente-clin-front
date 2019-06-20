@@ -1,5 +1,8 @@
 Usuario actual: {{authService.usuario.username}}
 <h2><strong>Empleados</strong></h2>
+<div class="my-2 text-left">
+  <button class="btn btn-rounded btn-success" type="button" [routerLink]="['/home/usuario_form']">Nuevo Empleado</button>
+</div>
 <div class="row">
   <div class="col-md-12">
     <div class="card">
@@ -34,9 +37,16 @@ Usuario actual: {{authService.usuario.username}}
                 <td>{{u.email}}</td>
                 <td>{{u.username}}</td>
                 <td>
-                  <button type="button" (click)="deshabilitarUsuario(u)" rel="tooltip" class="btn  btn-fab-mini btn-just-icon btn-round ">
+                  <button type="button" rel="tooltip" class="btn btn-info btn-fab btn-fab-mini"
+                      [routerLink]="['/home/usuario_form', u.id]">
+                    <i class="material-icons">create</i>
+                  </button>
+
+                  <button type="button" (click)="deshabilitarUsuario(u)" rel="tooltip" class="btn btn-fab-mini btn-just-icon btn-round ">
                     <i class="material-icons">remove</i>
                   </button>
+
+
                 </td>
               </tr>
             </tbody>

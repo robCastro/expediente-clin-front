@@ -28,17 +28,15 @@ import { CitaListaComponent } from './home/content/paciente/cita-lista/cita-list
 import { ConsultaComponent } from './home/content/medico/consulta/consulta.component';
 import { SignosVitalesComponent } from './home/content/enfermero/signos-vitales/signos-vitales.component';
 import { ListadoCitasComponent } from './home/content/recepcionista/listado-citas/listado-citas.component';
+import {TratamientoComponent} from './home/content/medico/tratamiento/tratamiento.component';
 import { ListadoPacientesRecComponent } from './home/content/recepcionista/listado-pacientes-rec/listado-pacientes-rec.component';
+import {DetalleCitaComponent} from './home/content/paciente/detalle-cita/detalle-cita.component';
 import { ListadoCitasEnfComponent } from './home/content/enfermero/listado-citas-enf/listado-citas-enf.component';
 import { ListadoPacientesEnfComponent } from './home/content/enfermero/listado-pacientes-enf/listado-pacientes-enf.component';
 import { ListadoCitasDocComponent } from './home/content/medico/listado-citas-doc/listado-citas-doc.component';
 
 const routes: Routes = [
 
-  {
-    path:'usuario_form/:id',
-    component:UsuarioFormComponent
-  },
   { path: 'registrar_hospital', component: RegistrarHospitalComponent},
   { path: '', component: LoginComponent },
   { path: 'home',
@@ -81,6 +79,12 @@ const routes: Routes = [
         component: ListadoUsuariosComponent,
         canActivate:[AuthGuard]
       },
+      {
+        path:'usuario_form/:id',
+        component:UsuarioFormComponent,canActivate:[AuthGuard]
+      },
+      { path: 'tratamiento/:id', component: TratamientoComponent,canActivate:[AuthGuard]},
+      { path: 'detalle_cita/:id', component: DetalleCitaComponent,canActivate:[AuthGuard]},
       {
         path: '',
         redirectTo: 'index',

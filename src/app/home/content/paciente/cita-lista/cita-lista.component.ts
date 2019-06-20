@@ -53,7 +53,21 @@ export class CitaListaComponent implements OnInit {
     //Citas antes de ahora con minutos segundos exactos.
     if(cita_end.isBefore(moment())) {
       //Si la cita es antes, puede ver el detalle del tratamiento.
-
+      swal.fire({
+        title: '¿Ver tratamiento?',
+        html: `Cita doctor: ${calEvent.title} <br> <strong>Inicio</strong>: ${inicio_moment} <br> <strong>Fin</strong>: ${fin_moment}`,
+        type: 'success',
+        showCancelButton: true,
+        confirmButtonColor: 'btn btn-info',
+        cancelButtonColor: 'btn btn-danger',
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl(`/detalle_cita/${calEvent.id}`, {skipLocationChange: true}).then(()=>
+          this.router.navigate([`/home/detalle_cita/${calEvent.id}`]));
+        }
+      })
     } else {
       //Si la cita después puede borrarla.
       swal.fire({

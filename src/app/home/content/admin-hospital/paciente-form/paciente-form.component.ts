@@ -90,7 +90,7 @@ export class PacienteFormComponent implements OnInit {
             let fecha=this.datepipe.transform(this.usuario.fecha,'dd/MM/yyyy')
             swal.fire('Nuevo Paciente',`Paciente ${this.usuario.nombres} registrado con éxito,
             El Usuario para paciente es ${Object.values(usuarioNuevo)[0].username} y la contraseña es ${fecha} `, 'success')
-            this.router.navigate(['/home'])
+            this.router.navigate(['/home/listado_pacientes_rec'])
           }
         );
 
@@ -142,7 +142,7 @@ export class PacienteFormComponent implements OnInit {
                 this.paciente = paciente;
                 this.usuarioService.update(this.usuario).subscribe(
                   usuario =>{
-                    this.router.navigate(['home'])
+                    this.router.navigate(['/home/listado_pacientes_rec'])
                   swal.fire('Editado con éxito', `Paciente Actualizado: ${this.usuario.nombres}`, 'success')
                   }
                 )

@@ -1,0 +1,227 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="card-title">Tratamiento médico de {{consulta.paciente.usuario.nombres}}</h4>
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Datos de Paciente</h4>
+            <p class="card-category">Datos personales del paciente</p>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="row">
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label >nombre: </label>
+                  </div>
+                </div>
+
+                <div class="col-md-11">
+                  <div class="form-group">
+                    <label >{{consulta.paciente.usuario.nombres}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label >apellido: </label>
+                  </div>
+                </div>
+
+                <div class="col-md-11">
+                  <div class="form-group">
+                    <label >{{consulta.paciente.usuario.apellidos}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label >Enfermedad:</label>
+                  </div>
+                </div>
+
+                <div class="col-md-11">
+                  <div class="form-group">
+                    <label >{{consulta.enfermedad.nombre}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Sintomatologia</h4>
+            <p class="card-category">Descripción detallada de los sintomas del paciente</p>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label >{{consulta.sintoma}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Tratamiento</h4>
+        <p class="card-category">Listado de Medicamentos a recetar</p>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="row">
+          <div class="form-row col-md-12">
+              <div class="form-group col-md-5">
+                <label for="exampleFormControlSelect1"> </label>
+                <select class="form-control selectpicker" #grupoTerapeutico data-style="btn btn-link" id="exampleFormControlSelect1"
+                (change)="obtenerMedicamentos(grupoTerapeutico.value)">
+                  <option *ngFor="let gTera of gruposTera" value = "{{gTera.id}}">
+                    {{gTera.nombre}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="form-group col-md-5">
+                <label for="exampleFormControlSelect1"> </label>
+                <select [compareWith]="comparar" class="form-control selectpicker" #medicamento [(ngModel)]="tratamiento.medicamento" name="medicamentop" data-style="btn btn-link" id="exampleFormControlSelect1" required #medicamento="ngModel" >
+                  <div class="alert alert-danger" *ngIf="medicamento.invalid && (medicamento.dirty || medicamento.touched)">
+                    <div *ngIf="medicamento.errors.required">
+                      Medicamento es requerido
+                    </div>
+                  </div>
+                  <option *ngFor="let med of medicamentos" [ngValue]="med">
+                    {{med.nombre}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            </div>
+          <div class="row">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label >Fecha Inicio</label>
+                <input for="fechaI" type="date" class="form-control" [(ngModel)]="tratamiento.fechaInicio" name="fechaI" required #fechaI="ngModel">
+                <div class="alert alert-danger" *ngIf="fechaI.invalid && (fechaI.dirty || fechaI.touched)">
+                  <div *ngIf="fechaI.errors.required">
+                    Fecha de Inicio de tratamiento es requerida
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+              <div class="form-group">
+                <label>Fecha Fin</label>
+                <input for="fechaF" type="date" class="form-control" [(ngModel)]="tratamiento.fechaFin" name="fechaF" required #fechaF="ngModel">
+                <div class="alert alert-danger" *ngIf="fechaF.invalid && (fechaF.dirty || fechaF.touched)">
+                  <div *ngIf="fechaF.errors.required">
+                    Fecha de Fin de tratamiento es requerida
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label class="bmd-label-floating" >Frecuencia</label>
+                <input for="frecuencia" type="text" class="form-control" [(ngModel)]="tratamiento.frecuencia" name="frecuencia" required #frecuencia="ngModel">
+                <div class="alert alert-danger" *ngIf="frecuencia.invalid && (frecuencia.dirty || frecuencia.touched)">
+                  <div *ngIf="frecuencia.errors.required">
+                    Frecuencia del tratamiento es requerida
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+              <div class="form-group">
+                <label class="bmd-label-floating">Dosis</label>
+                <input for="dosis" type="text" class="form-control" [(ngModel)]="tratamiento.dosis" name="dosis" required #dosis="ngModel">
+                <div class="alert alert-danger" *ngIf="dosis.invalid && (dosis.dirty || dosis.touched)">
+                  <div *ngIf="dosis.errors.required">
+                    Dosis del tratamiento es requerida
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary pull-right" (click)='create()'[disabled]="fechaI.invalid ||fechaF.invalid||frecuencia.invalid||dosis.invalid">Guardar</button>
+          <div class="clearfix"></div>
+        </div>
+
+
+        <div class="row"></div>
+        <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-success">
+                      <th>
+                        Nombre
+                      </th>
+                      <th>
+                        Inicio
+                      </th>
+                      <th>
+                        Fin
+                      </th>
+                      <th>
+                        Frecuencia
+                      </th>
+                      <th>
+                        Dosis
+                      </th>
+                      <th>
+
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let trata of tratamientos">
+                        <td>{{trata.medicamento.nombre}}</td>
+                        <td>{{trata.fechaInicio | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{trata.fechaFin | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{trata.frecuencia}}</td>
+                        <td>{{trata.dosis}}</td>
+                        <td>
+                          <button type="button" rel="tooltip" (click)='delete(trata)' class="btn btn-danger btn-fab btn-fab-mini">
+                            <i class="material-icons">delete</i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <a class="btn btn-info pull-right" [routerLink]="['/home']">Terminar</a>
+                </div>
+          </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</div>

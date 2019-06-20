@@ -2,6 +2,9 @@
 
 <br>
 <strong>Usuario Actual:</strong> {{usuarioActual.username}}
+<div class="my-2 text-left">
+  <button class="btn btn-rounded btn-success" type="button" [routerLink]="['/home/paciente/crearPaciente']">Nuevo Paciente</button>
+</div>
 <div class="row">
   <div class="col-md-12">
     <div class="card">
@@ -36,6 +39,10 @@
                 <td>{{p.usuario.email}}</td>
                 <td>{{p.usuario.username}}</td>
                 <td>
+                  <button type="button" rel="tooltip" class="btn btn-info btn-fab btn-fab-mini"
+                      [routerLink]="['/home/paciente/crearPaciente', p.id]">
+                    <i class="material-icons">create</i>
+                  </button>
                   <button type="button" (click)="deshabilitarPaciente(p)" rel="tooltip" class="btn  btn-fab-mini btn-just-icon btn-round ">
                     <i class="material-icons">remove</i>
                   </button>

@@ -3,7 +3,7 @@ import { TipoEnfermedadService } from '../../../../services/tipo-enfermedad.serv
 import { TipoEnfermedad } from '../../../../models/tipo-enfermedad';
 import { Enfermedad } from '../../../../models/enfermedad';
 import { EnfermedadService } from '../../../../services/enfermedad.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Consulta } from '../../../../models/consulta';
 import { ConsultaService } from '../../../../services/consulta.service';
 import swal from 'sweetalert2';
@@ -23,7 +23,8 @@ export class ConsultaComponent implements OnInit {
     private tipoEnfermedadService: TipoEnfermedadService,
     private enfermedadService: EnfermedadService,
     private consultaService:ConsultaService,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute:ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -56,8 +57,19 @@ export class ConsultaComponent implements OnInit {
       //     strEnfermedad = this.enfermedades[i].nombre;
       //   }
       // }
-      swal.fire('Guardado', `Diagnostico realizado  redirigiendo a tratamiento`, 'success');
-      //Redireccion a Tratamiento aqui
+
+      //swal.fire('Guardado', `Diagnostico realizado  redirigiendo a tratamiento`, 'success');
+
+      swal.fire({
+        title: 'Guardado',
+        html: `Diagnostico realizado  redirigiendo a tratamiento`,
+        type: 'success',
+      }).then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl(`/tratamiento/${this.consulta.id}`, {skipLocationChange: true}).then(()=>
+          this.router.navigate([`/home/tratamiento/${this.consulta.id}`]));
+        }
+      })
     });
   }
 
