@@ -84,8 +84,8 @@ export class CitaListaComponent implements OnInit {
           //Eliminando la cita.
           this.citasService.delete(calEvent.id).subscribe(
             response => {
-              this.router.navigateByUrl(`/cita_listado/${this.paciente.id}`, {skipLocationChange: true}).then(()=>
-              this.router.navigate([`/home/cita_listado/${this.paciente.id}`]));
+              this.router.navigateByUrl(`/home/cita_listado`, {skipLocationChange: true}).then(()=>
+              this.router.navigate([`/home`]));
               swal.fire('Cita eliminada');
             }
           )

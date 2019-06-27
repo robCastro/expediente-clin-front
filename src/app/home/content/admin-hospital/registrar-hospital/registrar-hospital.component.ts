@@ -60,7 +60,7 @@ export class RegistrarHospitalComponent implements OnInit {
   }
 
   public create():void{
-    let fechaHoy=this.datepipe.transform(new Date().toLocaleString("en-UTC"),'yyyy-MM-dd');
+    let fechaHoy=this.datepipe.transform(new Date(),'yyyy-MM-dd');
     this.hospital.fecha=fechaHoy;
     this.usuario.roles=[this.rol];
     this.usuarioService.createUsuarioInactivo(this.usuario).subscribe(

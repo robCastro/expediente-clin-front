@@ -110,7 +110,7 @@ const routes: Routes = [
         component:HistorialCrearComponent
       },
       {
-        path: 'historial_editar',
+        path: 'historial_editar/:id',
         component:HistorialEditarComponent
       },
       {

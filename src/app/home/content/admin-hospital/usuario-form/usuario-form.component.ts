@@ -120,7 +120,7 @@ export class UsuarioFormComponent implements OnInit {
   update():void{
     this.usuarioService.editUsuario(this.usuario,this.usuario.id).subscribe(
       usuario => {
-        this.router.navigate([`/home/usuarios/${this.hospital.id}`])
+        this.router.navigate([`/home/usuarios`])
         swal.fire('Usuario Actualizado',`Usuario ${this.usuario.nombres} actualizado con éxito`, 'success')
       }
     )
